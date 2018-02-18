@@ -1,45 +1,9 @@
-<div class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="nav-header">
-      <a href="#" class="navbar-brand">SIOMARI</a>
-    </div>
+<app-header></app-header>
 
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li>
-          <a routerLink="/login">Login</a>
-        </li>
-        <li>
-          <a routerLink="/grafica">Grafica</a>
-        </li>
-        <li>
-          <a routerLink="/tablas">Tablas</a>
-        </li>
-      </ul>
-      <div class="nav navbar-nav navbar-right">
-        <li class="dropdown" appCombobox>
-          <a style="cursor: pointer" class="dropdown-toggle" role="button">Configuración
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a style="cursor: pointer">Mi perfil</a>
-            </li>
-            <li>
-              <a style="cursor: pointer">Cerrar sesión</a>
-            </li>
-          </ul>
-        </li>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="container">
   <div class="row">
     <div class="cols-md-12">
-
       <router-outlet></router-outlet>
-
     </div>
   </div>
 </div>
