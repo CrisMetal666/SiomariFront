@@ -18,4 +18,8 @@ export class CanalService {
     return this.http.post<Canal>(`${url}canal`, canal);
   }
 
+  buscarPorSeccionId(id: number) {
+    return this.http.get<Canal[]>(`${url}/canal/seccionId/${id}`);
+  }
+
 }

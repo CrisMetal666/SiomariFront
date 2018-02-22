@@ -1,3 +1,7 @@
 .msg-error {
     color: #A94442;
 }
+
+body {
+    margin-bottom: 20px;
+}
