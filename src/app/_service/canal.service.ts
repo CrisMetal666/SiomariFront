@@ -19,7 +19,11 @@ export class CanalService {
   }
 
   buscarPorSeccionId(id: number) {
-    return this.http.get<Canal[]>(`${url}/canal/seccionId/${id}`);
+    return this.http.get<Canal[]>(`${url}canal/seccionId/${id}`);
+  }
+
+  listar() {
+    return this.http.get<Canal[]>(`${url}canal`);
   }
 
 }

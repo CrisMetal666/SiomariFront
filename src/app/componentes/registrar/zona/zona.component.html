@@ -12,8 +12,11 @@
   <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
     No se pudo registrar la zona
   </div>
+  <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+    La zona ya ha sido registrada
+  </div>
 
-  <form #form="ngForm" (ngSubmit)="registrar(form)">
+  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
 
     <div [ngClass]="(zona.unidadId.id == -1 && unidad.touched) ? 'form-group has-error' : 'form-group'">
       <label class="control-label" for="unidad">Seleccione la unidad</label>

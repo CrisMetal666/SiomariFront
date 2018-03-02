@@ -4,56 +4,100 @@
 
   <br>
 
-  <form>
+  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+    Usuario registrado exitosamente
+  </div>
+  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    No se pudo registrar el usuario
+  </div>
+  <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+    El usuario ya ha sido registrado
+  </div>
+  <div *ngIf="estado == 3" class="alert alert-warning" role="alert">
+    No se ha seleccionado el predio.
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
 
     <div class="row">
 
       <div class="col-xs-6">
 
-        <div class="form-group">
-          <label for="identificacion">Identificación</label>
-          <input type="text" class="form-control" placeholder="Ingrese la identificación" />
+        <div [ngClass]="(!identificacion.valid && identificacion.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="identificacion">Identificación</label>
+          <input [(ngModel)]="usuario.cedula" #identificacion="ngModel" name="identificacion" id="identificacion" type="text" class="form-control"
+            placeholder="Ingrese la identificación" required>
+          <span class="msg-error" *ngIf="!identificacion.valid && identificacion.touched">Campo obligatorio</span>
         </div>
 
-        <div class="form-group">
+        <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
           <label for="nombres">Nombres</label>
-          <input type="text" class="form-control" placeholder="Ingrese los nombres" />
+          <input [(ngModel)]="usuario.nombre" #nombre="ngModel" name="nombre" id="nombre" type="text" class="form-control" placeholder="Ingrese los nombres"
+            required/>
+          <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
         </div>
 
-        <div class="form-group">
+        <div [ngClass]="(!apellido.valid && apellido.touched) ? 'form-group has-error' : 'form-group'">
           <label for="apellidos">Apellidos</label>
-          <input type="text" class="form-control" placeholder="Ingrese los apellidos" />
+          <input [(ngModel)]="usuario.apellido" #apellido="ngModel" name="apellido" id="apellido" type="text" class="form-control"
+            placeholder="Ingrese los apellidos" required/>
+          <span class="msg-error" *ngIf="!apellido.valid && apellido.touched">Campo obligatorio</span>
         </div>
 
-        <div class="form-group">
+        <div [ngClass]="(!direccion.valid && direccion.touched) ? 'form-group has-error' : 'form-group'">
           <label for="direccion">Dirección</label>
-          <input type="text" class="form-control" placeholder="Ingrese la dirección" />
+          <input [(ngModel)]="usuario.direccion" #direccion="ngModel" name="direccion" id="direccion" type="text" class="form-control"
+            placeholder="Ingrese la dirección" required/>
+          <span class="msg-error" *ngIf="!direccion.valid && direccion.touched">Campo obligatorio</span>
+        </div>
+        <div [ngClass]="(!predio.valid && predio.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="predio">Predio</label>
+          <ng2-completer [inputClass]="['form-control']" [datasource]="dataServicePredio" [minSearchLength]="3" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onPredioSelect($event)"
+            #predio="ngModel" [(ngModel)]="searchPredio" id="predio" name="predio" required [clearUnselected]=true></ng2-completer>
+          <span class="msg-error" *ngIf="!predio.valid && predio.touched">Campo obligatorio</span>
         </div>
 
-        <button class="btn btn-primary">Registrar</button>
+        <button type="submit" [disabled]="!form.form.valid" class="btn btn-primary">Registrar</button>
 
       </div>
 
       <div class="col-xs-6">
 
-        <div class="form-group">
+        <div [ngClass]="(!ciudad.valid && ciudad.touched) ? 'form-group has-error' : 'form-group'">
           <label for="ciudad">Ciudad</label>
-          <input type="text" class="form-control" placeholder="Ingrese la ciudad" />
+          <input [(ngModel)]="usuario.ciudad" #ciudad="ngModel" name="ciudad" id="ciudad" type="text" class="form-control" placeholder="Ingrese la ciudad"
+            required/>
+          <span class="msg-error" *ngIf="!ciudad.valid && ciudad.touched">Campo obligatorio</span>
         </div>
 
         <div class="form-group">
           <label for="telefono">Telefono</label>
-          <input type="text" class="form-control" placeholder="Ingrese el telefono (opcional)" />
+          <input [(ngModel)]="usuario.telefono" #telefono="ngModel" name="telefono" id="telefono" type="text" class="form-control"
+            placeholder="Ingrese el telefono (opcional)" />
         </div>
 
         <div class="form-group">
           <label for="celular">Celular</label>
-          <input type="text" class="form-control" placeholder="Ingrese el celular (opcional)" />
+          <input [(ngModel)]="usuario.celular" #celular="ngModel" name="celular" id="celular" type="text" class="form-control" placeholder="Ingrese el celular (opcional)"
+          />
         </div>
 
         <div class="form-group">
           <label for="correo">Correo electrónico</label>
-          <input type="text" class="form-control" placeholder="Ingrese el correo electrónico (opcional)" />
+          <input [(ngModel)]="usuario.correo" #correo="ngModel" name="correo" id="correo" type="text" class="form-control" placeholder="Ingrese el correo electrónico (opcional)"
+          />
+        </div>
+
+        <div [ngClass]="(!propietario.valid && propietario.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="predio">Propietario</label>
+          <select class="form-control" [(ngModel)]="usuario.propietario" #propietario="ngModel" name="propietario" id="propietario"
+            required>
+            <option [ngValue]="undefined">-- Seleccione --</option>
+            <option value="true">Si</option>
+            <option value="false">No</option>
+          </select>
+          <span class="msg-error" *ngIf="!propietario.valid && propietario.touched">Campo obligatorio</span>
         </div>
 
       </div>

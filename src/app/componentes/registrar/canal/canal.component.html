@@ -16,11 +16,11 @@
     El codigo del canal ya ha sido registrado
   </div>
 
-  <form #form="ngForm" (ngSubmit)="registrar(form)">
+  <!-- here -->
 
     <tabset #staticTabs>
 
-      <tab heading="Ubicación">
+      <tab heading="Servidor">
 
         <br/>
 
@@ -33,35 +33,34 @@
         <div class="row">
           <div class="col-xs-6">
 
-            <div class="form-group">
-              <label class="control-label" for="unidad">Seleccione la unidad</label>
-              <select #unidad="ngModel" [(ngModel)]="unidadId" (change)="unidadChange()" name="unidad" class="form-control" id="unidad"
-                [compareWith]="compareFn">
-                <option [ngValue]='{"id":-1}' [selected]="unidadId.id == -1">-- Seleccione --</option>
-                <option *ngFor="let u of lstUnidad" [ngValue]="u">{{u.nombre}}</option>
-                <option *ngIf="lstUnidad.length == 0" [ngValue]='{"id":-1}'>No hay unidades</option>
-              </select>
-            </div>
+          <div class="form-group">
+            <label class="control-label" for="unidad">Seleccione la unidad</label>
+            <select #unidad="ngModel" [(ngModel)]="unidadId" (change)="unidadChange()" name="unidad" class="form-control" id="unidad">
+              <option value="-1">-- Seleccione --</option>
+              <option *ngFor="let u of lstUnidad; let i = index" [attr.data-index]="i" value="{{i}}">{{u.nombre}}</option>
+              <option *ngIf="lstUnidad.length == 0" value="-1">No hay unidades</option>
+            </select>
+          </div>
 
-            <div class="form-group">
-              <label class="control-label" for="zona">Seleccione la zona</label>
-              <select #zona="ngModel" [(ngModel)]="zonaId" (change)="zonaChange()" name="zona" class="form-control" id="zona" [compareWith]="compareFn">
-                <option [ngValue]='{"id":-1}' [selected]="zonaId.id == -1">-- Seleccione --</option>
-                <option *ngFor="let z of lstZona" [ngValue]="z">{{z.nombre}}</option>
-                <option *ngIf="lstZona.length == 0" [ngValue]='{"id":-1}'>No hay zonas</option>
-              </select>
-            </div>
+          <div class="form-group">
+            <label class="control-label" for="zona">Seleccione la zona</label>
+            <select #zona="ngModel" [(ngModel)]="zonaId" (change)="zonaChange()" name="zona" class="form-control" id="zona">
+              <option value="-1">-- Seleccione --</option>
+              <option *ngFor="let z of lstZona; let i = index" [attr.data-index]="i" value="{{i}}">{{z.nombre}}</option>
+              <option *ngIf="lstZona.length == 0" value="-1">No hay zonas</option>
+            </select>
+          </div>
 
-            <div class="form-group">
-              <label class="control-label" for="seccion">Seleccione la sección</label>
-              <select #seccion="ngModel" [(ngModel)]="seccionId" name="seccion" class="form-control" id="seccion" [compareWith]="compareFn">
-                <option [ngValue]='{"id":-1}' [selected]="seccionId.id == -1" >-- Seleccione --</option>
-                <option *ngFor="let s of lstSeccion" [ngValue]="s">{{s.nombre}}</option>
-                <option *ngIf="lstSeccion.length == 0" [ngValue]='{"id":-1}'>No hay secciones</option>
-              </select>
-            </div>
+          <div class="form-group">
+            <label class="control-label" for="seccion">Seleccione la sección</label>
+            <select #seccion="ngModel" [(ngModel)]="seccionId" name="seccion" class="form-control" id="seccion">
+              <option value="-1">-- Seleccione --</option>
+              <option *ngFor="let s of lstSeccion; let i = index" [attr.data-index]="i" value="{{i}}">{{s.nombre}}</option>
+              <option *ngIf="lstSeccion.length == 0" value="-1">No hay secciones</option>
+            </select>
+          </div>
 
-            <button type="button" class="btn btn-success" (click)="agregarSeccion()">Agregar</button>
+            <button type="button" class="btn btn-success" (click)="agregarSeccion(form)">Agregar</button>
 
           </div>
           <div class="col-xs-6">
@@ -81,6 +80,8 @@
       </tab>
 
       <tab heading="Datos basicos" [disabled]="lstSeccionCanal.length == 0">
+
+          <form #form="ngForm" autocomplete="off">
 
         <br/>
 
@@ -102,22 +103,18 @@
             </div>
 
             <div [ngClass]="(!caudal.valid && caudal.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="caudal">Canudal diseño</label>
-              <input #caudal="ngModel" [(ngModel)]="canal.caudalDisenio" name="caudal" type="text" class="form-control" placeholder="Ingrese nombre del canal"
+              <label class="control-label" for="caudal">Caudal diseño <span>(<i>m</i><sup><i>3</i></sup><i>/seg</i>)</span></label>
+              <input #caudal="ngModel" [(ngModel)]="canal.caudalDisenio" name="caudal" type="number" class="form-control" placeholder="Ingrese nombre del canal"
                 required/>
-              <span class="msg-error" *ngIf="!caudal.valid && caudal.touched">Campo obligatorio</span>
+              <span class="msg-error" *ngIf="!caudal.valid && caudal.touched">Valor incorrecto</span>
             </div>
 
             <div [ngClass]="(!longitud.valid && longitud.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="longitud">Longitud</label>
+              <label class="control-label" for="longitud">Longitud <span>(<i>Km</i>)</span></label>
               <input #longitud="ngModel" [(ngModel)]="canal.longitud" name="longitud" type="number" class="form-control" placeholder="Ingrese nombre del canal"
                 required/>
               <span class="msg-error" *ngIf="!longitud.valid && longitud.touched">Campo incorrecto</span>
             </div>
-
-          </div>
-
-          <div class="col-xs-6">
 
             <div [ngClass]="(!tipica.valid && tipica.touched) ? 'form-group has-error' : 'form-group'">
               <label class="control-label" for="unidad">Seleccione la sección tipica</label>
@@ -129,6 +126,10 @@
               </select>
               <span class="msg-error" *ngIf="!tipica.valid && tipica.touched">Campo obligatorio</span>
             </div>
+
+          </div>
+
+          <div class="col-xs-6">
 
             <div [ngClass]="(!clase.valid && clase.touched) ? 'form-group has-error' : 'form-group'">
               <label class="control-label" for="unidad">Seleccione la clase</label>
@@ -163,11 +164,21 @@
               <span class="msg-error" *ngIf="!estado.valid && estado.touched">Campo obligatorio</span>
             </div>
 
+            <div [ngClass]="(!estadoD.valid && estadoD.touched) ? 'form-group has-error' : 'form-group'">
+              <label class="control-label" for="estadoD">Descripcion del estado</label>
+              <textarea [(ngModel)]="canal.estadoDescripcion" #estadoD="ngModel" name="estadoD" id="estadoD" class="form-control" rows="4"
+                placeholder="Ingrese la descripción del estado" required></textarea>
+              <span class="msg-error" *ngIf="!estadoD.valid && estadoD.touched">Campo obligatorio</span>
+            </div>
+
           </div>
         </div>
+
+        </form>
       </tab>
 
-      <tab heading="Categoria" [disabled]="!estado.valid || !tipo.valid || !clase.valid || !tipica.valid || !longitud.valid || !caudal.valid || !nombre.valid || !codigo.valid">
+      <tab heading="Categoria" [disabled]="!form.form.valid"> <!-- [disabled]="!estado.valid || !tipo.valid || !clase.valid || !tipica.valid || !longitud.valid || !caudal.valid || !nombre.valid || !codigo.valid || !estadoD.valid"-->
+        
 
         <br/>
 
@@ -175,108 +186,81 @@
 
           <div class="col-xs-6">
 
-            <div [ngClass]="(!categoria.valid && categoria.touched) ? 'form-group has-error' : 'form-group'">
+            <div class="form-group">
               <label class="control-label" for="categoria">Seleccione la unidad</label>
-              <select #categoria="ngModel" [(ngModel)]="canal.categoria" name="categoria" class="form-control" id="categoria" required>
+              <select #categoria="ngModel" [(ngModel)]="canal.categoria"  (change)="categoriaChange()" name="categoria" class="form-control" id="categoria" required>
                 <option value="">-- Seleccione --</option>
+                <option value="CANAL_ADUCCION">Canal de aducción</option>
                 <option value="CANAL_PRINCIPAL">Canal principal</option>
                 <option value="CANAL_DISTRIBUCION">Canal de distribucion</option>
                 <option value="CANAL_LATERAL">Canal lateral</option>
                 <option value="CANAL_TERCIARIO">Canal terciario</option>
               </select>
-              <span class="msg-error" *ngIf="!categoria.valid && categoria.touched">Campo obligatorio</span>
             </div>
 
           </div>
 
-          <div class="col-xs-6" *ngIf="canal.categoria != '' && canal.categoria != 'CANAL_PRINCIPAL'">
-
-            <div [ngClass]="(!unidadDos.valid && unidadDos.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="unidad2">Seleccione la unidad</label>
-              <select #unidadDos="ngModel" [(ngModel)]="unidad2" (change)="unidadDosChange()" name="unidadDos" class="form-control" id="unidadDos"
-                required>
-                <option value="">-- Seleccione --</option>
-                <option *ngFor="let u of lstUnidad" value="{{u.id}}">{{u.nombre}}</option>
-                <option *ngIf="lstUnidad.length == 0" value="">No hay unidades</option>
-              </select>
-              <span class="msg-error" *ngIf="!unidadDos.valid && unidadDos.touched">Campo obligatorio</span>
+          <div class="col-xs-6" *ngIf="canal.categoria != '' && canal.categoria != 'CANAL_ADUCCION' && canal.categoria != 'CANAL_PRINCIPAL'">
+            
+            <div [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error' : 'form-group'">
+              <label class="control-label" for="canalSearch">Canal</label>
+              <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="2" [textSearching]="'Buscando...'"
+                [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
+                #canalSearch="ngModel" [(ngModel)]="searchCanal" id="canalSearch" name="canalSearch" required [clearUnselected]=true></ng2-completer>
+              <span class="msg-error" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>
             </div>
-
-            <div [ngClass]="(!zonaDos.valid && zonaDos.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="zonaDos">Seleccione la zona</label>
-              <select #zonaDos="ngModel" [(ngModel)]="zona2" (change)="zonaDosChange()" name="zonaDos" class="form-control" id="zonaDos"
-                required>
-                <option value="">-- Seleccione --</option>
-                <option *ngFor="let z of lstZona2" value="{{z.id}}">{{z.nombre}}</option>
-                <option *ngIf="lstZona2.length == 0" value="">No hay zonas</option>
-              </select>
-              <span class="msg-error" *ngIf="!zonaDos.valid && zonaDos.touched">Campo obligatorio</span>
-            </div>
-
-            <div [ngClass]="(!seccionDos.valid && seccionDos.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="seccionDos">Seleccione la sección</label>
-              <select #seccionDos="ngModel" [(ngModel)]="seccion2" (change)="seccionDosChange()" name="seccionDos" class="form-control"
-                id="seccionDos" required>
-                <option value="">-- Seleccione --</option>
-                <option *ngFor="let s of lstSeccion2" value="{{s.id}}">{{s.nombre}}</option>
-                <option *ngIf="lstSeccion2.length == 0" value="">No hay secciones</option>
-              </select>
-              <span class="msg-error" *ngIf="!seccionDos.valid && seccionDos.touched">Campo obligatorio</span>
-            </div>
-
-            <div [ngClass]="(!canalDos.valid && canalDos.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="canalDos">Seleccione el canal</label>
-              <select #canalDos="ngModel" [(ngModel)]="canal2" name="canalDos" class="form-control" id="canalDos" required>
-                <option value="">-- Seleccione --</option>
-                <option *ngFor="let c of lstCanal2" value="{{c.id}}">{{c.nombre}}</option>
-                <option *ngIf="lstCanal2.length == 0" value="">No hay canales</option>
-              </select>
-              <span class="msg-error" *ngIf="!canalDos.valid && canalDos.touched">Campo obligatorio</span>
-            </div>
-
           </div>
         </div>
 
       </tab>
 
-      <tab heading="Obras" [disabled]="!form.form.valid">
+      <tab heading="Obras" [disabled]="disabledObras">
 
         <br/>
+
+        <div *ngIf="estatus == 4" class="alert alert-warning" role="alert">
+          No puedes dejar la descripcion vacia
+        </div>
 
         <div class="row">
           <div class="col-xs-6">
 
-            <div class="form-row">
-              <div class="form-group col-xs-9">
-                <label for="obras">Obras</label>
-                <input [(ngModel)]="obraNombre" #obras="ngModel" name="obras" type="text" class="form-control" placeholder="Ingrese nombre de la obra (Opcional)"
-                />
-              </div>
+            <div class="form-group ">
+              <label for="obras">Obras</label>
+              <select [(ngModel)]="idObra" name="obras" class="form-control">
+                <option value="-1">-- Seleccione --</option>
+                <option *ngFor="let o of lstObra; let i = index" [attr.data-index]="i" value="{{i}}">{{o.nombre}}</option>
+                <option *ngIf="lstObra.length == 0" value="-1">No hay obras registradas</option>
+              </select>
             </div>
 
-            <div class="form-row">
-              <div class="form-group col-xs-3">
-                <br>
-                <button class="btn btn-success" type="button" (click)="agregarObra()">Agregar</button>
-              </div>
+            <div class="form-group">
+              <label class="control-label">Descripcion de la obra</label>
+              <textarea [(ngModel)]="obraDescripcion" name="estadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
             </div>
+
+            <button class="btn btn-success" type="button" (click)="agregarObra()">Agregar</button>
+
           </div>
 
           <div class="col-xs-6">
 
-            <ul class="list-group" *ngIf="lstObra.length != 0">
-              <li *ngFor="let o of lstObra; let i = index" [attr.data-index]="i" class="list-group-item">
-                {{o.nombre}}
+            <ul class="list-group" *ngIf="lstCanalObra.length != 0">
+              <li *ngFor="let o of lstCanalObra; let i = index" [attr.data-index]="i" class="list-group-item">
+                {{o.obraId.nombre}}
                 <span style="cursor: pointer" (click)="eliminarObra(i)" class="badge badge-default badge-pill">eliminar</span>
               </li>
             </ul>
           </div>
         </div>
-        <button [disabled]="!form.form.valid || unidadId == -1 || zonaId == -1 " type="submit" class="btn btn-primary">Registrar</button>
+
+        <br/>
+        <br/>
+        <button [disabled]="!form.form.valid || idObra >= 0" (click)="registrar(form)"  type="button" class="btn btn-primary">Registrar</button>
       </tab>
 
     </tabset>
 
 
-  </form>
+  <!--</form>-->
 </div>

@@ -20,7 +20,7 @@ export class ZonaComponent {
     private unidadService: UnidadService,
     private spinnerService: Ng4LoadingSpinnerService,
     private zonaService: ZonaService
-  ) { 
+  ) {
 
     this.spinnerService.show();
 
@@ -34,21 +34,30 @@ export class ZonaComponent {
 
   registrar(form) {
     this.spinnerService.show();
-    console.log(this.zona);
-    this.zonaService.registrar(this.zona).subscribe((res: Zona) => {
 
-      this.spinnerService.hide();
-      if(res.id != 0){
-        this.estado = 1;
-        form.reset();
-        this.resetVariables();
-      } else {
-        this.estado = 0;
+    this.zonaService.existePorNombreYUnidad(this.zona.nombre, this.zona.unidadId.id).subscribe(res => {
+
+      if (res.existe) {
+        this.estado = 2;
+        this.spinnerService.hide();
+        return;
       }
-    }, err => {
 
-      this.spinnerService.hide();
-      this.estado = 0;
+      this.zonaService.registrar(this.zona).subscribe((res: Zona) => {
+
+        this.spinnerService.hide();
+        if (res.id != 0) {
+          this.estado = 1;
+          form.reset();
+          this.resetVariables();
+        } else {
+          this.estado = 0;
+        }
+      }, err => {
+        this.spinnerService.hide();
+        this.estado = 0;
+      });
+
     });
   }
 

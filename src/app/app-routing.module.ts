@@ -10,6 +10,7 @@ import { SeccionComponent } from './componentes/registrar/seccion/seccion.compon
 import { UnidadComponent } from './componentes/registrar/unidad/unidad.component';
 import { UsuarioComponent } from './componentes/registrar/usuario/usuario.component';
 import { ZonaComponent } from './componentes/registrar/zona/zona.component';
+import { ObraComponent } from './componentes/registrar/obra/obra.component';
 
 
 const appRoutes: Routes = [
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
         { path: 'seccion', component: SeccionComponent},
         { path: 'unidad', component: UnidadComponent},
         { path: 'usuario', component: UsuarioComponent},
-        { path: 'zona', component: ZonaComponent}
+        { path: 'zona', component: ZonaComponent},
+        { path: 'obra', component: ObraComponent}
     ]},
     {path: 'login', component: LoginComponent},
     {path: 'grafica', component: GraficaComponent},

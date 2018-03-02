@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
-import { Unidad } from '../_model/unidad';
+import { Obra } from '../_model/obra';
 
 @Injectable()
-export class UnidadService {
+export class ObraService {
 
   constructor(
     private http: HttpClient
   ) { }
 
-  registrar(unidad: Unidad) {
-    return this.http.post<Unidad>(`${url}/unidad`, unidad);
+  registrar(unidad: Obra) {
+    return this.http.post<Obra>(`${url}obra`, unidad);
   }
 
-  listarTodos() {
-    return this.http.get<Unidad[]>(`${url}/unidad`);
+  listar() {
+    return this.http.get<Obra[]>(`${url}obra`);
   }
 
   /**
-   * Se verificara si existe una unidad por su nombre
+   * Se verificara si existe una obra por su nombre
    * @param nombre 
    * @returns true si existe, false si no existe
    */
   existePorNombre(nombre: string) {
     // se deben reemplazar los espacion es blanco con '+'
-    return this.http.get<any>(`${url}unidad/existe/nombre/${nombre.replace(' ', '+')}`);
+    return this.http.get<any>(`${url}obra/existe/nombre/${nombre.replace(' ', '+')}`);
   }
 
 }

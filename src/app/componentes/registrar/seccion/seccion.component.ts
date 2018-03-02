@@ -25,7 +25,7 @@ export class SeccionComponent {
     private zonaService: ZonaService,
     private spinnerService: Ng4LoadingSpinnerService,
     private seccionService: SeccionService
-  ) { 
+  ) {
     this.resetVariables();
     this.spinnerService.show();
 
@@ -43,7 +43,7 @@ export class SeccionComponent {
     this.seccion.zonaId.id = -1;
     this.lstZona = [];
 
-    if(this.unidadId <= 0) return;
+    if (this.unidadId <= 0) return;
 
     this.spinnerService.show();
 
@@ -53,25 +53,38 @@ export class SeccionComponent {
     }, err => {
       this.spinnerService.hide();
     });
+
   }
 
   registrar(form) {
 
     this.spinnerService.show();
 
-    this.seccionService.registrar(this.seccion).subscribe((res: Seccion) => {
-      this.spinnerService.hide();
-      if(res.id != 0) {
-        this.estado = 1;
-        form.reset();
-        this.resetVariables();
-      }else {
-        this.estado = 0;
+    this.seccionService.existePorNombreYZona(this.seccion.nombre, this.seccion.zonaId.id).subscribe(res => {
+
+      if (res.existe) {
+        this.estado = 2;
+        this.spinnerService.hide();
+        return;
       }
-    }, err => {
-      this.spinnerService.hide();
-      this.estado = 0;
-    })
+
+      this.seccionService.registrar(this.seccion).subscribe((res: Seccion) => {
+        this.spinnerService.hide();
+        if (res.id != 0) {
+          this.estado = 1;
+          form.reset();
+          this.resetVariables();
+        } else {
+          this.estado = 0;
+        }
+      }, err => {
+        this.spinnerService.hide();
+        this.estado = 0;
+      });
+
+    });
+
+
   }
 
   private resetVariables() {

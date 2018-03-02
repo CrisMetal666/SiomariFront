@@ -11,7 +11,6 @@ import { UnidadService } from '../../../_service/unidad.service';
 export class UnidadComponent implements OnInit {
 
   unidad: Unidad;
-  loading: boolean = true;
   estado: number = -1;
 
   constructor(
@@ -28,23 +27,34 @@ export class UnidadComponent implements OnInit {
 
     this.spinnerService.show();
 
-    this.unidadService.registrar(this.unidad).subscribe((res: Unidad) => {
+    this.unidadService.existePorNombre(this.unidad.nombre).subscribe(res => {
 
-      this.spinnerService.hide();
-
-      //comprobamos si trae un id y mostramos el mensaje correspondiente dadole valor a estado
-      if (res.id != 0) {
-        this.estado = 1;
-        this.unidad = new Unidad();
-        form.reset();
-      } else {
-        this.estado = 0;
+      if (res.existe) {
+        this.estado = 2;
+        this.spinnerService.hide();
+        return;
       }
 
-    }, err => {
-      this.spinnerService.hide();
-      this.estado = 0;
+      this.unidadService.registrar(this.unidad).subscribe((res: Unidad) => {
+
+        this.spinnerService.hide();
+
+        //comprobamos si trae un id y mostramos el mensaje correspondiente dadole valor a estado
+        if (res.id != 0) {
+          this.estado = 1;
+          this.unidad = new Unidad();
+          form.reset();
+        } else {
+          this.estado = 0;
+        }
+
+      }, err => {
+        this.spinnerService.hide();
+        this.estado = 0;
+      });
     });
+
+
 
 
   }

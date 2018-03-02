@@ -7,6 +7,7 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { Ng2CompleterModule } from "ng2-completer";
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './test/login/login.component';
@@ -20,11 +21,16 @@ import { PredioComponent } from './componentes/registrar/predio/predio.component
 import { UsuarioComponent } from './componentes/registrar/usuario/usuario.component';
 import { CultivoComponent } from './componentes/registrar/cultivo/cultivo.component';
 import { HeaderComponent } from './header/header.component';
+import { ObraComponent } from './componentes/registrar/obra/obra.component';
 
 import { UnidadService } from './_service/unidad.service';
 import { ZonaService } from './_service/zona.service';
 import { SeccionService } from './_service/seccion.service';
 import { CanalService } from './_service/canal.service';
+import { CultivoService } from './_service/cultivo.service';
+import { PredioService } from './_service/predio.service';
+import { ObraService } from './_service/obra.service';
+import { UsuarioService } from './_service/usuario.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,8 @@ import { CanalService } from './_service/canal.service';
     PredioComponent,
     UsuarioComponent,
     CultivoComponent,
-    HeaderComponent
+    HeaderComponent,
+    ObraComponent
   ],
   imports: [
     BrowserModule, 
@@ -50,13 +57,18 @@ import { CanalService } from './_service/canal.service';
     HttpClientModule,
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    Ng2CompleterModule
   ],
   providers: [
     UnidadService,
     ZonaService,
     SeccionService, 
-    CanalService
+    CanalService,
+    CultivoService,
+    PredioService, 
+    ObraService,
+    UsuarioService
   ],
   bootstrap: [AppComponent]
 })

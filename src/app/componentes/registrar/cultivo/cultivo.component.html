@@ -4,24 +4,32 @@
 
   <br>
 
-  <form>
+  <ng4-loading-spinner> </ng4-loading-spinner>
 
-    <div class="row">
+  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+    Cultivo registrado exitosamente
+  </div>
+  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    No se pudo registrar el cultivo
+  </div>
+  <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+    El cultivo ya fue registrado
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
+
+    <div class="row" >
 
       <div class="col-xs-6">
 
-        <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" placeholder="Ingrese el nombre del cultivo" />
+        <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="nombre">Nombre</label>
+          <input [(ngModel)]="cultivo.nombre" #nombre="ngModel" name="nombre" id="nombre" type="text" class="form-control" placeholder="Ingrese el nombre del cultivo" required/>
+          <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
         </div>
 
-        <div class="form-group">
-          <label for="gestacion">Meses de crecimiento</label>
-          <input type="text" class="form-control" placeholder="Ingrese los meses de crecimiento" />
-        </div>
-
-        <button class="btn btn-primary">Registrar</button>
-
+        <button class="btn btn-primary" type="submit" [disabled]="!nombre.valid || kc.length == 0">Registrar</button>
+      
       </div>
 
       <div class="col-xs-6">
@@ -29,25 +37,26 @@
           <div class="row">
               <div class="form-row">
                 <div class="form-group col-xs-9">
-                  <label for="obras">Kc</label>
-                  <input type="text" class="form-control" placeholder="Ingrese el Kc" />
+                  <label>Kc</label>
+                  <input [(ngModel)]="kcValor" #valorKc="ngModel" name="valorKc" type="number" class="form-control" placeholder="Ingrese el Kc" required/>
                 </div>
               </div>
     
               <div class="form-row">
                 <div class="form-group col-xs-3">
                   <br>
-                  <button class="btn btn-success" type="button">Agregar</button>
+                  <button class="btn btn-success" type="button" (click)="agregarKc()" [disabled]="!valorKc.valid" >Agregar</button>
                 </div>
               </div>
             </div>
     
-            <div class="row col-xs-10">
+            <div class="row col-xs-10" *ngIf="kc.length != 0">
     
               <ul class="list-group">
-                <li class="list-group-item">0.3</li>
-                <li class="list-group-item">0.6</li>
-                <li class="list-group-item">1.2</li>
+                <li class="list-group-item" *ngFor="let k of kc; let i = index" [attr.data-index]="i">
+                  Mes {{i+1}} - {{k}}
+                  <span style="cursor: pointer" (click)="eliminarKc(i)" class="badge badge-default badge-pill">eliminar</span>
+                </li>
               </ul>
             </div>
       </div>
