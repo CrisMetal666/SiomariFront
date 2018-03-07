@@ -12,5 +12,7 @@ export class Predio {
 	moduloRiego: number;
 	numeroTomas: number;
 	tipoSuelo: string;
+	longitud: number;
+	latitud: number;
 	canalId: Canal;
 }

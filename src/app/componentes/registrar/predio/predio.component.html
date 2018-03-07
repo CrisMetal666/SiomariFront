@@ -19,81 +19,100 @@
     No se ha seleccionado el canal servidor.
   </div>
 
-  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off"> 
+  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
 
-        <div class="row">
-          <div class="col-xs-6">
+    <div class="row">
+      <div class="col-xs-6">
 
-            <div [ngClass]="(!codigo.valid && codigo.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="codigo">Código</label>
-              <input [(ngModel)]="predio.codigo" #codigo="ngModel" name="codigo" id="codigo" type="text" class="form-control" placeholder="Ingrese el código del predio" required/>
-              <span class="msg-error" *ngIf="!codigo.valid && codigo.touched">Campo obligatorio</span>
-            </div>
-
-            <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="nombre">Nombre del predio</label>
-              <input [(ngModel)]="predio.nombre" #nombre="ngModel" name="nombre" id="nombre" type="text" class="form-control" placeholder="Ingrese el nombre del predio" required/>
-              <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
-            </div>
-
-            <div [ngClass]="(!nombrePropietario.valid && nombrePropietario.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="nombrePropietario">Nombre del propietario</label>
-              <input [(ngModel)]="predio.nombrePropietario" #nombrePropietario="ngModel" name="nombrePropietario" id="nombrePropietario" type="text" class="form-control" placeholder="Ingrese el nombre del propietario" required/>
-              <span class="msg-error" *ngIf="!nombrePropietario.valid && nombrePropietario.touched">Campo obligatorio</span>
-            </div>
-
-            <div [ngClass]="(!areaTotal.valid && areaTotal.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="areaTotal">Área total</label>
-              <input [(ngModel)]="predio.areaTotal" #areaTotal="ngModel" name="areaTotal" id="areaTotal" type="number" class="form-control" placeholder="Ingrese el area total" required/>
-              <span class="msg-error" *ngIf="!areaTotal.valid && areaTotal.touched">Valor incorrecto</span>
-            </div>
-
-            <div [ngClass]="(!areaPR.valid && areaPR.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="areaPotencialRiego">Área potencial de riego</label>
-              <input [(ngModel)]="predio.areaPotencialRiego" #areaPR="ngModel" name="areaPR" id="areaPotencialRiego" type="number" class="form-control" placeholder="Ingrese el área potencial de riego" required/>
-              <span class="msg-error" *ngIf="!areaPR.valid && areaPR.touched">Valor incorrecto</span>
-            </div>
-
-            <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid || canalId.id == -1" >Registrar</button>
-
-          </div>
-
-          <div class="col-xs-6">
-
-            <div [ngClass]="(!areaBajoRiego.valid && areaBajoRiego.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="areaBajoRiego">Área bajo riego</label>
-              <input [(ngModel)]="predio.areaBajoRiego" #areaBajoRiego="ngModel" name="areaBajoRiego" id="areaBajoRiego" type="number" class="form-control" placeholder="Ingrese el área bajo riego" required/>
-              <span class="msg-error" *ngIf="!areaBajoRiego.valid && areaBajoRiego.touched">Valor incorrecto</span>
-            </div>
-
-            <div [ngClass]="(!moduloRiego.valid && moduloRiego.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="moduloRiego">Modulo de riego</label>
-              <input [(ngModel)]="predio.moduloRiego" #moduloRiego="ngModel" name="moduloRiego" id="moduloRiego" type="number" class="form-control" placeholder="Ingrese el modulo de riego" required/>
-              <span class="msg-error" *ngIf="!moduloRiego.valid && moduloRiego.touched">Valor incorrecto</span>
-            </div>
-
-            <div [ngClass]="(!numeroTomas.valid && numeroTomas.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="numeroTomas">Cantidad de tomas</label>
-              <input [(ngModel)]="predio.numeroTomas" #numeroTomas="ngModel" name="numeroTomas" id="numeroTomas" type="number" class="form-control" placeholder="Ingrese la cantidad de tomas" required/>
-              <span class="msg-error" *ngIf="!numeroTomas.valid && numeroTomas.touched">Valor incorrecto</span>
-            </div>
-
-            <div [ngClass]="(!tipoSuelo.valid && tipoSuelo.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="tipoSuelo">Tipo de suelo</label>
-              <input [(ngModel)]="predio.tipoSuelo" #tipoSuelo="ngModel" name="tipoSuelo" id="tipoSuelo" type="text" class="form-control" placeholder="Ingrese el tipo de suelo" required/>
-              <span class="msg-error" *ngIf="!tipoSuelo.valid && tipoSuelo.touched">Campo obligatorio</span>
-            </div>
-
-            <div [ngClass]="(!canalS.valid && canalS.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="canalS">Canal servidor</label>
-              <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="3" [textSearching]="'Buscando...'"
-                [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
-                #canalS="ngModel" [(ngModel)]="searchCanal" id="canalS" name="canalS" required [clearUnselected]=true></ng2-completer>
-              <span class="msg-error" *ngIf="!canalS.valid && canalS.touched">Campo obligatorio</span>
-            </div>
-            
-          </div>
-
+        <div [ngClass]="(!codigo.valid && codigo.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="codigo">Código</label>
+          <input [(ngModel)]="predio.codigo" #codigo="ngModel" name="codigo" id="codigo" type="text" class="form-control" placeholder="Ingrese el código del predio"
+            required/>
+          <span class="msg-error" *ngIf="!codigo.valid && codigo.touched">Campo obligatorio</span>
         </div>
+
+        <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="nombre">Nombre del predio</label>
+          <input [(ngModel)]="predio.nombre" #nombre="ngModel" name="nombre" id="nombre" type="text" class="form-control" placeholder="Ingrese el nombre del predio"
+            required/>
+          <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
+        </div>
+
+        <div [ngClass]="(!nombrePropietario.valid && nombrePropietario.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="nombrePropietario">Nombre del propietario</label>
+          <input [(ngModel)]="predio.nombrePropietario" #nombrePropietario="ngModel" name="nombrePropietario" id="nombrePropietario"
+            type="text" class="form-control" placeholder="Ingrese el nombre del propietario" required/>
+          <span class="msg-error" *ngIf="!nombrePropietario.valid && nombrePropietario.touched">Campo obligatorio</span>
+        </div>
+
+        <div class="form-group">
+          <label>Latitud</label>
+          <input [(ngModel)]="predio.latitud" name="latitud" class="form-control" placeholder="Ingrese la latitud" type="number"/>
+        </div>
+
+        <div class="form-group">
+          <label>Longitud</label>
+          <input [(ngModel)]="predio.longitud" name="long" class="form-control" placeholder="Ingrese la longitud" type="number" />
+        </div>
+
+        <div [ngClass]="(!areaTotal.valid && areaTotal.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="areaTotal">Área total (ha)</label>
+          <input [(ngModel)]="predio.areaTotal" #areaTotal="ngModel" name="areaTotal" id="areaTotal" type="number" class="form-control"
+            placeholder="Ingrese el area total" required/>
+          <span class="msg-error" *ngIf="!areaTotal.valid && areaTotal.touched">Valor incorrecto</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid || canalId.id == -1">Registrar</button>
+
+      </div>
+
+      <div class="col-xs-6">
+
+        <div [ngClass]="(!areaPR.valid && areaPR.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="areaPotencialRiego">Área potencial de riego (ha)</label>
+          <input [(ngModel)]="predio.areaPotencialRiego" #areaPR="ngModel" name="areaPR" id="areaPotencialRiego" type="number" class="form-control"
+            placeholder="Ingrese el área potencial de riego" required/>
+          <span class="msg-error" *ngIf="!areaPR.valid && areaPR.touched">Valor incorrecto</span>
+        </div>
+
+        <div [ngClass]="(!areaBajoRiego.valid && areaBajoRiego.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="areaBajoRiego">Área bajo riego (ha)</label>
+          <input [(ngModel)]="predio.areaBajoRiego" #areaBajoRiego="ngModel" name="areaBajoRiego" id="areaBajoRiego" type="number"
+            class="form-control" placeholder="Ingrese el área bajo riego" required/>
+          <span class="msg-error" *ngIf="!areaBajoRiego.valid && areaBajoRiego.touched">Valor incorrecto</span>
+        </div>
+
+        <div [ngClass]="(!moduloRiego.valid && moduloRiego.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="moduloRiego">Modulo de riego (L/s)</label>
+          <input [(ngModel)]="predio.moduloRiego" #moduloRiego="ngModel" name="moduloRiego" id="moduloRiego" type="number" class="form-control"
+            placeholder="Ingrese el modulo de riego" required/>
+          <span class="msg-error" *ngIf="!moduloRiego.valid && moduloRiego.touched">Valor incorrecto</span>
+        </div>
+
+        <div [ngClass]="(!numeroTomas.valid && numeroTomas.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="numeroTomas">Cantidad de tomas</label>
+          <input [(ngModel)]="predio.numeroTomas" #numeroTomas="ngModel" name="numeroTomas" id="numeroTomas" type="number" class="form-control"
+            placeholder="Ingrese la cantidad de tomas" required/>
+          <span class="msg-error" *ngIf="!numeroTomas.valid && numeroTomas.touched">Valor incorrecto</span>
+        </div>
+
+        <div [ngClass]="(!tipoSuelo.valid && tipoSuelo.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="tipoSuelo">Tipo de suelo</label>
+          <input [(ngModel)]="predio.tipoSuelo" #tipoSuelo="ngModel" name="tipoSuelo" id="tipoSuelo" type="text" class="form-control"
+            placeholder="Ingrese el tipo de suelo" required/>
+          <span class="msg-error" *ngIf="!tipoSuelo.valid && tipoSuelo.touched">Campo obligatorio</span>
+        </div>
+
+        <div [ngClass]="(!canalS.valid && canalS.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label" for="canalS">Canal servidor</label>
+          <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="2" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
+            #canalS="ngModel" [(ngModel)]="searchCanal" id="canalS" name="canalS" required [clearUnselected]=true></ng2-completer>
+          <span class="msg-error" *ngIf="!canalS.valid && canalS.touched">Campo obligatorio</span>
+        </div>
+
+      </div>
+
+    </div>
   </form>
 </div>

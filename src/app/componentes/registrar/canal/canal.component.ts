@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { Canal } from '../../../_model/canal';
 import { Unidad } from '../../../_model/unidad';
 import { Zona } from '../../../_model/zona';
@@ -14,6 +14,8 @@ import { TabsetComponent } from 'ngx-bootstrap';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { CanalObra } from '../../../_model/canal-obra';
 import { ObraService } from '../../../_service/obra.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-canal',
@@ -54,11 +56,28 @@ export class CanalComponent {
   public idObra: number;
   //se almacena la descripcion del canal para depues pasarlo al array
   public obraDescripcion: string;
+  // necesario para la georreferenciacion de las obras
+  public gLatitud: number;
+  // necesario para la georreferenciacion de las obras
+  public gLongitud: number;
   // auto-completer
   public searchCanal;
   public dataServiceCanal: CompleterData;
-
+  //estableceremos el valor para bloquear o desbloquear el tab de obras
   public disabledObras: boolean;
+  //nos sirve para manejar el modal
+  private modalRef: BsModalRef;
+  //se usara para el modal de editar obra
+  public canalObraEditar: CanalObra;
+  //almacenara la posicion de la obra de la lista de obras, para poder modificarla
+  public indexCanalObra: number;
+  //cuando se vaya a modificar una obra, almacenaremos en esta variable, la posicion
+  //de la obra que se quiera modificar
+  public indexObraEditar: number;
+  //todas las obras que se adicionen a la lista latCanalObra, en este array se almacenara
+  //la posicion de la obra que se seleccionaron, para despues poder localizarlo al momento
+  //de querer editarlo con el modal
+  public lstIndexObra: number[];
 
 
   constructor(
@@ -68,7 +87,8 @@ export class CanalComponent {
     private seccionService: SeccionService,
     private canalService: CanalService,
     private completerService: CompleterService,
-    private obraService: ObraService
+    private obraService: ObraService,
+    private modalService: BsModalService
   ) {
 
     this.spinnerService.show();
@@ -108,22 +128,6 @@ export class CanalComponent {
     this.categoriaChange();
   }
 
-  /* 
-  //necesario para los select de ubicacion puedan tener el valor por defecto "-- Seleccione --"
-  compareFn(optionOne, optionTwo): boolean {
-    console.log(optionOne); console.log(optionTwo);
-
-    let res: boolean;
-
-    if (optionTwo != null) {
-      res = optionOne.id === optionTwo.id;
-    } else {
-      res = optionOne === -1;
-    }
-
-    return res;
-  }
-*/
   unidadChange() {
 
     //limpiamos posibles valores anteriores
@@ -170,13 +174,14 @@ export class CanalComponent {
 
     if (this.idObra < 0) return;
 
+    //verificamos que hayan agregado la descripcion
     if (this.obraDescripcion.trim() == '') {
       this.estatus = 4;
       this.resetEstatus();
       return;
     }
 
-    //Declaramos los objetos para 
+    //Declaramos los objetos para no modificar los objetos originales
     let co: CanalObra = new CanalObra();
     let o: Obra = new Obra();
 
@@ -188,15 +193,56 @@ export class CanalComponent {
     o.nombre = obraLista.nombre;
     co.descripcion = this.obraDescripcion;
     co.obraId = o;
+    co.latitud = this.gLatitud;
+    co.longitud = this.gLongitud;
 
     this.lstCanalObra.push(co);
+    //establecemos el index de la obra seleccionada para despues poder usarlo en el modal
+    this.lstIndexObra.push(this.idObra);
 
     this.idObra = -1;
     this.obraDescripcion = '';
+    this.gLatitud = undefined;
+    this.gLongitud = undefined;
   }
 
   eliminarObra(index: number) {
     this.lstCanalObra.splice(index, 1);
+    this.lstIndexObra.splice(index, 1);
+  }
+
+  editarObra(template: TemplateRef<any>) {
+
+    //obtenemos la obra seleccionada
+    let obraLista = this.lstObra[this.indexObraEditar];
+
+    //creamos un objeto nuevo para no modificar los objetos originales
+    let o: Obra = new Obra();
+    o.id = obraLista.id;
+    o.nombre = obraLista.nombre;
+
+    this.canalObraEditar.obraId = o;
+    
+    //reemplazamos el objeto viejo por el nuevo
+    this.lstCanalObra[this.indexCanalObra] = this.canalObraEditar;
+    //como reemplazamos el objeto debemos reemplazar el index de la obra seleccionada
+    //en la lista de indices
+    this.lstIndexObra[this.indexCanalObra] = this.indexObraEditar;
+
+
+    this.canalObraEditar = new CanalObra();
+    this.modalRef.hide();
+  }
+
+  openModalEditar(template: TemplateRef<any>, index: number) {
+    //establesco el indice de la lista el cual se va a modificar
+    this.indexCanalObra = index;
+    //establesco la obra que se selecciono en index seleccionado
+    this.indexObraEditar = this.lstIndexObra[index];
+    //llenamos el objeto que se usara en el modal para modificarlo
+    this.canalObraEditar = this.lstCanalObra[index];
+    //mostramos el modal
+    this.modalRef = this.modalService.show(template);
   }
 
   registrar(form) {
@@ -225,6 +271,10 @@ export class CanalComponent {
             form.reset();
             this.resetVariables();
             this.resetEstatus();
+            // volvemos a llenar la lista para el auto-completer
+            this.canalService.listar().subscribe(res => {
+              this.dataServiceCanal = this.completerService.local(res, 'nombre,codigo', 'nombre');
+            });
           } else {
             this.estatus = 0;
             this.resetEstatus();
@@ -296,13 +346,13 @@ export class CanalComponent {
   //necesario para bloquear o desbloquear el tab de obras
   categoriaChange() {
 
-    if(this.canal.categoria == '') this.disabledObras = true;
+    if (this.canal.categoria == '') this.disabledObras = true;
 
     if (this.canal.categoria == 'CANAL_ADUCCION' || this.canal.categoria == 'CANAL_PRINCIPAL') {
       this.disabledObras = false;
     } else {
-      
-      if(this.canalId == null || this.searchCanal == '') {
+
+      if (this.canalId == null || this.searchCanal == '') {
         this.disabledObras = true;
       } else {
         this.disabledObras = false;
@@ -333,6 +383,10 @@ export class CanalComponent {
     this.canalId = null;
     this.searchCanal = '';
     this.disabledObras = true;
+    this.gLatitud = undefined;
+    this.gLatitud = undefined;
+    this.canalObraEditar = new CanalObra();
+    this.lstIndexObra = [];
   }
 
 

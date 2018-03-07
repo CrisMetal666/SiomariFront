@@ -11,6 +11,7 @@ import { UnidadComponent } from './componentes/registrar/unidad/unidad.component
 import { UsuarioComponent } from './componentes/registrar/usuario/usuario.component';
 import { ZonaComponent } from './componentes/registrar/zona/zona.component';
 import { ObraComponent } from './componentes/registrar/obra/obra.component';
+import { ClimatologiaComponent } from './componentes/climatologia/climatologia.component';
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
         { path: 'zona', component: ZonaComponent},
         { path: 'obra', component: ObraComponent}
     ]},
+    {path: 'climatologia', component: ClimatologiaComponent},
     {path: 'login', component: LoginComponent},
     {path: 'grafica', component: GraficaComponent},
     {path: 'tablas', component: TablasComponent},

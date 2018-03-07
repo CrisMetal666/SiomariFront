@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Ng2CompleterModule } from "ng2-completer";
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './test/login/login.component';
@@ -31,6 +32,9 @@ import { CultivoService } from './_service/cultivo.service';
 import { PredioService } from './_service/predio.service';
 import { ObraService } from './_service/obra.service';
 import { UsuarioService } from './_service/usuario.service';
+import { ClimatologiaComponent } from './componentes/climatologia/climatologia.component';
+import { ClimatologiaDatosService } from './_service/climatologia-datos.service';
+import { ClimatologiaYearService } from './_service/climatologia-year.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,8 @@ import { UsuarioService } from './_service/usuario.service';
     UsuarioComponent,
     CultivoComponent,
     HeaderComponent,
-    ObraComponent
+    ObraComponent,
+    ClimatologiaComponent
   ],
   imports: [
     BrowserModule, 
@@ -58,7 +63,8 @@ import { UsuarioService } from './_service/usuario.service';
     ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    ModalModule.forRoot()
   ],
   providers: [
     UnidadService,
@@ -68,7 +74,9 @@ import { UsuarioService } from './_service/usuario.service';
     CultivoService,
     PredioService, 
     ObraService,
-    UsuarioService
+    UsuarioService,
+    ClimatologiaDatosService,
+    ClimatologiaYearService
   ],
   bootstrap: [AppComponent]
 })

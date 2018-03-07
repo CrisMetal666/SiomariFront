@@ -78,7 +78,8 @@ export class PredioComponent {
         }
   
       }, err => this.spinnerService.hide());
-    })
+    });
+   
   }
 
   resetVariables(): void {

@@ -16,22 +16,20 @@
     El codigo del canal ya ha sido registrado
   </div>
 
-  <!-- here -->
+  <tabset #staticTabs>
 
-    <tabset #staticTabs>
+    <tab heading="Servidor">
 
-      <tab heading="Servidor">
+      <br/>
 
-        <br/>
+      <h2>Secciones por donde pasa el canal</h2>
 
-        <h2>Secciones por donde pasa el canal</h2>
+      <div *ngIf="estatus == 3" class="alert alert-warning" role="alert">
+        La seccion ya esta agregada.
+      </div>
 
-        <div *ngIf="estatus == 3" class="alert alert-warning" role="alert">
-          La seccion ya esta agregada.
-        </div>
-
-        <div class="row">
-          <div class="col-xs-6">
+      <div class="row">
+        <div class="col-xs-6">
 
           <div class="form-group">
             <label class="control-label" for="unidad">Seleccione la unidad</label>
@@ -60,28 +58,28 @@
             </select>
           </div>
 
-            <button type="button" class="btn btn-success" (click)="agregarSeccion(form)">Agregar</button>
-
-          </div>
-          <div class="col-xs-6">
-            <div class="col-xs-12">
-
-              <ul *ngIf="lstUbicacionCanal.length != 0" class="list-group">
-                <li *ngFor="let u of lstUbicacionCanal; let i = index" [attr.data-index]="i" class="list-group-item">
-                  {{u}}
-                  <span style="cursor: pointer" (click)="eliminarUbicacion(i)" class="badge badge-default badge-pill">eliminar</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <button type="button" class="btn btn-success" (click)="agregarSeccion(form)">Agregar</button>
 
         </div>
+        <div class="col-xs-6">
+          <div class="col-xs-12">
 
-      </tab>
+            <ul *ngIf="lstUbicacionCanal.length != 0" class="list-group">
+              <li *ngFor="let u of lstUbicacionCanal; let i = index" [attr.data-index]="i" class="list-group-item">
+                {{u}}
+                <span style="cursor: pointer" (click)="eliminarUbicacion(i)" class="badge badge-default badge-pill">eliminar</span>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-      <tab heading="Datos basicos" [disabled]="lstSeccionCanal.length == 0">
+      </div>
 
-          <form #form="ngForm" autocomplete="off">
+    </tab>
+
+    <tab heading="Datos basicos" [disabled]="lstSeccionCanal.length == 0">
+
+      <form #form="ngForm" autocomplete="off">
 
         <br/>
 
@@ -103,14 +101,24 @@
             </div>
 
             <div [ngClass]="(!caudal.valid && caudal.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="caudal">Caudal diseño <span>(<i>m</i><sup><i>3</i></sup><i>/seg</i>)</span></label>
+              <label class="control-label" for="caudal">Caudal diseño
+                <span>(
+                  <i>m</i>
+                  <sup>
+                    <i>3</i>
+                  </sup>
+                  <i>/seg</i>)</span>
+              </label>
               <input #caudal="ngModel" [(ngModel)]="canal.caudalDisenio" name="caudal" type="number" class="form-control" placeholder="Ingrese nombre del canal"
                 required/>
               <span class="msg-error" *ngIf="!caudal.valid && caudal.touched">Valor incorrecto</span>
             </div>
 
             <div [ngClass]="(!longitud.valid && longitud.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="longitud">Longitud <span>(<i>Km</i>)</span></label>
+              <label class="control-label" for="longitud">Longitud
+                <span>(
+                  <i>Km</i>)</span>
+              </label>
               <input #longitud="ngModel" [(ngModel)]="canal.longitud" name="longitud" type="number" class="form-control" placeholder="Ingrese nombre del canal"
                 required/>
               <span class="msg-error" *ngIf="!longitud.valid && longitud.touched">Campo incorrecto</span>
@@ -174,93 +182,146 @@
           </div>
         </div>
 
-        </form>
-      </tab>
+      </form>
+    </tab>
 
-      <tab heading="Categoria" [disabled]="!form.form.valid"> <!-- [disabled]="!estado.valid || !tipo.valid || !clase.valid || !tipica.valid || !longitud.valid || !caudal.valid || !nombre.valid || !codigo.valid || !estadoD.valid"-->
-        
+    <tab heading="Categoria" [disabled]="!form.form.valid">
 
-        <br/>
 
-        <div class="row">
+      <br/>
 
-          <div class="col-xs-6">
+      <div class="row">
 
-            <div class="form-group">
-              <label class="control-label" for="categoria">Seleccione la unidad</label>
-              <select #categoria="ngModel" [(ngModel)]="canal.categoria"  (change)="categoriaChange()" name="categoria" class="form-control" id="categoria" required>
-                <option value="">-- Seleccione --</option>
-                <option value="CANAL_ADUCCION">Canal de aducción</option>
-                <option value="CANAL_PRINCIPAL">Canal principal</option>
-                <option value="CANAL_DISTRIBUCION">Canal de distribucion</option>
-                <option value="CANAL_LATERAL">Canal lateral</option>
-                <option value="CANAL_TERCIARIO">Canal terciario</option>
-              </select>
-            </div>
+        <div class="col-xs-6">
 
+          <div class="form-group">
+            <label class="control-label" for="categoria">Seleccione la unidad</label>
+            <select #categoria="ngModel" [(ngModel)]="canal.categoria" (change)="categoriaChange()" name="categoria" class="form-control"
+              id="categoria" required>
+              <option value="">-- Seleccione --</option>
+              <option value="CANAL_ADUCCION">Canal de aducción</option>
+              <option value="CANAL_PRINCIPAL">Canal principal</option>
+              <option value="CANAL_DISTRIBUCION">Canal de distribucion</option>
+              <option value="CANAL_LATERAL">Canal lateral</option>
+              <option value="CANAL_TERCIARIO">Canal terciario</option>
+            </select>
           </div>
 
-          <div class="col-xs-6" *ngIf="canal.categoria != '' && canal.categoria != 'CANAL_ADUCCION' && canal.categoria != 'CANAL_PRINCIPAL'">
-            
-            <div [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="canalSearch">Canal</label>
-              <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="2" [textSearching]="'Buscando...'"
-                [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
-                #canalSearch="ngModel" [(ngModel)]="searchCanal" id="canalSearch" name="canalSearch" required [clearUnselected]=true></ng2-completer>
-              <span class="msg-error" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>
-            </div>
+        </div>
+
+        <div class="col-xs-6" *ngIf="canal.categoria != '' && canal.categoria != 'CANAL_ADUCCION' && canal.categoria != 'CANAL_PRINCIPAL'">
+
+          <div [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error' : 'form-group'">
+            <label class="control-label" for="canalSearch">Canal</label>
+            <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="2" [textSearching]="'Buscando...'"
+              [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
+              #canalSearch="ngModel" [(ngModel)]="searchCanal" id="canalSearch" name="canalSearch" required [clearUnselected]=true></ng2-completer>
+            <span class="msg-error" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>
           </div>
         </div>
+      </div>
 
-      </tab>
+    </tab>
 
-      <tab heading="Obras" [disabled]="disabledObras">
+    <tab heading="Obras">
+      <!-- [disabled]="disabledObras" -->
 
-        <br/>
+      <br/>
 
-        <div *ngIf="estatus == 4" class="alert alert-warning" role="alert">
-          No puedes dejar la descripcion vacia
+      <div *ngIf="estatus == 4" class="alert alert-warning" role="alert">
+        No puedes dejar la descripcion vacia.
+      </div>
+      <div *ngIf="estatus == 5" class="alert alert-warning" role="alert">
+        Valor incorrecto en la georreferenciación.
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6">
+
+          <div class="form-group ">
+            <label for="obras">Obras</label>
+            <select [(ngModel)]="idObra" name="obras" class="form-control">
+              <option value="-1">-- Seleccione --</option>
+              <option *ngFor="let o of lstObra; let i = index" [attr.data-index]="i" value="{{i}}">{{o.nombre}}</option>
+              <option *ngIf="lstObra.length == 0" value="-1">No hay obras registradas</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Descripcion de la obra</label>
+            <textarea [(ngModel)]="obraDescripcion" name="estadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Latitud</label>
+            <input [(ngModel)]="gLatitud" placeholder="Ingrese la latitud" class="form-control" name="cLatitud" type="number" />
+          </div>
+
+          <div class="form-group">
+            <label>Longitud</label>
+            <input [(ngModel)]="gLongitud" placeholder="Ingrese la longitud" class="form-control" name="cLongitud" type="number" />
+          </div>
+
+          <button class="btn btn-success" type="button" (click)="agregarObra()">Agregar</button>
+
         </div>
 
-        <div class="row">
-          <div class="col-xs-6">
+        <div class="col-xs-6">
 
-            <div class="form-group ">
+          <table class="table table-striped">
+            <tr *ngFor="let o of lstCanalObra; let i = index" [attr.data-index]="i">
+              <td>{{o.obraId.nombre}}</td>
+              <td>
+                <button (click)="openModalEditar(templateEditar,i)" type="button" class="btn btn-info">Editar</button>
+                <button (click)="eliminarObra(i)" type="button" class="btn btn-danger">Eliminar</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <br/>
+      <br/>
+      <button [disabled]="!form.form.valid || idObra >= 0" (click)="registrar(form)" type="button" class="btn btn-primary">Registrar</button>
+    </tab>
+
+  </tabset>
+
+
+  <ng-template #templateEditar>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Editar Obra</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group ">
               <label for="obras">Obras</label>
-              <select [(ngModel)]="idObra" name="obras" class="form-control">
-                <option value="-1">-- Seleccione --</option>
+              <select [(ngModel)]="indexObraEditar" name="mObras" class="form-control">
                 <option *ngFor="let o of lstObra; let i = index" [attr.data-index]="i" value="{{i}}">{{o.nombre}}</option>
                 <option *ngIf="lstObra.length == 0" value="-1">No hay obras registradas</option>
               </select>
             </div>
-
+  
             <div class="form-group">
               <label class="control-label">Descripcion de la obra</label>
-              <textarea [(ngModel)]="obraDescripcion" name="estadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
+              <textarea [(ngModel)]="canalObraEditar.descripcion" name="mestadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
             </div>
-
-            <button class="btn btn-success" type="button" (click)="agregarObra()">Agregar</button>
-
-          </div>
-
-          <div class="col-xs-6">
-
-            <ul class="list-group" *ngIf="lstCanalObra.length != 0">
-              <li *ngFor="let o of lstCanalObra; let i = index" [attr.data-index]="i" class="list-group-item">
-                {{o.obraId.nombre}}
-                <span style="cursor: pointer" (click)="eliminarObra(i)" class="badge badge-default badge-pill">eliminar</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <br/>
-        <br/>
-        <button [disabled]="!form.form.valid || idObra >= 0" (click)="registrar(form)"  type="button" class="btn btn-primary">Registrar</button>
-      </tab>
-
-    </tabset>
-
-
-  <!--</form>-->
+  
+            <div class="form-group">
+              <label>Latitud</label>
+              <input [(ngModel)]="canalObraEditar.latitud" placeholder="Ingrese la latitud" class="form-control" name="mcLatitud" type="number" />
+            </div>
+  
+            <div class="form-group">
+              <label>Longitud</label>
+              <input [(ngModel)]="canalObraEditar.longitud" placeholder="Ingrese la longitud" class="form-control" name="mcLongitud" type="number" />
+            </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" (click)="editarObra()" class="btn btn-success">Aceptar</button>
+          <button type="button" (click)="modalRef.hide()" class="btn btn-danger">Cancelar</button>
+      </div>
+    </ng-template>
 </div>
