@@ -6,12 +6,20 @@ import { Seccion } from '../_model/seccion';
 @Injectable()
 export class SeccionService {
 
+  private url: string;
+
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+    this.url = `${url}seccion/`;
+  }
 
   registrar(seccion: Seccion) {
-    return this.http.post<Seccion>(`${url}seccion`, seccion);
+    return this.http.post<Seccion>(`${this.url}`, seccion);
+  }
+
+  editar(seccion: Seccion) {
+    return this.http.put<Seccion>(`${this.url}`, seccion);
   }
 
   /**
@@ -20,7 +28,7 @@ export class SeccionService {
    * @returns lista de secciones
    */
   buscarPorZonaId(id: number) {
-    return this.http.get<Seccion[]>(`${url}/seccion/zonaId/${id}`);
+    return this.http.get<Seccion[]>(`${this.url}zonaId/${id}`);
   }
 
   /**
@@ -31,6 +39,6 @@ export class SeccionService {
    */
   existePorNombreYZona(nombre: string, zona: number){
     //los espacios en blanco se deben reemplazar por '+'
-    return this.http.get<any>(`${url}seccion/existe/nombreYZona/${nombre.replace(' ', '+')}/${zona}`);
+    return this.http.get<any>(`${this.url}existe/nombreYZona/${nombre.replace(' ', '+')}/${zona}`);
   }
 }

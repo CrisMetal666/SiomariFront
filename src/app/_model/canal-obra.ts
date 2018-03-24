@@ -5,8 +5,9 @@ export class CanalObra {
 
     id: number;
     descripcion: string;
-    longitud: number;
-    latitud: number;
+    x: number;
+	y: number;
+	altitud: number;
 	canalId: Canal;
     obraId: Obra;
     

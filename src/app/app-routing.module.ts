@@ -3,40 +3,42 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './test/login/login.component';
 import { GraficaComponent } from './test/grafica/grafica.component';
 import { TablasComponent } from './test/tablas/tablas.component';
-import { CanalComponent } from './componentes/registrar/canal/canal.component';
-import { CultivoComponent } from './componentes/registrar/cultivo/cultivo.component';
-import { PredioComponent } from './componentes/registrar/predio/predio.component';
-import { SeccionComponent } from './componentes/registrar/seccion/seccion.component';
-import { UnidadComponent } from './componentes/registrar/unidad/unidad.component';
-import { UsuarioComponent } from './componentes/registrar/usuario/usuario.component';
-import { ZonaComponent } from './componentes/registrar/zona/zona.component';
-import { ObraComponent } from './componentes/registrar/obra/obra.component';
+import { CanalComponent } from './componentes/canal/canal.component';
+import { CultivoComponent } from './componentes/cultivo/cultivo.component';
+import { PredioComponent } from './componentes/predio/predio.component';
+import { SeccionComponent } from './componentes/seccion/seccion.component';
+import { UnidadComponent } from './componentes/unidad/unidad.component';
+import { UsuarioComponent } from './componentes/usuario/usuario.component';
+import { ZonaComponent } from './componentes/zona/zona.component';
+import { ObraComponent } from './componentes/obra/obra.component';
 import { ClimatologiaComponent } from './componentes/climatologia/climatologia.component';
+import { PlanSiembraComponent } from './componentes/plan-siembra/plan-siembra.component';
+import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-siembra-info.component';
 
 
 const appRoutes: Routes = [
-    { path: 'registrar', children: [
-        { path: 'canal', component: CanalComponent},
-        { path: 'cultivo', component: CultivoComponent},
-        { path: 'predio', component: PredioComponent},
-        { path: 'seccion', component: SeccionComponent},
-        { path: 'unidad', component: UnidadComponent},
-        { path: 'usuario', component: UsuarioComponent},
-        { path: 'zona', component: ZonaComponent},
-        { path: 'obra', component: ObraComponent}
-    ]},
-    {path: 'climatologia', component: ClimatologiaComponent},
-    {path: 'login', component: LoginComponent},
-    {path: 'grafica', component: GraficaComponent},
-    {path: 'tablas', component: TablasComponent},
-    {path: '', redirectTo: 'login', pathMatch: 'full'}
+    { path: 'canal/:edicion', component: CanalComponent },
+    { path: 'cultivo/:edicion', component: CultivoComponent },
+    { path: 'predio/:edicion', component: PredioComponent },
+    { path: 'seccion/:edicion', component: SeccionComponent },
+    { path: 'unidad/:edicion', component: UnidadComponent },
+    { path: 'usuario/:edicion', component: UsuarioComponent },
+    { path: 'zona/:edicion', component: ZonaComponent },
+    { path: 'obra/:edicion', component: ObraComponent },
+    { path: 'climatologia', component: ClimatologiaComponent },
+    { path: 'plan-siembra', component: PlanSiembraComponent },
+    { path: 'plan-siembra-info', component: PlanSiembraInfoComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'grafica', component: GraficaComponent },
+    { path: 'tablas', component: TablasComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
-    imports : [
+    imports: [
         RouterModule.forRoot(appRoutes)
     ],
-    exports : [
+    exports: [
         RouterModule
     ]
 })

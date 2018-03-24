@@ -1,22 +1,30 @@
 <div class="col-xs-12">
 
-  <h2>Registro de canal</h2>
+  <h2>{{title}}</h2>
 
   <br>
 
   <ng4-loading-spinner> </ng4-loading-spinner>
 
   <div *ngIf="estatus == 1" class="alert alert-success" role="alert">
-    Canal registrado exitosamente
+    La informacion se ha guardado correctamente.
   </div>
   <div *ngIf="estatus == 0" class="alert alert-danger" role="alert">
-    No se pudo registrar el canal
+    Se ha producido un error, intente mas tarde.
   </div>
   <div *ngIf="estatus == 2" class="alert alert-warning" role="alert">
-    El codigo del canal ya ha sido registrado
+    El codigo de la seccion ya existe.
   </div>
 
-  <tabset #staticTabs>
+  <div *ngIf="!mostrarForm" class="form-group col-xs-6">
+    <div class="form-group">
+      <label class="control-label">Buscar canal</label>
+      <ng2-completer (selected)="onSelectedCanal($event)" [datasource]="dataServiceCanal" [inputClass]="['form-control']" [minSearchLength]="4"
+        [textSearching]="'Buscando...'" [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
+    </div>
+  </div>
+
+  <tabset *ngIf="mostrarForm" #staticTabs>
 
     <tab heading="Servidor">
 
@@ -32,30 +40,22 @@
         <div class="col-xs-6">
 
           <div class="form-group">
-            <label class="control-label" for="unidad">Seleccione la unidad</label>
-            <select #unidad="ngModel" [(ngModel)]="unidadId" (change)="unidadChange()" name="unidad" class="form-control" id="unidad">
-              <option value="-1">-- Seleccione --</option>
-              <option *ngFor="let u of lstUnidad; let i = index" [attr.data-index]="i" value="{{i}}">{{u.nombre}}</option>
-              <option *ngIf="lstUnidad.length == 0" value="-1">No hay unidades</option>
-            </select>
+            <label class="control-label" for="nombre">Buscar unidad</label>
+            <ng2-completer [(ngModel)]="unidadCompleter" (selected)="onSelectedUnidad($event)" [datasource]="dataServiceUnidad" [inputClass]="['form-control']"
+              [minSearchLength]="2" #unidad="ngModel" [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500"
+              [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
           </div>
-
           <div class="form-group">
-            <label class="control-label" for="zona">Seleccione la zona</label>
-            <select #zona="ngModel" [(ngModel)]="zonaId" (change)="zonaChange()" name="zona" class="form-control" id="zona">
-              <option value="-1">-- Seleccione --</option>
-              <option *ngFor="let z of lstZona; let i = index" [attr.data-index]="i" value="{{i}}">{{z.nombre}}</option>
-              <option *ngIf="lstZona.length == 0" value="-1">No hay zonas</option>
-            </select>
+            <label class="control-label">Buscar zona</label>
+            <ng2-completer [(ngModel)]="zonaCompleter" [disableInput]="unidadId == null" (selected)="onSelectedZona($event)" [datasource]="dataServiceZona"
+              [inputClass]="['form-control']" #zona="ngModel" [minSearchLength]="2" [textSearching]="'Buscando...'" [placeholder]="'Buscar zona'"
+              [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
           </div>
-
           <div class="form-group">
-            <label class="control-label" for="seccion">Seleccione la sección</label>
-            <select #seccion="ngModel" [(ngModel)]="seccionId" name="seccion" class="form-control" id="seccion">
-              <option value="-1">-- Seleccione --</option>
-              <option *ngFor="let s of lstSeccion; let i = index" [attr.data-index]="i" value="{{i}}">{{s.nombre}}</option>
-              <option *ngIf="lstSeccion.length == 0" value="-1">No hay secciones</option>
-            </select>
+            <label class="control-label">Buscar sección</label>
+            <ng2-completer [(ngModel)]="seccionCompleter" [disableInput]="zonaId == null" (selected)="onSelectedSeccion($event)" [datasource]="dataServiceSeccion"
+              [inputClass]="['form-control']" #seccion="ngModel" [minSearchLength]="2" [textSearching]="'Buscando...'" [placeholder]="'Buscar sección'"
+              [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
           </div>
 
           <button type="button" class="btn btn-success" (click)="agregarSeccion(form)">Agregar</button>
@@ -185,45 +185,7 @@
       </form>
     </tab>
 
-    <tab heading="Categoria" [disabled]="!form.form.valid">
-
-
-      <br/>
-
-      <div class="row">
-
-        <div class="col-xs-6">
-
-          <div class="form-group">
-            <label class="control-label" for="categoria">Seleccione la unidad</label>
-            <select #categoria="ngModel" [(ngModel)]="canal.categoria" (change)="categoriaChange()" name="categoria" class="form-control"
-              id="categoria" required>
-              <option value="">-- Seleccione --</option>
-              <option value="CANAL_ADUCCION">Canal de aducción</option>
-              <option value="CANAL_PRINCIPAL">Canal principal</option>
-              <option value="CANAL_DISTRIBUCION">Canal de distribucion</option>
-              <option value="CANAL_LATERAL">Canal lateral</option>
-              <option value="CANAL_TERCIARIO">Canal terciario</option>
-            </select>
-          </div>
-
-        </div>
-
-        <div class="col-xs-6" *ngIf="canal.categoria != '' && canal.categoria != 'CANAL_ADUCCION' && canal.categoria != 'CANAL_PRINCIPAL'">
-
-          <div [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error' : 'form-group'">
-            <label class="control-label" for="canalSearch">Canal</label>
-            <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="2" [textSearching]="'Buscando...'"
-              [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
-              #canalSearch="ngModel" [(ngModel)]="searchCanal" id="canalSearch" name="canalSearch" required [clearUnselected]=true></ng2-completer>
-            <span class="msg-error" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>
-          </div>
-        </div>
-      </div>
-
-    </tab>
-
-    <tab heading="Obras">
+    <tab [disabled]="!form.form.valid" heading="Obras">
       <!-- [disabled]="disabledObras" -->
 
       <br/>
@@ -253,13 +215,18 @@
           </div>
 
           <div class="form-group">
-            <label>Latitud</label>
-            <input [(ngModel)]="gLatitud" placeholder="Ingrese la latitud" class="form-control" name="cLatitud" type="number" />
+            <label>X</label>
+            <input [(ngModel)]="gX" placeholder="Ingrese la coordenada x" class="form-control" name="cLatitud" type="number" />
           </div>
 
           <div class="form-group">
-            <label>Longitud</label>
-            <input [(ngModel)]="gLongitud" placeholder="Ingrese la longitud" class="form-control" name="cLongitud" type="number" />
+            <label>Y</label>
+            <input [(ngModel)]="gY" placeholder="Ingrese la coordenada y" class="form-control" name="cLongitud" type="number" />
+          </div>
+
+          <div class="form-group">
+            <label>Altitud</label>
+            <input [(ngModel)]="gAltitud" placeholder="Ingrese la altitud" class="form-control" name="cLongitud" type="number" />
           </div>
 
           <button class="btn btn-success" type="button" (click)="agregarObra()">Agregar</button>
@@ -279,49 +246,93 @@
           </table>
         </div>
       </div>
-
-      <br/>
-      <br/>
-      <button [disabled]="!form.form.valid || idObra >= 0" (click)="registrar(form)" type="button" class="btn btn-primary">Registrar</button>
     </tab>
+
+    <tab [disabled]="!form.form.valid || lstCanalObra.length == 0" heading="Categoria" >
+
+
+        <br/>
+  
+        <div class="row">
+  
+          <div class="col-xs-6">
+  
+            <div class="form-group">
+              <label class="control-label" for="categoria">Seleccione la categoria</label>
+              <select #categoria="ngModel" [(ngModel)]="canal.categoria" (change)="categoriaChange()" name="categoria" class="form-control"
+                id="categoria" required>
+                <option value="">-- Seleccione --</option>
+                <option value="CANAL_ADUCCION">Canal de aducción</option>
+                <option value="CANAL_PRINCIPAL">Canal principal</option>
+                <option value="CANAL_DISTRIBUCION">Canal de distribucion</option>
+                <option value="CANAL_LATERAL">Canal lateral</option>
+                <option value="CANAL_TERCIARIO">Canal terciario</option>
+              </select>
+            </div>
+
+            <button [disabled]="!form.form.valid || disabledObras" (click)="registrar(form)" type="button" class="btn btn-primary">Guardar</button>
+            <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
+  
+          </div>
+  
+          <div class="col-xs-6" *ngIf="canal.categoria != '' && canal.categoria != 'CANAL_ADUCCION' && canal.categoria != 'CANAL_PRINCIPAL'">
+  
+            <div [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error' : 'form-group'">
+              <label class="control-label" for="canalSearch">Canal</label>
+              <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="2" [textSearching]="'Buscando...'"
+                [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
+                #canalSearch="ngModel" [(ngModel)]="canalCompleter" id="canalSearch" name="canalSearch" required [clearUnselected]=true></ng2-completer>
+              <span class="msg-error" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>
+            </div>
+          </div>
+        </div>
+  
+      </tab>
 
   </tabset>
 
 
   <ng-template #templateEditar>
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Editar Obra</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Editar Obra</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label class="control-label">Obra</label>
+        <ng2-completer [(ngModel)]="obraCompleter" name="cObra" (selected)="onSelectedObra($event)" [datasource]="dataServiceObra" [inputClass]="['form-control']" [minSearchLength]="4"
+          [textSearching]="'Buscando...'" [placeholder]="'Buscar obra'" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
       </div>
-      <div class="modal-body">
-          <div class="form-group ">
-              <label for="obras">Obras</label>
-              <select [(ngModel)]="indexObraEditar" name="mObras" class="form-control">
-                <option *ngFor="let o of lstObra; let i = index" [attr.data-index]="i" value="{{i}}">{{o.nombre}}</option>
-                <option *ngIf="lstObra.length == 0" value="-1">No hay obras registradas</option>
-              </select>
-            </div>
-  
-            <div class="form-group">
-              <label class="control-label">Descripcion de la obra</label>
-              <textarea [(ngModel)]="canalObraEditar.descripcion" name="mestadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
-            </div>
-  
-            <div class="form-group">
-              <label>Latitud</label>
-              <input [(ngModel)]="canalObraEditar.latitud" placeholder="Ingrese la latitud" class="form-control" name="mcLatitud" type="number" />
-            </div>
-  
-            <div class="form-group">
-              <label>Longitud</label>
-              <input [(ngModel)]="canalObraEditar.longitud" placeholder="Ingrese la longitud" class="form-control" name="mcLongitud" type="number" />
-            </div>
+
+      <div class="form-group">
+        <label class="control-label">Descripcion de la obra</label>
+        <textarea [(ngModel)]="canalObraEditar.descripcion" name="mestadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
       </div>
-      <div class="modal-footer">
-          <button type="button" (click)="editarObra()" class="btn btn-success">Aceptar</button>
-          <button type="button" (click)="modalRef.hide()" class="btn btn-danger">Cancelar</button>
+
+      <div class="form-group">
+        <label>X</label>
+        <input [(ngModel)]="canalObraEditar.x" placeholder="Ingrese la coordenada x" class="form-control" name="mcLatitud" type="number"
+        />
       </div>
-    </ng-template>
+
+      <div class="form-group">
+        <label>Y</label>
+        <input [(ngModel)]="canalObraEditar.y" placeholder="Ingrese la coordenada y" class="form-control" name="mcLongitud" type="number"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Altitud</label>
+        <input [(ngModel)]="canalObraEditar.altitud" placeholder="Ingrese la altitud" class="form-control" name="mcLongitud" type="number"
+        />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="editarObra()" class="btn btn-success">Aceptar</button>
+      <button type="button" (click)="modalRef.hide()" class="btn btn-danger">Cancelar</button>
+    </div>
+  </ng-template>
 </div>

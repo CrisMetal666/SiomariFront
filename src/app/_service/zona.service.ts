@@ -6,12 +6,20 @@ import { url } from './var.const';
 @Injectable()
 export class ZonaService {
 
+  private url: string;
+
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+    this.url = `${url}/zona/`;
+  }
 
   registrar(zona: Zona) {
-    return this.http.post<Zona>(`${url}/zona`, zona);
+    return this.http.post<Zona>(`${this.url}`, zona);
+  }
+
+  editar(zona: Zona) {
+    return this.http.put<Zona>(`${this.url}`, zona);
   }
 
   /**
@@ -20,7 +28,7 @@ export class ZonaService {
    * @returns lista de zonas
    */
   buscarPorUnidadId(id: number) {
-    return this.http.get<Zona[]>(`${url}/zona/unidadId/${id}`);
+    return this.http.get<Zona[]>(`${this.url}unidadId/${id}`);
   }
 
   /**
@@ -31,6 +39,6 @@ export class ZonaService {
    */
   existePorNombreYUnidad(nombre: string, unidad: number){
     //los espacios en blanco se deben reemplazar por '+'
-    return this.http.get<any>(`${url}zona/existe/nombreYUnidad/${nombre.replace(' ', '+')}/${unidad}`);
+    return this.http.get<any>(`${this.url}existe/nombreYUnidad/${nombre.replace(' ', '+')}/${unidad}`);
   }
 }

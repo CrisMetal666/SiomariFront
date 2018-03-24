@@ -9,20 +9,23 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Ng2CompleterModule } from "ng2-completer";
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './test/login/login.component';
 import { GraficaComponent } from './test/grafica/grafica.component';
 import { TablasComponent } from './test/tablas/tablas.component';
-import { UnidadComponent } from './componentes/registrar/unidad/unidad.component';
-import { ZonaComponent } from './componentes/registrar/zona/zona.component';
-import { SeccionComponent } from './componentes/registrar/seccion/seccion.component';
-import { CanalComponent } from './componentes/registrar/canal/canal.component';
-import { PredioComponent } from './componentes/registrar/predio/predio.component';
-import { UsuarioComponent } from './componentes/registrar/usuario/usuario.component';
-import { CultivoComponent } from './componentes/registrar/cultivo/cultivo.component';
+import { UnidadComponent } from './componentes/unidad/unidad.component';
+import { ZonaComponent } from './componentes/zona/zona.component';
+import { SeccionComponent } from './componentes/seccion/seccion.component';
+import { CanalComponent } from './componentes/canal/canal.component';
+import { PredioComponent } from './componentes//predio/predio.component';
+import { UsuarioComponent } from './componentes/usuario/usuario.component';
+import { CultivoComponent } from './componentes/cultivo/cultivo.component';
 import { HeaderComponent } from './header/header.component';
-import { ObraComponent } from './componentes/registrar/obra/obra.component';
+import { ObraComponent } from './componentes/obra/obra.component';
+import { ClimatologiaComponent } from './componentes/climatologia/climatologia.component';
+import { PlanSiembraComponent } from './componentes/plan-siembra/plan-siembra.component';
 
 import { UnidadService } from './_service/unidad.service';
 import { ZonaService } from './_service/zona.service';
@@ -32,9 +35,11 @@ import { CultivoService } from './_service/cultivo.service';
 import { PredioService } from './_service/predio.service';
 import { ObraService } from './_service/obra.service';
 import { UsuarioService } from './_service/usuario.service';
-import { ClimatologiaComponent } from './componentes/climatologia/climatologia.component';
 import { ClimatologiaDatosService } from './_service/climatologia-datos.service';
 import { ClimatologiaYearService } from './_service/climatologia-year.service';
+import { CultivoPredioService } from './_service/cultivo-predio.service';
+import { PlanSiembraService } from './_service/plan-siembra.service';
+import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-siembra-info.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,9 @@ import { ClimatologiaYearService } from './_service/climatologia-year.service';
     CultivoComponent,
     HeaderComponent,
     ObraComponent,
-    ClimatologiaComponent
+    ClimatologiaComponent,
+    PlanSiembraComponent,
+    PlanSiembraInfoComponent
   ],
   imports: [
     BrowserModule, 
@@ -64,7 +71,8 @@ import { ClimatologiaYearService } from './_service/climatologia-year.service';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     Ng2CompleterModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     UnidadService,
@@ -76,7 +84,9 @@ import { ClimatologiaYearService } from './_service/climatologia-year.service';
     ObraService,
     UsuarioService,
     ClimatologiaDatosService,
-    ClimatologiaYearService
+    ClimatologiaYearService,
+    CultivoPredioService,
+    PlanSiembraService
   ],
   bootstrap: [AppComponent]
 })

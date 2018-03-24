@@ -6,16 +6,24 @@ import { Unidad } from '../_model/unidad';
 @Injectable()
 export class UnidadService {
 
+  private url: string;
+
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+    this.url = `${url}/unidad/`;
+  }
 
   registrar(unidad: Unidad) {
-    return this.http.post<Unidad>(`${url}/unidad`, unidad);
+    return this.http.post<Unidad>(`${this.url}`, unidad);
+  }
+
+  editar(unidad: Unidad) {
+    return this.http.put<Unidad>(`${this.url}`, unidad);
   }
 
   listarTodos() {
-    return this.http.get<Unidad[]>(`${url}/unidad`);
+    return this.http.get<Unidad[]>(`${this.url}`);
   }
 
   /**
@@ -25,7 +33,7 @@ export class UnidadService {
    */
   existePorNombre(nombre: string) {
     // se deben reemplazar los espacion es blanco con '+'
-    return this.http.get<any>(`${url}unidad/existe/nombre/${nombre.replace(' ', '+')}`);
+    return this.http.get<any>(`${this.url}existe/nombre/${nombre.replace(' ', '+')}`);
   }
 
 }

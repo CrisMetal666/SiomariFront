@@ -6,6 +6,40 @@
 
     <div class="collapse navbar-collapse">
 
+        <div class="nav navbar-nav">
+            <li class="dropdown" dropdown>
+              <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Editar
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a style="cursor: pointer" routerLink="canal/editar">Canal</a>
+                </li>
+                <li>
+                  <a style="cursor: pointer" routerLink="cultivo/editar">Cultivo</a>
+                </li>
+                <li>
+                  <a style="cursor: pointer" routerLink="obra/editar">Obra</a>
+                </li>
+                <li>
+                  <a style="cursor: pointer" routerLink="predio/editar">Predio</a>
+                </li>
+                <li>
+                  <a style="cursor: pointer" routerLink="seccion/editar">Sección</a>
+                </li>
+                <li>
+                  <a style="cursor: pointer" routerLink="unidad/editar">Unidad</a>
+                </li>
+                <li>
+                  <a style="cursor: pointer" routerLink="usuario/editar">Usuario</a>
+                </li>
+                <li>
+                  <a style="cursor: pointer" routerLink="zona/editar">Zona</a>
+                </li>
+              </ul>
+            </li>
+          </div>
+
       <div class="nav navbar-nav">
         <li class="dropdown" dropdown>
           <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Registrar
@@ -13,32 +47,34 @@
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/canal">Canal</a>
+              <a style="cursor: pointer" routerLink="canal/registrar">Canal</a>
             </li>
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/cultivo">Cultivo</a>
+              <a style="cursor: pointer" routerLink="cultivo/registrar">Cultivo</a>
             </li>
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/obra">Obra</a>
+              <a style="cursor: pointer" routerLink="obra/registrar">Obra</a>
             </li>
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/predio">Predio</a>
+              <a style="cursor: pointer" routerLink="predio/registrar">Predio</a>
             </li>
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/seccion">Sección</a>
+              <a style="cursor: pointer" routerLink="seccion/registrar">Sección</a>
             </li>
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/unidad">Unidad</a>
+              <a style="cursor: pointer" routerLink="unidad/registrar">Unidad</a>
             </li>
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/usuario">Usuario</a>
+              <a style="cursor: pointer" routerLink="usuario/registrar">Usuario</a>
             </li>
             <li>
-              <a style="cursor: pointer" routerLink="/registrar/zona">Zona</a>
+              <a style="cursor: pointer" routerLink="zona/registrar">Zona</a>
             </li>
           </ul>
         </li>
       </div>
+
+
 
 
 
@@ -54,8 +90,14 @@
           <a routerLink="/tablas">Tablas</a>
         </li>
       -->
-      <li>
+        <li>
           <a routerLink="/climatologia">Climatologia</a>
+        </li>
+        <li>
+          <a routerLink="/plan-siembra">Plan de siembra</a>
+        </li>
+        <li>
+          <a routerLink="/plan-siembra-info">PlaneacionInfo</a>
         </li>
       </ul>
 

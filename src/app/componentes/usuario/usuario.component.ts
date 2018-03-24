@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Usuario } from '../../../_model/usuario';
-import { Predio } from '../../../_model/predio';
-import { PredioService } from '../../../_service/predio.service';
+import { Usuario } from '../../_model/usuario';
+import { Predio } from '../../_model/predio';
+import { PredioService } from '../../_service/predio.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
-import { UsuarioService } from '../../../_service/usuario.service';
+import { UsuarioService } from '../../_service/usuario.service';
 
 @Component({
   selector: 'app-usuario',

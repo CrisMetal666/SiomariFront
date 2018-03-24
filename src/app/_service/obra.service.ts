@@ -6,16 +6,27 @@ import { Obra } from '../_model/obra';
 @Injectable()
 export class ObraService {
 
+  private url: string;
+  //url usada para autocompleter
+  public urlBuscarPorNombre: string;
+
   constructor(
     private http: HttpClient
-  ) { }
+  ) { 
+    this.url = `${url}obra/`;
+    this.urlBuscarPorNombre = `${this.url}nombre?s=`;
+  }
 
   registrar(unidad: Obra) {
-    return this.http.post<Obra>(`${url}obra`, unidad);
+    return this.http.post<Obra>(`${this.url}`, unidad);
+  }
+
+  editar(unidad: Obra) {
+    return this.http.put<Obra>(`${this.url}`, unidad);
   }
 
   listar() {
-    return this.http.get<Obra[]>(`${url}obra`);
+    return this.http.get<Obra[]>(`${this.url}`);
   }
 
   /**
@@ -25,7 +36,7 @@ export class ObraService {
    */
   existePorNombre(nombre: string) {
     // se deben reemplazar los espacion es blanco con '+'
-    return this.http.get<any>(`${url}obra/existe/nombre/${nombre.replace(' ', '+')}`);
+    return this.http.get<any>(`${this.url}existe/nombre/${nombre.replace(' ', '+')}`);
   }
 
 }

@@ -4,6 +4,6 @@ export class Kc {
 
     id: number;
     kc: number;
-    mes: number;
+    decada: number;
 	cultivoId: Cultivo;
 }
