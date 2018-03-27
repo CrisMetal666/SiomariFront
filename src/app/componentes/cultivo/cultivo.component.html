@@ -32,7 +32,7 @@
 
         <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label" for="nombre">Nombre</label>
-          <input [(ngModel)]="cultivo.nombre" #nombre="ngModel" name="nombre" required class="form-control" />
+          <input [(ngModel)]="cultivo.nombre" #nombre="ngModel" placeholder="Nombre del cultivo" name="nombre" required class="form-control" />
           <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
         </div>
 

@@ -36,8 +36,6 @@ export class SeccionComponent implements OnInit {
   public unidadId: Unidad;
   //se guarda el objeto seleccionado en el autocompleter zona
   public zonaId: Zona;
-  //se guarda el objeto seleccionado en el autocompleter seccion
-  public seccionId: Seccion;
   //texto que se mostrara en el autocompleter unidad del formulario
   public unidadCompleter: string;
   //texto que se mostrara en el autocompleter zona del formulario
@@ -70,6 +68,10 @@ export class SeccionComponent implements OnInit {
     * edicion, mostramos el formulario directamente para proceder con el registro
     */
       this._route.params.subscribe((params: Params) => {
+
+        //reseteamos las variables cada vez que cambien de pagina (editar,registrar)
+        this.resetVariables();
+        this.estado = undefined;
 
         if (params['edicion'] == 'editar') {
           this.edicion = true;
@@ -201,13 +203,16 @@ export class SeccionComponent implements OnInit {
     //verificamos que el nombre no exista
     this.seccionService.existePorNombreYZona(this.seccion.nombre, this.seccion.zonaId.id).subscribe(res => {
 
-      if (res.existe) {
-        this.estado = 2;
-        this.spinnerService.hide();
-        return;
-      }
+      let id = res.existe;
 
       if (this.edicion) {
+
+        //nos aseguramos que el nombre que se vaya a editar no exista
+        if (id != 0 && this.seccion.id != id) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
 
         this.seccionService.editar(this.seccion).subscribe(res => {
           this.spinnerService.hide();
@@ -223,6 +228,13 @@ export class SeccionComponent implements OnInit {
         });
 
       } else {
+
+        //verificamos que el nombre a registrar no exista
+        if (id != 0) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
 
         this.seccionService.registrar(this.seccion).subscribe((res: Seccion) => {
           this.spinnerService.hide();
@@ -245,7 +257,6 @@ export class SeccionComponent implements OnInit {
     this.seccion = new Seccion();
     this.unidadId = null;
     this.zonaId = null;
-    this.seccion = null;
     this.unidadCompleter = '';
     this.zonaCompleter = '';
   }

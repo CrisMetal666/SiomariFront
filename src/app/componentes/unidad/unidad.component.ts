@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { Unidad } from '../../_model/unidad';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { UnidadService } from '../../_service/unidad.service';
@@ -33,6 +33,7 @@ export class UnidadComponent implements OnInit {
     private completerService: CompleterService
   ) {
     this.unidad = new Unidad();
+    
   }
 
   ngOnInit() {
@@ -42,6 +43,10 @@ export class UnidadComponent implements OnInit {
     * edicion, mostramos el formulario directamente para proceder con el registro
     */
     this._route.params.subscribe((params: Params) => {
+      
+      // inicializamos las variables cada vez que cambie de pagina (editar, registrar)
+      this.unidad = new Unidad();
+      this.estado = undefined;
 
       if (params['edicion'] == 'editar') {
         this.edicion = true;
@@ -86,22 +91,27 @@ export class UnidadComponent implements OnInit {
 
     this.spinnerService.show();
 
+    //traemos el id de la unidad por su nombre para verificar su existencia
     this.unidadService.existePorNombre(this.unidad.nombre).subscribe(res => {
 
-      if (res.existe) {
-        this.estado = 2;
-        this.spinnerService.hide();
-        return;
-      }
+      let id = res.existe;
 
       //comprobamos si estams en de edicion o registro
       if (this.edicion) {
+
+        //nos aseguramos que el nombre que se vaya a editar no exista
+        if (id != 0 && this.unidad.id != id) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
+
         this.unidadService.editar(this.unidad).subscribe((res: Unidad) => {
 
           this.estado = 1;
           this.unidad = new Unidad();
           form.reset();
-          
+
           //volvemos a llenar el autocompleter con los datos nuevos
           this.unidadService.listarTodos().subscribe(res => {
             this.dataServiceUnidad = this.completerService.local(res, 'nombre', 'nombre');
@@ -115,6 +125,14 @@ export class UnidadComponent implements OnInit {
           this.estado = 0;
         });
       } else {
+
+        //verificamos que el nombre a registrar no exista
+        if (id != 0) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
+
         this.unidadService.registrar(this.unidad).subscribe((res: Unidad) => {
 
           this.estado = 1;

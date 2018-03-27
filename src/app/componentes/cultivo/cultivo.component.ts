@@ -49,6 +49,10 @@ export class CultivoComponent implements OnInit {
         */
     this._route.params.subscribe((params: Params) => {
 
+      //reseteamos las variables cada vez que cambien de pagina (editar,registrar)
+      this.resetVariables();
+      this.estado = undefined;
+
       if (params['edicion'] == 'editar') {
         this.edicion = true;
         this.mostrarForm = false;
@@ -127,45 +131,53 @@ export class CultivoComponent implements OnInit {
 
     this.cultivo.lstKc = this.kc;
 
-    if(this.edicion) {
+    this.cultivoService.existeCultivo(this.cultivo.nombre).subscribe((res: any) => {
 
-      this.cultivoService.editar(this.cultivo).subscribe(res => {
+      let id = res.existe;
 
-        this.estado = 1;
-        form.reset();
-        this.resetVariables();
-        this.mostrarForm = false;
+      if (this.edicion) {
 
-        this.spinnerService.hide();
-
-      });
-
-    } else {
-
-      this.cultivoService.existeCultivo(this.cultivo.nombre).subscribe((res: any) => {
-
-        //verificamos que el nombre no exista
-        if (res.existe) {
+        //nos aseguramos que el nombre que se vaya a editar no exista
+        if (id != 0 && this.cultivo.id != id) {
           this.estado = 2;
           this.spinnerService.hide();
           return;
         }
-  
+
+        this.cultivoService.editar(this.cultivo).subscribe(res => {
+
+          this.estado = 1;
+          form.reset();
+          this.resetVariables();
+          this.mostrarForm = false;
+
+          this.spinnerService.hide();
+
+        });
+
+      } else {
+
+        //verificamos que el nombre a registrar no exista
+        if (id != 0) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
+
         this.cultivoService.registrar(this.cultivo).subscribe(res => {
 
           this.estado = 1;
           form.reset();
           this.resetVariables();
-  
+
           this.spinnerService.hide();
-  
+
         });
-  
-      });
 
-    }
+      }
 
-    
+    });
+
   }
 
   resetVariables() {

@@ -56,6 +56,10 @@ export class PredioComponent implements OnInit {
     */
     this._route.params.subscribe((params: Params) => {
 
+      //reseteamos las variables cada vez que cambien de pagina (editar,registrar)
+      this.resetVariables();
+      this.estado = undefined;
+
       if (params['edicion'] == 'editar') {
         this.edicion = true;
         this.mostrarForm = false;
@@ -126,51 +130,62 @@ export class PredioComponent implements OnInit {
 
     this.spinnerService.show();
 
-    if (this.edicion) {
+    this.predioService.existePorCodigo(this.predio.codigo).subscribe(res => {
 
-      this.predioService.editar(this.predio).subscribe(res => {
+      let id = res.existe;
 
-        this.estado = 1;
-        form.reset();
-        this.resetVariables();
-        this.mostrarForm = false;
+      if (this.edicion) {
 
-        this.spinnerService.hide();
-
-      }, err => {
-        this.spinnerService.hide()
-        this.estado = 0;
-      });
-
-    } else {
-
-      this.predioService.existePorCodigo(this.predio.codigo).subscribe(res => {
-
-        //si el codigo ya ha sido registrado, le mostramos el mensaje al usuario
-        if (res.existe) {
+        //nos aseguramos que el nombre que se vaya a editar no exista
+        if (id != 0 && this.predio.id != id) {
           this.estado = 2;
           this.spinnerService.hide();
           return;
         }
 
+        this.predioService.editar(this.predio).subscribe(res => {
+  
+          this.estado = 1;
+          form.reset();
+          this.resetVariables();
+          this.mostrarForm = false;
+  
+          this.spinnerService.hide();
+  
+        }, err => {
+          this.spinnerService.hide()
+          this.estado = 0;
+        });
+  
+      } else {
+
+        //verificamos que el nombre a registrar no exista
+        if (id != 0) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
+  
         this.predioService.registrar(this.predio).subscribe(res => {
 
           this.estado = 1;
           form.reset();
           this.resetVariables();
-
+  
           this.spinnerService.hide();
-
+  
         }, err => {
           this.spinnerService.hide()
           this.estado = 0;
         });
+      }
 
-      }, err => {
-        this.estado = 0;
-        this.spinnerService.hide();
-      });
-    }
+    }, err => {
+      this.estado = 0;
+      this.spinnerService.hide();
+    });
+
+    
 
   }
 

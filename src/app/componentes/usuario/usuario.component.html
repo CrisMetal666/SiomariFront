@@ -5,19 +5,25 @@
   <br>
 
   <div *ngIf="estado == 1" class="alert alert-success" role="alert">
-    Usuario registrado exitosamente
+    La informacion se ha guardado correctamente.
   </div>
   <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
-    No se pudo registrar el usuario
+    Se ha producido un error, intente mas tarde.
   </div>
   <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
-    El usuario ya ha sido registrado
-  </div>
-  <div *ngIf="estado == 3" class="alert alert-warning" role="alert">
-    No se ha seleccionado el predio.
+    La identificacion ya existe.
   </div>
 
-  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
+  <form *ngIf="!mostrarForm" class="col-xs-6">
+    <div class="form-group">
+      <label>Buscar Usuario</label>
+      <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceUsuario" [minSearchLength]="5" [textSearching]="'Buscando...'"
+        [placeholder]="'Buscar por identificación'" [textNoResults]="'Sin resultados'" (selected)="onUsuarioSelect($event)"
+        [(ngModel)]="searchUsuario" name="cPredio" required [clearUnselected]=true></ng2-completer>
+    </div>
+  </form>
+
+  <form *ngIf="mostrarForm" #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
 
     <div class="row">
 
@@ -58,7 +64,8 @@
           <span class="msg-error" *ngIf="!predio.valid && predio.touched">Campo obligatorio</span>
         </div>
 
-        <button type="submit" [disabled]="!form.form.valid" class="btn btn-primary">Registrar</button>
+        <button type="submit" [disabled]="!form.form.valid || predioId == null" class="btn btn-primary">Guardar</button>
+        <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
 
       </div>
 

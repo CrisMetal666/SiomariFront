@@ -124,6 +124,10 @@ export class CanalComponent implements OnInit {
    */
       this._route.params.subscribe((params: Params) => {
 
+        //reseteamos las variables cada vez que cambien de pagina (editar,registrar)
+        this.resetVariables();
+        this.estatus = undefined;
+
         if (params['edicion'] == 'editar') {
           this.edicion = true;
           this.mostrarForm = false;
@@ -345,59 +349,73 @@ export class CanalComponent implements OnInit {
 
     this.spinnerService.show();
 
+    //llenamos las listas
     this.canal.lstSeccionCanal = this.lstSeccionCanal;
     this.canal.lstCanalObra = this.lstCanalObra;
 
+    //asignamos id del si canal si el canal pertenece a un canal padre
     if (this.canalId != null) this.canal.canalId = this.canalId;
 
-    if (this.edicion) {
+    //comprobamos que el canal no haya sido registrado antes
+    this.canalService.existeCanalPorCodigo(this.canal.codigo).subscribe(res => {
 
-      console.log(JSON.stringify(this.canal));
+      let id = res.existe;
 
-      this.canalService.editar(this.canal).subscribe(res => {
-        this.spinnerService.hide();
+      if (this.edicion) {
 
-        this.mostrarForm = false;
-        this.estatus = 1;
-        this.staticTabs.tabs[0].active = true;
-        form.reset();
-        this.resetVariables();
-        this.resetEstatus();
-        this.spinnerService.hide();
-
-      }, err => {
-        this.spinnerService.hide();
-        this.estatus = 0;
-      });
-
-    } else {
-      this.canalService.existeCanalPorCodigo(this.canal.codigo).subscribe(res => {
-
-        if (res.existe) {
+        //nos aseguramos que el nombre que se vaya a editar no exista
+        if (id != 0 && this.canal.id != id) {
           this.estatus = 2;
+          this.spinnerService.hide();
+          return;
+        }
+
+        this.canalService.editar(this.canal).subscribe(res => {
+          this.spinnerService.hide();
+
+          this.mostrarForm = false;
+          this.estatus = 1;
+          this.staticTabs.tabs[0].active = true;
+          form.reset();
+          this.resetVariables();
           this.resetEstatus();
           this.spinnerService.hide();
-        } else {
 
-          this.canalService.registrar(this.canal).subscribe(res => {
-            this.spinnerService.hide();
+        }, err => {
+          this.spinnerService.hide();
+          this.estatus = 0;
+        });
 
-            this.estatus = 1;
-            this.staticTabs.tabs[0].active = true;
-            form.reset();
-            this.resetVariables();
-            this.resetEstatus();
+      } else {
 
-          }, err => {
-            this.spinnerService.hide();
-          });
+        //verificamos que el nombre a registrar no exista
+        if (id != 0) {
+          this.estatus = 2;
+          this.spinnerService.hide();
+          return;
         }
-      }, err => {
-        this.estatus = 0;
-        this.resetEstatus();
-        this.spinnerService.hide();
-      });
-    }
+
+        this.canalService.registrar(this.canal).subscribe(res => {
+          this.spinnerService.hide();
+
+          this.estatus = 1;
+          this.staticTabs.tabs[0].active = true;
+          form.reset();
+          this.resetVariables();
+          this.resetEstatus();
+
+        }, err => {
+          this.spinnerService.hide();
+        });
+      }
+
+    }, err => {
+      this.estatus = 0;
+      this.resetEstatus();
+      this.spinnerService.hide();
+    });
+
+
   }
 
   agregarSeccion() {

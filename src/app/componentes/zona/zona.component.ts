@@ -59,6 +59,10 @@ export class ZonaComponent implements OnInit {
     */
       this._route.params.subscribe((params: Params) => {
 
+        //reseteamos las variables cada vez que cambien de pagina (editar,registrar)
+        this.resetVariables();
+        this.estado = undefined;
+
         if (params['edicion'] == 'editar') {
           this.edicion = true;
           this.mostrarForm = false;
@@ -108,7 +112,7 @@ export class ZonaComponent implements OnInit {
 
   //evento del autocompleter del formulario de registro
   onSelectedUnidad(selected: CompleterItem) {
-    
+
     // comprobamos que haya seleccionado la unidad
     if (selected) {
       this.unidadId = selected.originalObject;
@@ -135,7 +139,7 @@ export class ZonaComponent implements OnInit {
   /*
    * evento asociado al autocompleter del formulario para asegurarnos de que el formulario reactivo
    * trabaje bien y no deje oprimir el boton se guardar hasta que se haya seleccionado una unidad
-   */ 
+   */
   onKeyUpUnidad() {
     this.unidadId = null;
   }
@@ -143,13 +147,13 @@ export class ZonaComponent implements OnInit {
   onClickCancelar() {
     this.mostrarForm = false;
     this.resetVariables();
-    
+
   }
 
   registrar(form) {
 
     //verificamos que el completer este correctamente seleccionado
-    if(this.unidadId == null || this.unidadCompleter == '') return;
+    if (this.unidadId == null || this.unidadCompleter == '') return;
 
     this.spinnerService.show();
 
@@ -158,15 +162,19 @@ export class ZonaComponent implements OnInit {
     unidad.id = this.unidadId.id;
     this.zona.unidadId = unidad;
 
+    //traemos el id de la zona por su nombre para verificar su existencia
     this.zonaService.existePorNombreYUnidad(this.zona.nombre, this.zona.unidadId.id).subscribe(res => {
 
-      if (res.existe) {
-        this.estado = 2;
-        this.spinnerService.hide();
-        return;
-      }
+      let id = res.existe;
 
       if (this.edicion) {
+
+        //nos aseguramos que el nombre que se vaya a editar no exista
+        if (id != 0 && this.zona.id != id) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
 
         this.zonaService.editar(this.zona).subscribe((res: Zona) => {
 
@@ -182,6 +190,13 @@ export class ZonaComponent implements OnInit {
         });
 
       } else {
+
+        //verificamos que el nombre a registrar no exista
+        if (id != 0) {
+          this.estado = 2;
+          this.spinnerService.hide();
+          return;
+        }
 
         this.zonaService.registrar(this.zona).subscribe((res: Zona) => {
 
