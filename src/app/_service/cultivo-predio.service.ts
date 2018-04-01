@@ -53,5 +53,16 @@ export class CultivoPredioService {
     return this.http.get<PlaneacionInfo[]>(`${this.url}planeacionInfo/${cultivo}/${year}/${campania}`);
   }
 
+  /**
+   * se traera la informacion de siembra de todos los cultivos, cuantas hectareas fueron sembradas
+   * en cada mes que se haya hecho, y en cada mes se calculara la demanda de agua
+   * @param year año de la campaña
+   * @param campania campaña (A - B)
+   */
+  planeacionInfoDemanda(year: number, campania: string) {
+
+    return this.http.get<any>(`${this.url}planeacionInfoDemanda/${year}/${campania}`);
+  }
+
 
 }

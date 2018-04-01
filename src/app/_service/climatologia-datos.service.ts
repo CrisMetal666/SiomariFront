@@ -11,13 +11,6 @@ export class ClimatologiaDatosService {
     private http: HttpClient
   ) { }
 
-  /**
-   * se traera los datos por mes y año especificado
-   * @param mes se debe especificar del 1-12 siendo 1 = enero y 12 = diciembre
-   * @param year año
-   */
-  datosPorMesYYear(mes: number, year: number) {
-    return this.http.get<ClimatologiaDatos>(`${url}climatologiaDatos/mesYYear/${mes}/${year}`);
-  }
+  
 
 }

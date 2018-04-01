@@ -1,3 +1,4 @@
+/*              MODULE                                       */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,6 +12,7 @@ import { Ng2CompleterModule } from "ng2-completer";
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+/*              COMPONENT                                       */
 import { AppComponent } from './app.component';
 import { LoginComponent } from './test/login/login.component';
 import { GraficaComponent } from './test/grafica/grafica.component';
@@ -26,7 +28,9 @@ import { HeaderComponent } from './header/header.component';
 import { ObraComponent } from './componentes/obra/obra.component';
 import { ClimatologiaComponent } from './componentes/climatologia/climatologia.component';
 import { PlanSiembraComponent } from './componentes/plan-siembra/plan-siembra.component';
+import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-siembra-info.component';
 
+/*              SERVICE                                       */
 import { UnidadService } from './_service/unidad.service';
 import { ZonaService } from './_service/zona.service';
 import { SeccionService } from './_service/seccion.service';
@@ -39,7 +43,7 @@ import { ClimatologiaDatosService } from './_service/climatologia-datos.service'
 import { ClimatologiaYearService } from './_service/climatologia-year.service';
 import { CultivoPredioService } from './_service/cultivo-predio.service';
 import { PlanSiembraService } from './_service/plan-siembra.service';
-import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-siembra-info.component';
+import { DecadaService } from './_service/decada.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +90,8 @@ import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-s
     ClimatologiaDatosService,
     ClimatologiaYearService,
     CultivoPredioService,
-    PlanSiembraService
+    PlanSiembraService,
+    DecadaService
   ],
   bootstrap: [AppComponent]
 })

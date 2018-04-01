@@ -16,8 +16,7 @@
     <div class="col-xs-6">
       <div [ngClass]="(!cYear.valid && cYear.touched) ? 'form-group has-error' : 'form-group'">
         <label for="cYear">Año</label>
-        <input type="number" #cYear="ngModel" name="cYear" [(ngModel)]="year" class="form-control" placeholder="Ingrese el año"
-          required/>
+        <input type="number" #cYear="ngModel" name="cYear" [(ngModel)]="year" class="form-control" placeholder="Ingrese el año" required/>
         <span class="msg-error" *ngIf="!cYear.valid && cYear.touched">Valor incorrecto</span>
       </div>
 
@@ -31,6 +30,33 @@
     </div>
     <div class="col-xs-6" *ngIf="cMes.valid && mes > 0">
 
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Decada 1
+          <span (click)="onClickVer(1,template)" class="badge badge-primary badge-pill pointer">Ver</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Decada 2
+          <span (click)="onClickVer(2,template)" class="badge badge-primary badge-pill pointer">Ver</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Decada 3
+          <span (click)="onClickVer(3,template)" class="badge badge-primary badge-pill pointer">Ver</span>
+        </li>
+      </ul>
+
+      <button [disabled]="!form.form.valid || decada.decada1 == null || decada.decada2 == null || decada.decada3 == null" class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+  </form>
+</div>
+
+<ng-template #template>
+
+  <form #formModal="ngForm">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+    </div>
+    <div class="modal-body">
       <div [ngClass]="(!evaporacion.valid && evaporacion.touched) ? 'form-group has-error' : 'form-group'">
         <label for="evaporacion" class="control-label">Evaporación</label>
         <input [(ngModel)]="climatologiaDatos.evaporacion" #evaporacion="ngModel" type="number" name="evaporacion" class="form-control"
@@ -59,7 +85,11 @@
         <span class="msg-error" *ngIf="!qPrecipitacion.valid && qPrecipitacion.touched">Valor incorrecto</span>
       </div>
 
-      <button [disabled]="!form.form.valid" class="btn btn-primary" type="submit">Guardar</button>
+
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="!formModal.form.valid" (click)="onClickAceptar()" type="button" class="btn btn-info">Aceptar</button>
+      <button (click)="modalRef.hide()" type="button" class="btn btn-danger">Cancelar</button>
     </div>
   </form>
-</div>
+</ng-template>

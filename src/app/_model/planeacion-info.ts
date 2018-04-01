@@ -4,6 +4,8 @@ export class PlaneacionInfo {
 	periodo1: number;
 	periodo2: number;
 	periodo3: number;
-    total: number;
+	total: number;
+	cultivo: string;
+	demanda: any[];
     
 }
