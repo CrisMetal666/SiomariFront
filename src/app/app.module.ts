@@ -29,6 +29,8 @@ import { ObraComponent } from './componentes/obra/obra.component';
 import { ClimatologiaComponent } from './componentes/climatologia/climatologia.component';
 import { PlanSiembraComponent } from './componentes/plan-siembra/plan-siembra.component';
 import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-siembra-info.component';
+import { BalanceComponent } from './componentes/balance/balance.component';
+import { ConfigComponent } from './componentes/config/config.component';
 
 /*              SERVICE                                       */
 import { UnidadService } from './_service/unidad.service';
@@ -44,6 +46,7 @@ import { ClimatologiaYearService } from './_service/climatologia-year.service';
 import { CultivoPredioService } from './_service/cultivo-predio.service';
 import { PlanSiembraService } from './_service/plan-siembra.service';
 import { DecadaService } from './_service/decada.service';
+import { ConfigService } from './_service/config.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,9 @@ import { DecadaService } from './_service/decada.service';
     ObraComponent,
     ClimatologiaComponent,
     PlanSiembraComponent,
-    PlanSiembraInfoComponent
+    PlanSiembraInfoComponent,
+    BalanceComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule, 
@@ -91,7 +96,8 @@ import { DecadaService } from './_service/decada.service';
     ClimatologiaYearService,
     CultivoPredioService,
     PlanSiembraService,
-    DecadaService
+    DecadaService,
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })

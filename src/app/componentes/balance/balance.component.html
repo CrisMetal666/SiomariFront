@@ -1,0 +1,77 @@
+<div>
+  <h1>Balance</h1>
+
+  <br/>
+
+  <ng4-loading-spinner> </ng4-loading-spinner>
+
+  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    Ha ocurrido un error, intenta mas tarde.
+  </div>
+
+  <form (ngSubmit)="consultar()" class="form-inline">
+
+    <div class="form-group mb-4">
+      <input [(ngModel)]="year" #cYear="ngModel" name="year" type="number" class="form-control" placeholder="Año" required>
+    </div>
+    <select [(ngModel)]="campania" #cCampania="ngModel" name="campania" class="form-control mb-4" required>
+      <option value="">-- Seleccione la campaña --</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+    </select>
+    <button [disabled]="!cYear.valid || !cCampania.valid" type="submit" class="btn btn-primary mb-2">Consultar</button>
+
+  </form>
+
+  <br/>
+
+  <div *ngIf="balance.length == 0 && consultado" class="jumbotron">
+    <p class="lead">No hay cultivos en la campaña seleccionada.</p>
+  </div>
+
+  <table *ngIf="balance.length != 0" class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th class="text-vertical-center text-center" rowspan="2" colspan="2">Mes</th>
+        <th class="text-center" colspan="3">Volumen</th>
+        <th class="text-center">Total</th>
+      </tr>
+      <tr>
+        <th class="text-center">Decada 1</th>
+        <th class="text-center">Decada 2</th>
+        <th class="text-center">Decada 3</th>
+        <th class="text-center">
+          <span>
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <ng-container *ngFor="let item of balance">
+
+        <tr>
+          <th rowspan="2" class="text-vertical-center text-center">{{item.mes}}</th>
+          <th class="text-center">Demanda</th>
+          <td class="text-center">{{item.periodo1 | number}}</td>
+          <td class="text-center">{{item.periodo2 | number}}</td>
+          <td class="text-center">{{item.periodo3 | number}}</td>
+          <td class="text-center">{{item.total | number}}</td>
+        </tr>
+        <tr>
+          <th class="text-center">Balance</th>
+          <td [ngClass]="item.demanda[0].decada1 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada1 | number}}</td>
+          <td [ngClass]="item.demanda[0].decada2 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada2 | number}}</td>
+          <td [ngClass]="item.demanda[0].decada3 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada3 | number}}</td>
+          <td [ngClass]="item.demanda[0].total < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].total | number}}</td>
+        </tr>
+
+      </ng-container>
+    </tbody>
+  </table>
+
+</div>

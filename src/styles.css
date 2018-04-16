@@ -9,3 +9,11 @@ body {
 .pointer {
     cursor: pointer;
 }
+
+.balance-error {
+    background-color: #F8D7DA;
+}
+
+.balance-success {
+    background-color: #D4EDDA;
+}

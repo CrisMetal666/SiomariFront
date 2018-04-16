@@ -6,68 +6,68 @@
 
     <div class="collapse navbar-collapse">
 
-        <div class="nav navbar-nav">
-            <li class="dropdown" dropdown>
-              <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Editar
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a style="cursor: pointer" routerLink="canal/editar">Canal</a>
-                </li>
-                <li>
-                  <a style="cursor: pointer" routerLink="cultivo/editar">Cultivo</a>
-                </li>
-                <li>
-                  <a style="cursor: pointer" routerLink="obra/editar">Obra</a>
-                </li>
-                <li>
-                  <a style="cursor: pointer" routerLink="predio/editar">Predio</a>
-                </li>
-                <li>
-                  <a style="cursor: pointer" routerLink="seccion/editar">Sección</a>
-                </li>
-                <li>
-                  <a style="cursor: pointer" routerLink="unidad/editar">Unidad</a>
-                </li>
-                <li>
-                  <a style="cursor: pointer" routerLink="usuario/editar">Usuario</a>
-                </li>
-                <li>
-                  <a style="cursor: pointer" routerLink="zona/editar">Zona</a>
-                </li>
-              </ul>
+      <div class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Editar
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="canal/editar">Canal</a>
             </li>
-          </div>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="cultivo/editar">Cultivo</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="obra/editar">Obra</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="predio/editar">Predio</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="seccion/editar">Sección</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="unidad/editar">Unidad</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="usuario/editar">Usuario</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="zona/editar">Zona</a>
+            </li>
+          </ul>
+        </li>
+      </div>
 
       <div class="nav navbar-nav">
-        <li class="dropdown" dropdown>
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
           <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Registrar
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="canal/registrar">Canal</a>
             </li>
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="cultivo/registrar">Cultivo</a>
             </li>
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="obra/registrar">Obra</a>
             </li>
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="predio/registrar">Predio</a>
             </li>
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="seccion/registrar">Sección</a>
             </li>
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="unidad/registrar">Unidad</a>
             </li>
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="usuario/registrar">Usuario</a>
             </li>
-            <li>
+            <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="zona/registrar">Zona</a>
             </li>
           </ul>
@@ -91,31 +91,24 @@
         </li>
       -->
         <li>
+          <a routerLink="/tablas">Tablas</a>
+        </li>
+        <li [routerLinkActive]="['active']">
           <a routerLink="/climatologia">Climatologia</a>
         </li>
-        <li>
+        <li [routerLinkActive]="['active']">
           <a routerLink="/plan-siembra">Solicitud de siembra</a>
         </li>
-        <li>
+        <li [routerLinkActive]="['active']">
           <a routerLink="/plan-siembra-info">Plan de siembra</a>
         </li>
-      </ul>
-
-      <div class="nav navbar-nav navbar-right">
-        <li class="dropdown" appCombobox>
-          <a style="cursor: pointer" class="dropdown-toggle" role="button">Configuración
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a style="cursor: pointer">Mi perfil</a>
-            </li>
-            <li>
-              <a style="cursor: pointer">Cerrar sesión</a>
-            </li>
-          </ul>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/balance">Balance</a>
         </li>
-      </div>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/config">Configuración</a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

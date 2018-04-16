@@ -64,5 +64,15 @@ export class CultivoPredioService {
     return this.http.get<any>(`${this.url}planeacionInfoDemanda/${year}/${campania}`);
   }
 
+  /**
+   * consultara la demanda de cadal total mensual de todos los cultivos
+   * @param year año de la campaña
+   * @param campania campaña(A - B)
+   */
+  demandaTotalDecadal(year: number, campania: string) {
+
+    return this.http.get<any>(`${this.url}demandaTotalDecadal/${year}/${campania}`);
+  }
+
 
 }

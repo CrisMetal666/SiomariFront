@@ -136,7 +136,6 @@ export class ClimatologiaComponent implements OnInit {
     climatigaDatos.id = datos.id;
     climatigaDatos.evaporacion = datos.evaporacion;
     climatigaDatos.precipitacion = datos.precipitacion;
-    climatigaDatos.precipitacionEfecto = datos.precipitacionEfecto;
     climatigaDatos.qPrecipitacion = datos.qPrecipitacion;
 
     return climatigaDatos;

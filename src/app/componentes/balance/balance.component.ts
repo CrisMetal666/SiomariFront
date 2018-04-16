@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { CultivoPredioService } from '../../_service/cultivo-predio.service';
+import { Component } from '@angular/core';
 import { PlaneacionInfo } from '../../_model/planeacion-info';
+import { CultivoPredioService } from '../../_service/cultivo-predio.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { DecimalPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-plan-siembra-info',
-  templateUrl: './plan-siembra-info.component.html',
-  styleUrls: ['./plan-siembra-info.component.css']
+  selector: 'app-balance',
+  templateUrl: './balance.component.html',
+  styleUrls: ['./balance.component.css']
 })
-export class PlanSiembraInfoComponent {
+export class BalanceComponent {
 
-  //lista con la informacion que se mostrara al usuario al momento que den la orden de buscar
-  public lstPlaneacionInfo: any = [];
+  public balance: PlaneacionInfo[];
   //dependiendo del valor numerico se mostrara un mensaje al usuario
   public estado: number;
   public year: number;
@@ -26,16 +24,16 @@ export class PlanSiembraInfoComponent {
   ) { 
     this.campania = ''; 
     this.year = new Date().getFullYear();
-    this.lstPlaneacionInfo = [[]];
+    this.balance = [];
   }
 
   consultar() {
 
     this.spinnerService.show();
 
-    this.cultivoPredioService.planeacionInfoDemanda(this.year, this.campania).subscribe(res => {
+    this.cultivoPredioService.demandaTotalDecadal(this.year, this.campania).subscribe(res => {
 
-      this.lstPlaneacionInfo = res;
+      this.balance = res;
       this.consultado = true;
       this.spinnerService.hide();
 

@@ -45,7 +45,8 @@
         </li>
       </ul>
 
-      <button [disabled]="!form.form.valid || decada.decada1 == null || decada.decada2 == null || decada.decada3 == null" class="btn btn-primary" type="submit">Guardar</button>
+      <button [disabled]="!form.form.valid || decada.decada1 == null || decada.decada2 == null || decada.decada3 == null" class="btn btn-primary"
+        type="submit">Guardar</button>
     </div>
   </form>
 </div>
@@ -71,15 +72,15 @@
         <span class="msg-error" *ngIf="!precipitacion.valid && precipitacion.touched">Valor incorrecto</span>
       </div>
 
-      <div [ngClass]="(!precipitacionEfecto.valid && precipitacionEfecto.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="" class="control-label">Efecto de precipitación</label>
-        <input [(ngModel)]="climatologiaDatos.precipitacionEfecto" #precipitacionEfecto="ngModel" type="number" name="precipitacionEfecto"
-          class="form-control" placeholder="Ingrese el efecto de precipitación" required/>
-        <span class="msg-error" *ngIf="!precipitacionEfecto.valid && precipitacionEfecto.touched">Valor incorrecto</span>
-      </div>
-
       <div [ngClass]="(!qPrecipitacion.valid && qPrecipitacion.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="qPrecipitacion" class="control-label">Caudal de precipitación</label>
+        <label for="qPrecipitacion" class="control-label">Caudal del 75% de probabilidad
+          <span>
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>
+          </span>
+        </label>
         <input [(ngModel)]="climatologiaDatos.qPrecipitacion" #qPrecipitacion="ngModel" type="number" name="qPrecipitacion" class="form-control"
           placeholder="Ingrese el caudal de precipitación" required/>
         <span class="msg-error" *ngIf="!qPrecipitacion.valid && qPrecipitacion.touched">Valor incorrecto</span>
