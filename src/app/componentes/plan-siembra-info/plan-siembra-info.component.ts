@@ -12,7 +12,7 @@ import { DecimalPipe } from '@angular/common';
 export class PlanSiembraInfoComponent {
 
   //lista con la informacion que se mostrara al usuario al momento que den la orden de buscar
-  public lstPlaneacionInfo: any = [];
+  public lstPlaneacionInfo: any[][] = [];
   //dependiendo del valor numerico se mostrara un mensaje al usuario
   public estado: number;
   public year: number;
@@ -26,7 +26,7 @@ export class PlanSiembraInfoComponent {
   ) { 
     this.campania = ''; 
     this.year = new Date().getFullYear();
-    this.lstPlaneacionInfo = [[]];
+    this.lstPlaneacionInfo = [];
   }
 
   consultar() {
@@ -38,6 +38,8 @@ export class PlanSiembraInfoComponent {
       this.lstPlaneacionInfo = res;
       this.consultado = true;
       this.spinnerService.hide();
+
+      console.log(this.lstPlaneacionInfo.length);
 
     }, err => {
       this.estado = 0;

@@ -44,7 +44,7 @@ export class UsuarioComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataServicePredio = this.completerService.remote(this.predioService.urlBuscarIdCodigoNombrePorNombreOCodigo, 'nombre,codigo', 'nombre');
+    this.dataServicePredio = this.completerService.remote(this.predioService.urlBuscarIdCodigoNombrePorNombreOCodigoSinUsuarios, 'nombre,codigo', 'nombre');
     this.dataServiceUsuario = this.completerService.remote(this.usuarioService.urlBuscarPorIdentificacion, 'cedula', 'nombre');
     this.resetVariables();
 
@@ -170,6 +170,11 @@ export class UsuarioComponent implements OnInit {
 
 
     });
+  }
+
+  onClickCancelar() {
+    this.resetVariables();
+    this.mostrarForm = false;
   }
 
   resetVariables() {

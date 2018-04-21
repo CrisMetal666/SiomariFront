@@ -9,12 +9,14 @@ export class PredioService {
   private url: string;
   //Se usara en los autocompleter
   public urlBuscarIdCodigoNombrePorNombreOCodigo: string;
+  public urlBuscarIdCodigoNombrePorNombreOCodigoSinUsuarios: string;
 
   constructor(
     private http: HttpClient
   ) {
     this.url = `${url}predio/`;
     this.urlBuscarIdCodigoNombrePorNombreOCodigo= `${this.url}nombreOCodigo?s=`;
+    this.urlBuscarIdCodigoNombrePorNombreOCodigoSinUsuarios = `${this.url}sinUsuarios?s=`;
   }
 
   registrar(predio: Predio) {

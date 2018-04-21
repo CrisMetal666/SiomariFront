@@ -127,6 +127,10 @@ export class CanalComponent implements OnInit {
         //reseteamos las variables cada vez que cambien de pagina (editar,registrar)
         this.resetVariables();
         this.estatus = undefined;
+        if (this.staticTabs != undefined) {
+          // movemos el tab a la primera posicion
+          this.staticTabs.tabs[0].active = true;
+        }
 
         if (params['edicion'] == 'editar') {
           this.edicion = true;
@@ -182,6 +186,12 @@ export class CanalComponent implements OnInit {
 
         //necesario para que no bloquee el el boton de registrar
         this.categoriaChange();
+
+        if (res.canalId != null) {
+          // guardamos el canal y lo mostramos en el autocompleter
+          this.canalId = res.canalId;
+          this.canalCompleter = this.canalId.nombre;
+        }
 
         this.mostrarForm = true;
         this.spinnerService.hide();
