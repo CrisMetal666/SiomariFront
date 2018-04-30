@@ -12,6 +12,23 @@ import { Ng2CompleterModule } from "ng2-completer";
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+/*              SERVICE                                       */
+import { UnidadService } from './_service/unidad.service';
+import { ZonaService } from './_service/zona.service';
+import { SeccionService } from './_service/seccion.service';
+import { CanalService } from './_service/canal.service';
+import { CultivoService } from './_service/cultivo.service';
+import { PredioService } from './_service/predio.service';
+import { ObraService } from './_service/obra.service';
+import { UsuarioService } from './_service/usuario.service';
+import { ClimatologiaDatosService } from './_service/climatologia-datos.service';
+import { ClimatologiaYearService } from './_service/climatologia-year.service';
+import { CultivoPredioService } from './_service/cultivo-predio.service';
+import { PlanSiembraService } from './_service/plan-siembra.service';
+import { DecadaService } from './_service/decada.service';
+import { ConfigService } from './_service/config.service';
+import { EstructuraControlService } from './_service/estructura-control.service';
+
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
 import { LoginComponent } from './test/login/login.component';
@@ -31,22 +48,7 @@ import { PlanSiembraComponent } from './componentes/plan-siembra/plan-siembra.co
 import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-siembra-info.component';
 import { BalanceComponent } from './componentes/balance/balance.component';
 import { ConfigComponent } from './componentes/config/config.component';
-
-/*              SERVICE                                       */
-import { UnidadService } from './_service/unidad.service';
-import { ZonaService } from './_service/zona.service';
-import { SeccionService } from './_service/seccion.service';
-import { CanalService } from './_service/canal.service';
-import { CultivoService } from './_service/cultivo.service';
-import { PredioService } from './_service/predio.service';
-import { ObraService } from './_service/obra.service';
-import { UsuarioService } from './_service/usuario.service';
-import { ClimatologiaDatosService } from './_service/climatologia-datos.service';
-import { ClimatologiaYearService } from './_service/climatologia-year.service';
-import { CultivoPredioService } from './_service/cultivo-predio.service';
-import { PlanSiembraService } from './_service/plan-siembra.service';
-import { DecadaService } from './_service/decada.service';
-import { ConfigService } from './_service/config.service';
+import { EstructuraControlComponent } from './componentes/estructura-control/estructura-control.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { ConfigService } from './_service/config.service';
     PlanSiembraComponent,
     PlanSiembraInfoComponent,
     BalanceComponent,
-    ConfigComponent
+    ConfigComponent,
+    EstructuraControlComponent
   ],
   imports: [
     BrowserModule, 
@@ -97,7 +100,8 @@ import { ConfigService } from './_service/config.service';
     CultivoPredioService,
     PlanSiembraService,
     DecadaService,
-    ConfigService
+    ConfigService,
+    EstructuraControlService
   ],
   bootstrap: [AppComponent]
 })

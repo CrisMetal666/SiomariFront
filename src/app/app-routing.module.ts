@@ -16,6 +16,7 @@ import { PlanSiembraComponent } from './componentes/plan-siembra/plan-siembra.co
 import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-siembra-info.component';
 import { BalanceComponent } from './componentes/balance/balance.component';
 import { ConfigComponent } from './componentes/config/config.component';
+import { EstructuraControlComponent } from './componentes/estructura-control/estructura-control.component';
 
 
 const appRoutes: Routes = [
@@ -33,7 +34,7 @@ const appRoutes: Routes = [
     { path: 'balance', component: BalanceComponent },
     { path: 'login', component: LoginComponent },
     { path: 'grafica', component: GraficaComponent },
-    { path: 'tablas', component: TablasComponent },
+    { path: 'estructura-control', component: EstructuraControlComponent },
     { path: 'config', component: ConfigComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
