@@ -6,6 +6,200 @@
 
     <div class="collapse navbar-collapse">
 
+      <!-- Menu principal -->
+      <ul *ngIf="seleccionado == 0" class="nav navbar-nav">
+        <li (click)="cambiarNav(1)">
+          <a class="cursor-nav">Planeación</a>
+        </li>
+        <li (click)="cambiarNav(2)">
+          <a class="cursor-nav">Registro</a>
+        </li>
+        <li (click)="cambiarNav(3)">
+          <a class="cursor-nav">Estructura operacional</a>
+        </li>
+        <li (click)="cambiarNav(4)">
+          <a class="cursor-nav">Hidrometría</a>
+        </li>
+        <li (click)="cambiarNav(5)">
+          <a class="cursor-nav">Programación</a>
+        </li>
+        <li (click)="cambiarNav(6)">
+          <a class="cursor-nav">Distribución</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a class="cursor-nav" routerLink="/entrega">Entregas</a>
+        </li>
+        <li (click)="cambiarNav(8)">
+          <a class="cursor-nav">Reportes</a>
+        </li>
+      </ul>
+
+      <!-- Sub-menu 1 -->
+      <ul *ngIf="seleccionado == 1" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/plan-siembra">Solicitud de siembra</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/plan-siembra-info">Plan de siembra</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/balance">Balance</a>
+        </li>
+      </ul>
+
+      <!-- Sub-menu 2 -->
+      <div *ngIf="seleccionado == 2" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Predio
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="predio/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="predio/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <div *ngIf="seleccionado == 2" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Usuario
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="usuario/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="usuario/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <!-- Sub-menu 3 -->
+      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Unidad
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="unidad/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="unidad/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Zona
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="zona/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="zona/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Seccion
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="seccion/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="seccion/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Canal
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="canal/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="canal/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Cultivo
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="cultivo/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="cultivo/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
+          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Obra
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="obra/registrar">Registrar</a>
+            </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="obra/editar">Editar</a>
+            </li>
+          </ul>
+        </li>
+      </div>
+
+      <ul *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/estructura-control">Estructura de control</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/climatologia">Climatologia</a>
+        </li>
+
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/config">Configuración</a>
+        </li>
+      </ul>
+
+      <!-- Sub-menu 8 -->
+      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/reporte/caudalServido">Entregas</a>
+        </li>
+      </ul>
+
+
+
+      <!--
       <div class="nav navbar-nav">
         <li [routerLinkActive]="['active']" class="dropdown" dropdown>
           <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Editar
@@ -74,39 +268,24 @@
         </li>
       </div>
 
-
-
-
-
       <ul class="nav navbar-nav">
-        <!--
-        <li>
-          <a routerLink="/login">Login</a>
-        </li>
-        <li>
-          <a routerLink="/grafica">Grafica</a>
-        </li>
-        <li>
-          <a routerLink="/tablas">Tablas</a>
-        </li>
-      -->
         <li [routerLinkActive]="['active']">
           <a routerLink="/estructura-control">Estructura de control</a>
         </li>
         <li [routerLinkActive]="['active']">
           <a routerLink="/climatologia">Climatologia</a>
         </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/plan-siembra">Solicitud de siembra</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/plan-siembra-info">Plan de siembra</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/balance">Balance</a>
-        </li>
+        
         <li [routerLinkActive]="['active']">
           <a routerLink="/config">Configuración</a>
+        </li>
+      </ul>
+
+      -->
+
+      <ul *ngIf="seleccionado != 0" class="nav navbar-nav">
+        <li (click)="cambiarNav(0)">
+          <a class="cursor-nav">Atras</a>
         </li>
       </ul>
     </div>

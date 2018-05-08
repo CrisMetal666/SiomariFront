@@ -17,6 +17,8 @@ import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-s
 import { BalanceComponent } from './componentes/balance/balance.component';
 import { ConfigComponent } from './componentes/config/config.component';
 import { EstructuraControlComponent } from './componentes/estructura-control/estructura-control.component';
+import { EntregaComponent } from './componentes/entrega/entrega.component';
+import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consulta-entrega.component';
 
 
 const appRoutes: Routes = [
@@ -36,6 +38,8 @@ const appRoutes: Routes = [
     { path: 'grafica', component: GraficaComponent },
     { path: 'estructura-control', component: EstructuraControlComponent },
     { path: 'config', component: ConfigComponent },
+    { path: 'entrega', component: EntregaComponent },
+    { path: 'reporte/caudalServido', component: ConsultaEntregaComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

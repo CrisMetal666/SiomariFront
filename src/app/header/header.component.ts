@@ -7,9 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  /**
+   * mostrara los sub-menus
+   * 0 - Mostrara el menu principal
+   * 1 - Planeación
+   * 2 - Registro
+   * 3 - Estructura operacional
+   * 4 - Hidrometría
+   * 5 - Programación
+   * 6 - Distribución
+   * 7 - Entregas
+   * 8 - Reportes
+   */
+  public seleccionado: number;
+
+  constructor() { 
+    this.seleccionado = 0;
+  }
 
   ngOnInit() {
+  }
+
+  cambiarNav(seleccion: number) {
+    this.seleccionado = seleccion;
   }
 
 }

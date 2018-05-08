@@ -11,6 +11,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Ng2CompleterModule } from "ng2-completer";
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 /*              SERVICE                                       */
 import { UnidadService } from './_service/unidad.service';
@@ -28,6 +29,7 @@ import { PlanSiembraService } from './_service/plan-siembra.service';
 import { DecadaService } from './_service/decada.service';
 import { ConfigService } from './_service/config.service';
 import { EstructuraControlService } from './_service/estructura-control.service';
+import { EntregaService } from './_service/entrega.service';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
@@ -49,6 +51,8 @@ import { PlanSiembraInfoComponent } from './componentes/plan-siembra-info/plan-s
 import { BalanceComponent } from './componentes/balance/balance.component';
 import { ConfigComponent } from './componentes/config/config.component';
 import { EstructuraControlComponent } from './componentes/estructura-control/estructura-control.component';
+import { EntregaComponent } from './componentes/entrega/entrega.component';
+import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consulta-entrega.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +74,9 @@ import { EstructuraControlComponent } from './componentes/estructura-control/est
     PlanSiembraInfoComponent,
     BalanceComponent,
     ConfigComponent,
-    EstructuraControlComponent
+    EstructuraControlComponent,
+    EntregaComponent,
+    ConsultaEntregaComponent
   ],
   imports: [
     BrowserModule, 
@@ -84,7 +90,8 @@ import { EstructuraControlComponent } from './componentes/estructura-control/est
     TabsModule.forRoot(),
     Ng2CompleterModule,
     ModalModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot()
   ],
   providers: [
     UnidadService,
@@ -101,7 +108,8 @@ import { EstructuraControlComponent } from './componentes/estructura-control/est
     PlanSiembraService,
     DecadaService,
     ConfigService,
-    EstructuraControlService
+    EstructuraControlService,
+    EntregaService
   ],
   bootstrap: [AppComponent]
 })
