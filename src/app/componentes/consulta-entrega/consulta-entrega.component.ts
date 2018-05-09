@@ -4,6 +4,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { EntregaService } from '../../_service/entrega.service';
 import { PredioService } from '../../_service/predio.service';
 import { Predio } from '../../_model/predio';
+import { EntregaInfo } from '../../_model/entrega-info';
 
 @Component({
   selector: 'app-consulta-entrega',
@@ -20,14 +21,19 @@ export class ConsultaEntregaComponent implements OnInit {
   public rango: Date[];
   //segun el valor mostrara un mensaje al usuaruio
   public estado: number;
-  //guardara el caudal para mostrarlo al usuario
-  public caudal: number;
+  //lista del caudal entregado
+  public lstCaudal: EntregaInfo[];
+  public total: EntregaInfo;
 
   constructor(
     private completerService: CompleterService,
     private predioService: PredioService,
-    private entregaService: EntregaService
-  ) { }
+    private entregaService: EntregaService,
+    private spinnerService: Ng4LoadingSpinnerService
+  ) {
+    this.lstCaudal = [];
+    this.total = new EntregaInfo();
+  }
 
   ngOnInit() {
     //inicializamos los autocompleter
@@ -50,13 +56,31 @@ export class ConsultaEntregaComponent implements OnInit {
     let fecha1: string = this.getYearMesDia(this.rango[0]);
     let fecha2: string = this.getYearMesDia(this.rango[1]);
 
+    this.spinnerService.show();
+
     this.entregaService.caudalServidoPorRangoFecha(fecha1, fecha2, this.predio.id).subscribe(res => {
 
-      this.estado = 1;
-      this.caudal = res.caudal;
+      //obtenemos el tamaño de la lista
+      let size: number = res.length;
+
+      if (size != 0) {
+
+        // dejamos por fuera el ultimo elemento de la lista ya que es el total
+        this.lstCaudal = res.slice(0, size - 1);
+        //asignamos el ultimo elemento para poder mostrarlo adecuadamente en la tabla
+        this.total = res[size - 1];
+        // decimos que todo esta ok y mostramos el resultado
+        this.estado = 1;
+
+      } else {
+        this.estado = 2;
+      }
+
+      this.spinnerService.hide();
 
     }, err => {
       this.estado = 0;
+      this.spinnerService.hide();
     });
 
   }

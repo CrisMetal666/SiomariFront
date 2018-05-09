@@ -70,6 +70,9 @@ export class EntregaComponent implements OnInit {
         this.estado = 1;
         this.spinnerService.hide();
 
+        this.resetVariables();
+        form.reset();
+
       }, err => {
         this.estado = 0;
         this.spinnerService.hide();

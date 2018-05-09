@@ -7,6 +7,9 @@
   <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
     Ha ocurrido un error, intenta mas tarde.
   </div>
+  <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+    No hay registros que mostrar
+  </div>
 
   <form #form="ngForm" (ngSubmit)="registrar(form)">
 
@@ -41,13 +44,38 @@
 
   <br>
 
-  <div *ngIf="estado == 1" class="row">
-    <div class="col-lg-4">
-    </div><!-- /.col-lg-4 -->
-    <div class="col-lg-4">
-      <h2>Caudal servido: {{caudal | number}}L</h2>
-    </div><!-- /.col-lg-4 -->
-    <div class="col-lg-4">
-      
-    </div><!-- /.col-lg-4 -->
-  </div><!-- /.row -->
+  <table *ngIf="estado == 1" class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center" class="text-vertical-center text-center">Fecha</th>
+        <th class="text-center">Segundos</th>
+        <th class="text-center">Volumen
+          <span>(
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>)
+          </span>
+        </th>
+        <th class="text-center">Costo</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let item of lstCaudal">
+        <td class="text-center">{{item.fecha}}</td>
+        <td class="text-center">{{item.segundos}}</td>
+        <td class="text-center">{{item.m3 | number}}</td>
+        <td class="text-center">{{item.costo | number}}</td>
+      </tr>
+
+      <tr>
+        <th class="text-center">Total</th>
+        <td class="text-center">{{total.segundos}}</td>
+        <td class="text-center">{{total.m3 | number}}</td>
+        <td class="text-center">{{total.costo | number}}</td>
+      </tr>
+
+    </tbody>
+  </table>

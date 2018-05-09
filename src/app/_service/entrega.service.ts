@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { Entrega } from '../_model/entrega';
+import { EntregaInfo } from '../_model/entrega-info';
 
 @Injectable()
 export class EntregaService {
@@ -25,7 +26,7 @@ export class EntregaService {
    * @param predio id del predio
    */
   caudalServidoPorRangoFecha(inicio: string, fin: string, predio: number) {
-    return this.http.get<any>(`${this.url}caudalServidoPorRangoFecha?inicio=${inicio}&fin=${fin}&predio=${predio}`);
+    return this.http.get<EntregaInfo[]>(`${this.url}caudalServidoPorRangoFecha?inicio=${inicio}&fin=${fin}&predio=${predio}`);
   }
 
 

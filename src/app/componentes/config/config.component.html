@@ -1,4 +1,4 @@
-<div class="col-xs-6">
+<div class="col-xs-12">
 
   <h2>Datos basicos</h2>
 
@@ -13,35 +13,58 @@
 
   <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
 
-    <div [ngClass]="(!cLamina.valid && cLamina.touched) ? 'form-group has-error' : 'form-group'">
-      <label class="control-label">Lamina</label>
-      <input type="number" class="form-control" placeholder="Ingrese la lamina" #cLamina="ngModel" name="lamina" [(ngModel)]="config.lamina"
-        required/>
-      <span class="msg-error" *ngIf="!cLamina.valid && cLamina.touched">Valor incorrecto</span>
+    <div class="col-xs-6">
+
+      <div [ngClass]="(!cLamina.valid && cLamina.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Lamina</label>
+        <input type="number" class="form-control" placeholder="Ingrese la lamina" #cLamina="ngModel" name="lamina" [(ngModel)]="config.lamina"
+          required/>
+        <span class="msg-error" *ngIf="!cLamina.valid && cLamina.touched">Valor incorrecto</span>
+      </div>
+
+      <div [ngClass]="(!cEficiencia.valid && cEficiencia.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Eficiencia</label>
+        <input type="number" class="form-control" placeholder="Ingrese la eficiencia" #cEficiencia="ngModel" name="eficiencia" [(ngModel)]="config.eficiencia"
+          required/>
+        <span class="msg-error" *ngIf="!cEficiencia.valid && cEficiencia.touched">Valor incorrecto</span>
+      </div>
+
+      <div [ngClass]="(!cCaudal.valid && cCaudal.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Caudal del 75% de probabilidad</label>
+        <input type="number" class="form-control" placeholder="Ingrese el caudal del 75% de probabilidad" #cCaudal="ngModel" name="caudal"
+          [(ngModel)]="config.caudal" required/>
+        <span class="msg-error" *ngIf="!cCaudal.valid && cCaudal.touched">Valor incorrecto</span>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Guardar</button>
+
     </div>
 
-    <div [ngClass]="(!cEficiencia.valid && cEficiencia.touched) ? 'form-group has-error' : 'form-group'">
-      <label class="control-label">Eficiencia</label>
-      <input type="number" class="form-control" placeholder="Ingrese la eficiencia" #cEficiencia="ngModel" name="eficiencia" [(ngModel)]="config.eficiencia"
-        required/>
-      <span class="msg-error" *ngIf="!cEficiencia.valid && cEficiencia.touched">Valor incorrecto</span>
+    <div class="col-xs-6">
+
+      <div [ngClass]="(!cHoras.valid && cHoras.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Horas de riego</label>
+        <input type="number" class="form-control" placeholder="Ingrese las horas de riego" #cHoras="ngModel" name="horas" [(ngModel)]="config.horas"
+          required/>
+        <span class="msg-error" *ngIf="!cHoras.valid && cHoras.touched">Valor incorrecto</span>
+      </div>
+
+      <div [ngClass]="(!cCosto.valid && cCosto.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Costo del
+          <span>
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>
+          </span> de agua</label>
+        <input type="number" class="form-control" placeholder="Ingrese el costo" #cCosto="ngModel" name="costo" [(ngModel)]="config.costo"
+          required/>
+        <span class="msg-error" *ngIf="!cCosto.valid && cCosto.touched">Valor incorrecto</span>
+      </div>
+
     </div>
 
-    <div [ngClass]="(!cCaudal.valid && cCaudal.touched) ? 'form-group has-error' : 'form-group'">
-      <label class="control-label">Caudal del 75% de probabilidad</label>
-      <input type="number" class="form-control" placeholder="Ingrese el caudal del 75% de probabilidad" #cCaudal="ngModel" name="caudal"
-        [(ngModel)]="config.caudal" required/>
-      <span class="msg-error" *ngIf="!cCaudal.valid && cCaudal.touched">Valor incorrecto</span>
-    </div>
 
-    <div [ngClass]="(!cHoras.valid && cHoras.touched) ? 'form-group has-error' : 'form-group'">
-      <label class="control-label">Horas de riego</label>
-      <input type="number" class="form-control" placeholder="Ingrese las horas de riego" #cHoras="ngModel" name="horas" [(ngModel)]="config.horas"
-        required/>
-      <span class="msg-error" *ngIf="!cHoras.valid && cHoras.touched">Valor incorrecto</span>
-    </div>
-    
-    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Guardar</button>
   </form>
 
 </div>

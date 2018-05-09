@@ -30,6 +30,7 @@ import { DecadaService } from './_service/decada.service';
 import { ConfigService } from './_service/config.service';
 import { EstructuraControlService } from './_service/estructura-control.service';
 import { EntregaService } from './_service/entrega.service';
+import { ManejoAguaService } from './_service/manejo-agua.service';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
@@ -53,6 +54,8 @@ import { ConfigComponent } from './componentes/config/config.component';
 import { EstructuraControlComponent } from './componentes/estructura-control/estructura-control.component';
 import { EntregaComponent } from './componentes/entrega/entrega.component';
 import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consulta-entrega.component';
+import { ManejoAguaRegistrarComponent } from './componentes/manejo-agua-registrar/manejo-agua-registrar.component';
+import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/manejo-agua-grafica.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +79,9 @@ import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consult
     ConfigComponent,
     EstructuraControlComponent,
     EntregaComponent,
-    ConsultaEntregaComponent
+    ConsultaEntregaComponent,
+    ManejoAguaRegistrarComponent,
+    ManejoAguaGraficaComponent
   ],
   imports: [
     BrowserModule, 
@@ -109,7 +114,8 @@ import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consult
     DecadaService,
     ConfigService,
     EstructuraControlService,
-    EntregaService
+    EntregaService,
+    ManejoAguaService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,62 @@
+<div class="row">
+
+    <div class="row">
+
+        <h2>Grafica de manejo de agua</h2>
+
+        <br/>
+
+        <div class="col-xs-6">
+
+            <form class="form-inline">
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="choose" />
+                    <label class="form-check-label">Unidad</label>
+
+
+                    <input class="form-check-input" type="radio" name="choose" />
+                    <label class="form-check-label">Zona</label>
+
+                    <input class="form-check-input" type="radio" name="choose" />
+                    <label class="form-check-label">Sección</label>
+
+                    <input class="form-check-input" type="radio" name="choose" checked/>
+                    <label class="form-check-label">Canal</label>
+                </div>
+
+            </form>
+
+            <form>
+                <div [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
+                    <label class="control-label">{{textCompleter}}</label>
+                    <ng2-completer [(ngModel)]="searchPredio" [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="4"
+                        [textSearching]="'Buscando...'" [placeholder]="textCompleter" [textNoResults]="'Sin resultados'" [pause]="1000"
+                        (selected)="onCanalSelect($event)" #cSource="ngModel" name="predioSearch" [clearUnselected]="true" required></ng2-completer>
+                    <span class="msg-error" *ngIf="cSource.invalid && cSource.touched">Campo obligatorio</span>
+                </div>
+
+                <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
+                    <label class="control-label">Fecha y hora de entrega</label>
+                    <input [(ngModel)]="fecha" [(ngModel)]="ff" #cFecha="ngModel" name="cFecha" type="text" class="form-control" #drp="bsDaterangepicker"
+                        bsDaterangepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required
+                        placeholder="Ingrese la fecha" />
+                    <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Consultar</button>
+            </form>
+
+        </div>
+    </div>
+
+    <div *ngIf="mostrarGrafica" class="row">
+        <div style="height: 500px; width: 600px">
+            <div style="display: block; height:400">
+                <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                    [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>

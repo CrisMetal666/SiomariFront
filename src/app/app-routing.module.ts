@@ -19,7 +19,8 @@ import { ConfigComponent } from './componentes/config/config.component';
 import { EstructuraControlComponent } from './componentes/estructura-control/estructura-control.component';
 import { EntregaComponent } from './componentes/entrega/entrega.component';
 import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consulta-entrega.component';
-
+import { ManejoAguaRegistrarComponent } from './componentes/manejo-agua-registrar/manejo-agua-registrar.component';
+import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/manejo-agua-grafica.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent },
@@ -40,6 +41,8 @@ const appRoutes: Routes = [
     { path: 'config', component: ConfigComponent },
     { path: 'entrega', component: EntregaComponent },
     { path: 'reporte/caudalServido', component: ConsultaEntregaComponent },
+    { path: 'registro-manejo-agua', component: ManejoAguaRegistrarComponent },
+    { path: 'registro-manejo-grafica', component: ManejoAguaGraficaComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

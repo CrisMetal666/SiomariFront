@@ -5,5 +5,6 @@ export class Config {
     eficiencia: number;
     caudal: number;
     horas: number;
+    costo: number;
 
 }
