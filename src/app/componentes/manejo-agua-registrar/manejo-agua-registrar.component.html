@@ -14,9 +14,28 @@
     La informacion ya se encuentra registrada.
   </div>
 
-  <form #form="ngForm" (ngSubmit)="registrar(form)">
+  <form>
+    <div class="row">
+      <div class="col-xs-6">
+        <div *ngIf="!seleccionado" [ngClass]="(cCanal.invalid && cCanal.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Canal</label>
+          <ng2-completer [(ngModel)]="nombreCanal" [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="4"
+            [disableInput]="seleccionado" [textSearching]="'Buscando...'" [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'"
+            [pause]="1000" (selected)="onCanalSelect($event)" #cCanal="ngModel" name="predioSearch" [clearUnselected]="true"
+            required></ng2-completer>
+          <span class="msg-error" *ngIf="cCanal.invalid && cCanal.touched">Campo obligatorio</span>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <form *ngIf="seleccionado" #form="ngForm" (ngSubmit)="registrar(form)">
 
     <div class="col-xs-6">
+
+      <div class="form-group">
+        <input type="text" class="form-control" value="{{nombreCanal}}" disabled />
+      </div>
 
       <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
         <label class="control-label">Fecha y hora de entrega</label>
@@ -26,42 +45,57 @@
         <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
       </div>
 
-      <div [ngClass]="(cCanal.invalid && cCanal.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Canal</label>
-        <ng2-completer [(ngModel)]="searchPredio" [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="4"
-          [textSearching]="'Buscando...'" [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="1000"
-          (selected)="onCanalSelect($event)" #cCanal="ngModel" name="predioSearch" [clearUnselected]="true" required></ng2-completer>
-        <span class="msg-error" *ngIf="cCanal.invalid && cCanal.touched">Campo obligatorio</span>
-      </div>
-
       <div [ngClass]="(cCSo.invalid && cCSo.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Caudal solicitado</label>
+        <label class="control-label">Caudal solicitado
+          <span>(
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>/ s)
+          </span>
+        </label>
         <input [(ngModel)]="manejoAgua.qSolicitado" #cCSo="ngModel" name="cCSo" type="number" class="form-control" placeholder="Ingrese el caudal solicitado"
           required />
         <span class="msg-error" *ngIf="cCSo.invalid && cCSo.touched">Valor incorrecto</span>
       </div>
 
       <button [disabled]="!form.form.valid || canal == null" type="submit" class="btn btn-primary">Guardar</button>
+      <button *ngIf="seleccionado" (click)="cancelar(form)" type="button" class="btn btn-info">Cancelar</button>
+
     </div>
 
     <div class="col-xs-6">
 
       <div [ngClass]="(cCE.invalid && cCE.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Caudal extraido</label>
+        <label class="control-label">Caudal extraido
+          <span>(
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>/ s)
+          </span>
+        </label>
         <input [(ngModel)]="manejoAgua.qExtraido" #cCE="ngModel" name="cCE" type="number" class="form-control" placeholder="Ingrese el caudal extraido"
           required />
         <span class="msg-error" *ngIf="cCE.invalid && cCE.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(cCSe.invalid && cCSe.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Caudal servido</label>
+        <label class="control-label">Caudal servido
+          <span>(
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>/ s)
+          </span>
+        </label>
         <input [(ngModel)]="manejoAgua.qServido" #cCSe="ngModel" name="cCSe" type="number" class="form-control" placeholder="Ingrese el caudal servido"
           required />
         <span class="msg-error" *ngIf="cCSe.invalid && cCSe.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(cA.invalid && cA.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Area</label>
+        <label class="control-label">Area (ha)</label>
         <input [(ngModel)]="manejoAgua.area" #cA="ngModel" name="cA" type="number" class="form-control" placeholder="Ingrese el area"
           required />
         <span class="msg-error" *ngIf="cA.invalid && cA.touched">Valor incorrecto</span>
