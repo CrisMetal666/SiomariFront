@@ -184,15 +184,15 @@ export class CanalComponent implements OnInit {
 
         });
 
-        //necesario para que no bloquee el el boton de registrar
-        this.categoriaChange();
-
         if (res.canalId != null) {
           // guardamos el canal y lo mostramos en el autocompleter
           this.canalId = res.canalId;
           this.canalCompleter = this.canalId.nombre;
         }
 
+        //necesario para que no bloquee el el boton de registrar
+        this.categoriaChange();
+        
         this.mostrarForm = true;
         this.spinnerService.hide();
 

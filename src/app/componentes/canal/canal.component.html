@@ -185,7 +185,7 @@
       </form>
     </tab>
 
-    <tab [disabled]="!form.form.valid" heading="Obras">
+    <tab [disabled]="!form.form.valid || lstSeccionCanal.length == 0" heading="Obras">
       <!-- [disabled]="disabledObras" -->
 
       <br/>
@@ -248,7 +248,7 @@
       </div>
     </tab>
 
-    <tab [disabled]="!form.form.valid || lstCanalObra.length == 0" heading="Categoria" >
+    <tab [disabled]="!form.form.valid || lstCanalObra.length == 0 || lstSeccionCanal.length == 0" heading="Categoria" >
 
 
         <br/>
