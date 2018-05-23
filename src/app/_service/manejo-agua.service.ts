@@ -43,6 +43,30 @@ export class ManejoAguaService {
   }
 
   /**
+	 * se calculara la lamina neta y los valores necesarios para hacer la
+	 * programacion semanal del canal, seccion, zona o unidad
+	 * 
+	 * @param tipo
+	 *            especifiracara si los valores corresponden a canal, seccion, zona
+	 *            o unidad.1 = unidad, 2 = zona, 3 = seccion, 4 = canal
+	 * 
+	 * @param id
+	 *            id correspondiente del tipo seleccionado
+	 * 
+	 * @param txtFecha
+	 *            fecha de la semana de la programacion (yyyy-mm-dd) debe de ser un
+	 *            lunes
+	 * 
+	 * @return 0 = idRegistro, 1 = lamina neta (m), 2 = area, 3 = capacidad del canal
+	 */
+  public programacionSemanal(id: number, tipo: number, fecha: Date) {
+
+    let txtFecha = this.dateToString(fecha);
+
+    return this.http.get<Array<number>>(`${this.url}programacionSemanal?fecha=${txtFecha}&id=${id}&tipo=${tipo}`);
+  }
+
+  /**
    * se devuleve la fecha en formato yyyy-mm-dd
    * @param fecha fecha a parcear
    * @return fecha en texto

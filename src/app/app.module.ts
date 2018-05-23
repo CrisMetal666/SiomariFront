@@ -31,6 +31,7 @@ import { ConfigService } from './_service/config.service';
 import { EstructuraControlService } from './_service/estructura-control.service';
 import { EntregaService } from './_service/entrega.service';
 import { ManejoAguaService } from './_service/manejo-agua.service';
+import { ProgramacionSemanalService } from './_service/programacion-semanal.service';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import { EntregaComponent } from './componentes/entrega/entrega.component';
 import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consulta-entrega.component';
 import { ManejoAguaRegistrarComponent } from './componentes/manejo-agua-registrar/manejo-agua-registrar.component';
 import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/manejo-agua-grafica.component';
+import { ProgramacionSemanalComponent } from './componentes/programacion-semanal/programacion-semanal.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/ma
     EntregaComponent,
     ConsultaEntregaComponent,
     ManejoAguaRegistrarComponent,
-    ManejoAguaGraficaComponent
+    ManejoAguaGraficaComponent,
+    ProgramacionSemanalComponent
   ],
   imports: [
     BrowserModule, 
@@ -115,7 +118,8 @@ import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/ma
     ConfigService,
     EstructuraControlService,
     EntregaService,
-    ManejoAguaService
+    ManejoAguaService,
+    ProgramacionSemanalService
   ],
   bootstrap: [AppComponent]
 })

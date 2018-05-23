@@ -21,6 +21,7 @@ import { EntregaComponent } from './componentes/entrega/entrega.component';
 import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consulta-entrega.component';
 import { ManejoAguaRegistrarComponent } from './componentes/manejo-agua-registrar/manejo-agua-registrar.component';
 import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/manejo-agua-grafica.component';
+import { ProgramacionSemanalComponent } from './componentes/programacion-semanal/programacion-semanal.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent },
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     { path: 'reporte/caudalServido', component: ConsultaEntregaComponent },
     { path: 'registro-manejo-agua', component: ManejoAguaRegistrarComponent },
     { path: 'registro-manejo-grafica', component: ManejoAguaGraficaComponent },
+    { path: 'programacion-semanal', component: ProgramacionSemanalComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

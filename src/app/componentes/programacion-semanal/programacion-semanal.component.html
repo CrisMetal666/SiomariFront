@@ -1,0 +1,152 @@
+<div class="row">
+
+  <div class="row">
+
+    <h2>Programación semanal</h2>
+
+    <ng4-loading-spinner> </ng4-loading-spinner>
+
+    <br/>
+
+    <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+      Información guardada exitosamente.
+    </div>
+    <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+      El canal no posee información para realizar la consulta.
+    </div>
+    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+      Ha ocurrido un error, intente mas tarde.
+    </div>
+
+  </div>
+
+  <div *ngIf="!consultado" class="row">
+
+    <div class="col-xs-6">
+
+      <form class="form-inline">
+
+        <div class="form-check form-check-inline">
+          <input (click)="onClickChoose(1,formAC)" class="form-check-input" type="radio" name="choose" />
+          <label class="form-check-label">Unidad</label>
+
+
+          <input (click)="onClickChoose(2,formAC)" class="form-check-input" type="radio" name="choose" />
+          <label class="form-check-label">Zona</label>
+
+          <input (click)="onClickChoose(3,formAC)" class="form-check-input" type="radio" name="choose" />
+          <label class="form-check-label">Sección</label>
+
+          <input (click)="onClickChoose(4,formAC)" class="form-check-input" type="radio" name="choose" checked/>
+          <label class="form-check-label">Canal</label>
+        </div>
+
+      </form>
+
+      <form #formAC="ngForm" autocomplete="off">
+
+        <div *ngIf="tipoConsulta != 4" [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Unidad</label>
+          <ng2-completer [(ngModel)]="sUnidad" [inputClass]="['form-control']" [datasource]="dataUnidad" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
+            #cUnidad="ngModel" name="unidadC" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
+        </div>
+
+        <div *ngIf="tipoConsulta == 2 || tipoConsulta == 3" [ngClass]="(cZona.invalid && cZona.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Zona</label>
+          <ng2-completer [(ngModel)]="sZona" [inputClass]="['form-control']" [datasource]="dataZona" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
+            #cZona="ngModel" name="zonaS" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
+        </div>
+
+        <div *ngIf="tipoConsulta == 3" [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Sección</label>
+          <ng2-completer [(ngModel)]="sSeccion" [inputClass]="['form-control']" [datasource]="dataSeccion" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
+            #cSeccion="ngModel" name="seccionC" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
+        </div>
+
+        <div *ngIf="tipoConsulta == 4" [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Canal</label>
+          <ng2-completer [(ngModel)]="sCanal" [inputClass]="['form-control']" [datasource]="dataCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
+            #cSource="ngModel" name="predioSearch" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cSource.invalid && cSource.touched">Campo obligatorio</span>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="col-xs-6">
+
+      <form #form="ngForm" (ngSubmit)="consultar()" autocomplete="off">
+        <!--[ngClass]="((cFecha.invalid && cFecha.touched) || fechaInvalida) ? 'form-group has-error' : 'form-group'"-->
+        <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Fecha</label>
+          <input [(bsValue)]="fecha" [(ngModel)]="ff" #cFecha="ngModel" name="cFecha" type="text" class="form-control" #dp="bsDatepicker"
+            (bsValueChange)="onValueChange($event)" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+            required placeholder="Ingrese la fecha (debe de ser un lunes)" />
+          <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
+          <span class="msg-error" *ngIf="fechaInvalida">La fecha debe de ser un lunes</span>
+        </div>
+        <button [disabled]="!form.form.valid || !formAC.form.valid || !valido || fechaInvalida" class="btn btn-primary" type="submit">Consultar</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div *ngIf="consultado" class="row">
+
+    <form #formSave="ngForm" (ngSubmit)="registrar(formSave)" autocomplete="off">
+
+      <div class="col-xs-6">
+
+        <div class="form-group">
+          <label>Lamina (m)</label>
+          <input value="{{data[1]}}" type="text" class="form-control" readonly/>
+        </div>
+
+        <div [ngClass]="(!cHa.valid && cHa.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Superficie (ha)</label>
+          <input [(ngModel)]="ha" (keyup)="onKeyUpHa($event)" type="number" class="form-control" placeholder="Ingrese la superficie" #cHa="ngModel" name="nombre" 
+            required/>
+          <span class="msg-error" *ngIf="!cHa.valid && cHa.touched">Valor incorrecto</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!formSave.form.valid || consumo > data[3]">Guardar</button>
+        <button type="button" class="btn btn-danger" (click)="consultado = false">Cancelar</button>
+      </div>
+
+      <div class="col-xs-6">
+        <div [ngClass]="(consumo > data[3]) ? 'form-group has-error' : 'form-group'">
+          <label>Gasto necesario
+            <span>(
+              <i>m</i>
+              <sup>
+                <i>3</i>
+              </sup>
+              <i>/seg</i>)</span>
+          </label>
+          <input value="{{consumo.toFixed(3)}}" type="text" class="form-control" readonly/>
+          <span class="msg-error" *ngIf="consumo > data[3]">El gasto necesario rebosa la capacidad del canal.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Capacidad del canal
+            <span>(
+              <i>m</i>
+              <sup>
+                <i>3</i>
+              </sup>
+              <i>/seg</i>)</span>
+          </label>
+          <input value="{{data[3]}}" type="text" class="form-control" readonly/>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

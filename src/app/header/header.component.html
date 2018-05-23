@@ -283,15 +283,22 @@
 
       -->
 
-       <!-- Sub-menu 6 -->
-       <ul *ngIf="seleccionado == 6" class="nav navbar-nav">
-          <li [routerLinkActive]="['active']">
-            <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
-          </li>
-          <li [routerLinkActive]="['active']">
-            <a routerLink="/registro-manejo-grafica">Grafica de manejo de agua</a>
-          </li>
-        </ul>
+      <!-- Sub-menu 5 -->
+      <ul *ngIf="seleccionado == 5" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/programacion-semanal">Programacion semanal</a>
+        </li>
+      </ul>
+
+      <!-- Sub-menu 6 -->
+      <ul *ngIf="seleccionado == 6" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/registro-manejo-grafica">Grafica de manejo de agua</a>
+        </li>
+      </ul>
 
       <ul *ngIf="seleccionado != 0" class="nav navbar-nav">
         <li (click)="cambiarNav(0)">
