@@ -89,7 +89,6 @@ export class ManejoAguaRegistrarComponent implements OnInit {
 
   resetVariables(): void {
     this.manejoAgua = new ManejoAgua();
-    this.canal = null;
   }
 
 }
