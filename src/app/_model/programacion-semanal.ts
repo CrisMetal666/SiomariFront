@@ -5,4 +5,6 @@ export class ProgramacionSemanal {
 	area: number;
 	fecha: Date;
 	canalId: number;
+	eficiencia: number;
+	capacidadCanal: number;
 }

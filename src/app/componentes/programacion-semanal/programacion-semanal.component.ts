@@ -8,7 +8,6 @@ import { SeccionService } from '../../_service/seccion.service';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { ManejoAguaService } from '../../_service/manejo-agua.service';
 import { ProgramacionSemanal } from '../../_model/programacion-semanal';
 import { ProgramacionSemanalService } from '../../_service/programacion-semanal.service';
 
@@ -50,10 +49,8 @@ export class ProgramacionSemanalComponent implements OnInit {
   public fecha: Date;
   // sera true si la fecha seleccionada no es un lunes
   public fechaInvalida: boolean;
-  // se guardara id del registro, lamina neta, area, caudal diseño consultados
-  public data: Array<number>;
-  //almacenara la superficie re riego
-  public ha: number;
+  // se guardara la informacion consultada y se usara para enviar los datos a guardar
+  public programacionSemanal: ProgramacionSemanal;
   // se almacenara el gasto necesario que se calculara cuando se modifique el area y recien se consulta la informacion
   public consumo: number;
   // sera true si fue consltado la informacion para asi mostrar el form
@@ -67,7 +64,6 @@ export class ProgramacionSemanalComponent implements OnInit {
     private zonaService: ZonaService,
     private seccionService: SeccionService,
     private _localeService: BsLocaleService,
-    private manejoAguaService: ManejoAguaService,
     private programacionSemanalService: ProgramacionSemanalService
   ) {
     this.tipoConsulta = 4;
@@ -196,23 +192,20 @@ export class ProgramacionSemanalComponent implements OnInit {
 
     this.spinnerService.show();
 
-    this.manejoAguaService.programacionSemanal(this.idCanal, 4, this.fecha).subscribe(res => {
+    this.programacionSemanalService.programacionSemanal(this.idCanal, 4, this.fecha).subscribe(res => {
 
       // verificamos que el canal si posee la informacion para realizar los calculos
-      if (res.length == 0 || res.length == 1) {
+      if (res.area == 0) {
 
-        this.data = [0, 0, 0, 0];
         this.estado = 2;
         this.spinnerService.hide();
         return;
       }
 
       //guardamos la informacion en el array
-      this.data = res;
-      //asignamos la superficie para que pueda ser modificada desde el form
-      this.ha = res[2];
+      this.programacionSemanal = res;
       //calculamos el consumo de agua
-      this.consumo = res[2] * res[1] * 10000 / 604800;
+      this.consumo = this.programacionSemanal.area * this.programacionSemanal.lamina * 10000 / 604800;
       //borramos cualquier estado que pudiera haber
       this.estado = undefined;
       //mostramos el form
@@ -230,7 +223,7 @@ export class ProgramacionSemanalComponent implements OnInit {
   //volvemos a calcular el consumo cuando modifiquen el area
   onKeyUpHa(event: any) {
 
-    this.consumo = this.data[1] * event.target.value * 10000 / 604800;
+    this.consumo = this.programacionSemanal.lamina * event.target.value * 10000 / 604800;
   }
 
   /*
@@ -255,22 +248,16 @@ export class ProgramacionSemanalComponent implements OnInit {
 
   registrar(form) {
 
-    let programacionSemanal: ProgramacionSemanal = new ProgramacionSemanal();
-
-    programacionSemanal.id = this.data[0];
-    programacionSemanal.fecha = this.fecha;
-    programacionSemanal.lamina = this.data[1];
-    programacionSemanal.area = this.ha;
-    programacionSemanal.canalId = this.idCanal;
+    this.programacionSemanal.fecha = this.fecha;
 
     this.spinnerService.show();
 
-    this.programacionSemanalService.guardar(programacionSemanal).subscribe(res => {
+    this.programacionSemanalService.guardar(this.programacionSemanal).subscribe(res => {
 
       this.estado = 1;
       form.reset();
       this.consultado = false;
-      
+
       this.spinnerService.hide();
 
     }, err => {

@@ -106,23 +106,23 @@
 
         <div class="form-group">
           <label>Lamina (m)</label>
-          <input value="{{data[1]}}" type="text" class="form-control" readonly/>
+          <input value="{{programacionSemanal.lamina}}" type="text" class="form-control" readonly/>
         </div>
 
         <div [ngClass]="(!cHa.valid && cHa.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label">Superficie (ha)</label>
-          <input [(ngModel)]="ha" (keyup)="onKeyUpHa($event)" type="number" class="form-control" placeholder="Ingrese la superficie" #cHa="ngModel" name="nombre" 
+          <input [(ngModel)]="programacionSemanal.area" (keyup)="onKeyUpHa($event)" type="number" class="form-control" placeholder="Ingrese la superficie" #cHa="ngModel" name="nombre" 
             required/>
           <span class="msg-error" *ngIf="!cHa.valid && cHa.touched">Valor incorrecto</span>
         </div>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!formSave.form.valid || consumo > data[3]">Guardar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!formSave.form.valid || consumo > programacionSemanal.capacidadCanal">Guardar</button>
         <button type="button" class="btn btn-danger" (click)="consultado = false">Cancelar</button>
       </div>
 
       <div class="col-xs-6">
-        <div [ngClass]="(consumo > data[3]) ? 'form-group has-error' : 'form-group'">
-          <label>Gasto necesario
+        <div [ngClass]="(consumo > programacionSemanal.capacidadCanal) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Gasto necesario
             <span>(
               <i>m</i>
               <sup>
@@ -131,7 +131,7 @@
               <i>/seg</i>)</span>
           </label>
           <input value="{{consumo.toFixed(3)}}" type="text" class="form-control" readonly/>
-          <span class="msg-error" *ngIf="consumo > data[3]">El gasto necesario rebosa la capacidad del canal.</span>
+          <span class="msg-error" *ngIf="consumo > programacionSemanal.capacidadCanal">El gasto necesario rebosa la capacidad del canal.</span>
         </div>
 
         <div class="form-group">
@@ -143,7 +143,7 @@
               </sup>
               <i>/seg</i>)</span>
           </label>
-          <input value="{{data[3]}}" type="text" class="form-control" readonly/>
+          <input value="{{programacionSemanal.capacidadCanal}}" type="text" class="form-control" readonly/>
         </div>
       </div>
 
