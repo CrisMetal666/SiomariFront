@@ -1,3 +1,117 @@
-<p>
-  calculo-q-semanal works!
-</p>
+<div class="row">
+
+  <div class="row">
+
+    <h2>Calculo de caudal semanal</h2>
+
+    <ng4-loading-spinner> </ng4-loading-spinner>
+
+    <br/>
+
+    <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+      No hay informacion.
+    </div>
+    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+      Ha ocurrido un error, intente mas tarde.
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-xs-6">
+
+      <form class="form-inline">
+
+        <div class="form-check form-check-inline">
+          <input (click)="onClickChoose(1,formAC)" class="form-check-input" type="radio" name="choose" />
+          <label class="form-check-label">Unidad</label>
+
+
+          <input (click)="onClickChoose(2,formAC)" class="form-check-input" type="radio" name="choose" />
+          <label class="form-check-label">Zona</label>
+
+          <input (click)="onClickChoose(3,formAC)" class="form-check-input" type="radio" name="choose" />
+          <label class="form-check-label">Sección</label>
+
+          <input (click)="onClickChoose(4,formAC)" class="form-check-input" type="radio" name="choose" checked/>
+          <label class="form-check-label">Canal</label>
+        </div>
+
+      </form>
+
+      <form #formAC="ngForm" autocomplete="off">
+
+        <div [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Canal</label>
+          <ng2-completer [(ngModel)]="sCanal" [inputClass]="['form-control']" [datasource]="dataCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
+            #cSource="ngModel" name="predioSearch" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cSource.invalid && cSource.touched">Campo obligatorio</span>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="col-xs-6">
+
+      <form #form="ngForm" (ngSubmit)="consultar()" autocomplete="off">
+
+        <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Fecha</label>
+          <input [(bsValue)]="fecha" [(ngModel)]="ff" #cFecha="ngModel" name="cFecha" type="text" class="form-control" #dp="bsDatepicker"
+            (bsValueChange)="onValueChange($event)" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }"
+            required placeholder="Ingrese la fecha (debe de ser un lunes)" />
+          <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
+          <span class="msg-error" *ngIf="fechaInvalida">La fecha debe de ser un lunes</span>
+        </div>
+
+        <button [disabled]="!form.form.valid || !formAC.form.valid || idCanal == 0 || fechaInvalida" class="btn btn-primary" type="submit">Consultar</button>
+      </form>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div *ngIf="consultado" class="row">
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">Calculo de caudal semanal</div>
+
+      <table class="table">
+        <tr>
+          <th class="text-center">Superficie (ha)</th>
+          <th class="text-center">Caudal solicitado
+            <span>(
+              <i>m</i>
+              <sup>
+                <i>3</i>
+              </sup>
+              <i>/seg</i>)
+            </span>
+          </th>
+          <th class="text-center">Factor</th>
+          <th class="text-center">Caudal total
+            <span>(
+              <i>m</i>
+              <sup>
+                <i>3</i>
+              </sup>
+              <i>/seg</i>)
+            </span>
+          </th>
+        </tr>
+        <tr>
+          <td class="text-center">{{programacionSemanal.area}}</td>
+          <td class="text-center">{{caudalSolicitado | number:'1.3-3'}}</td>
+          <td class="text-center">{{1/programacionSemanal.eficiencia | number:'1.2-2'}}</td>
+          <td class="text-center">{{caudalTotal | number:'1.3-3'}}</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+

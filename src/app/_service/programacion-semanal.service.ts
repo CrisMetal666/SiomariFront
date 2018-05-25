@@ -47,6 +47,13 @@ export class ProgramacionSemanalService {
     return this.http.get<ProgramacionSemanal>(`${this.url}programacionSemanal?fecha=${txtFecha}&id=${id}&tipo=${tipo}`);
   }
 
+  buscarPorFechaYCanalId(id: number, fecha: Date) {
+
+    let txtFecha = this.dateToString(fecha);
+
+    return this.http.get<ProgramacionSemanal>(`${this.url}buscarPorFechaYCanalId?fecha=${txtFecha}&id=${id}`);
+  }
+
   /**
    * se devuleve la fecha en formato yyyy-mm-dd
    * @param fecha fecha a parcear
