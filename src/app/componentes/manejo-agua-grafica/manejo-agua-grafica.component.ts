@@ -272,16 +272,20 @@ export class ManejoAguaGraficaComponent implements OnInit {
         }
 
         //valores del eje x que son igual a la cantidad de posiciones en el array
-        let ejeX: Array<number> = [];
+        let ejeX: Array<string> = [];
 
         for (let i = 1; i <= res[0].length; i++) {
-          ejeX.push(i);
+          
+          let fechaX = new Date();
+          fechaX.setDate(this.fecha[0].getDate() + i - 1);
+
+          ejeX.push(fechaX.toISOString().substring(0,10));
         }
 
         this.lineChartData = [
-          { data: res[2], label: 'Eficiencia' },
-          { data: res[1], label: 'Lam' },
-          { data: res[0], label: 'Ln' },
+          { data: res[2], label: 'Eficiencia ( % )' },
+          { data: res[1], label: 'Lam ( cm )' },
+          { data: res[0], label: 'Ln ( cm )' },
         ];
 
         this.lineChartLabels = ejeX;

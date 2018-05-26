@@ -90,7 +90,14 @@
         </div>
     </div>
 
+    <br/>
+
     <div *ngIf="mostrarGrafica" class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="text-center">Grafica de eficiencia - lamina - tiempo</h3>
+            </div>
+        </div>
         <div style="height: 500px; width: 100%; padding-bottom: 20px">
             <div style="display: block; height:400">
                 <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
