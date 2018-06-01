@@ -5,4 +5,5 @@ export class Unidad {
     id: number;
 	nombre: string;
 	lstZona: Zona[];
+	canalServidor: number;
 }

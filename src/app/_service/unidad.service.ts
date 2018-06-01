@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { Unidad } from '../_model/unidad';
+import { Canal } from '../_model/canal';
 
 @Injectable()
 export class UnidadService {
@@ -36,4 +37,22 @@ export class UnidadService {
     return this.http.get<any>(`${this.url}existe/nombre/${nombre.replace(' ', '+')}`);
   }
 
+  /**
+   * actualizara el canal servidor
+   * @param id id de la unidad
+   * @param servidor id del canal servidor
+   */
+  updateCanalServidor(id: number, servidor: number) {
+
+    return this.http.put(`${this.url}canalServidor/${id}/${servidor}`,null);
+  }
+
+  /**
+   * se buscara el canal servidor por su id
+   * @param id id de la unidad
+   */
+  buscarCanalServidorPorId(id: number) {
+
+    return this.http.get<Canal>(`${this.url}buscarCanalServidorPorId/${id}`);
+  }
 }

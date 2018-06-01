@@ -8,13 +8,26 @@ export class CanalService {
 
   private url: string;
   //usado para los autocompleter
+  /**
+   * consultara todos los canales
+   */
   public urlListarPorNombreOCodigo: string;
+  /**
+   * consultara los canales que no sean de distribucion o principal
+   */
+  public urlListarPorNombreOCodigoServidores: string;
+  /**
+   * consultara los canales de distribucion o principal
+   */
+  public urlListarPorNombreOCodigoNoServidores: string;
 
   constructor(
     private http: HttpClient
   ) { 
     this.url = `${url}canal/`;
     this.urlListarPorNombreOCodigo = `${this.url}buscarPorNombreOCodigo?s=`;
+    this.urlListarPorNombreOCodigoServidores = `${this.url}buscarPorNombreOCodigoServidores?s=`;
+    this.urlListarPorNombreOCodigoNoServidores = `${this.url}buscarPorNombreOCodigoNoServidores?s=`;
   }
 
   existeCanalPorCodigo(codigo: string) {

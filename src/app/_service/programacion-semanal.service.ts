@@ -55,6 +55,26 @@ export class ProgramacionSemanalService {
   }
 
   /**
+	 * se calculara el caudal requerido en la semana
+	 * 
+	 * @param fecha
+	 *            fecha en la que se empezara la programacion (debe de
+	 *            ser un lunes)
+	 * @param id
+	 *            id de la unidad, zona, seccion o canal
+	 * @param tipo
+	 *            especificara si se trata de una unidad, zona, seccion, canal (1 =
+	 *            unidad, 2 = zona, 3 = seccion, 4 = canal)
+	 * @return caudal semanal, eficiencia, area, lamina, fecha, id del canal
+	 */
+  calculoCaudalSemanal(fecha: Date, id: number, tipo: number) {
+
+    let txtFecha = this.dateToString(fecha);
+    
+    return this.http.get<ProgramacionSemanal>(`${this.url}calculoCaudalSemanal?fecha=${txtFecha}&id=${id}&tipo=${tipo}`);
+  }
+
+  /**
    * se devuleve la fecha en formato yyyy-mm-dd
    * @param fecha fecha a parcear
    * @return fecha en texto

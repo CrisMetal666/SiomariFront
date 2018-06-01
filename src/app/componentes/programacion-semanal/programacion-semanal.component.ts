@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CompleterData, CompleterService, CompleterItem } from 'ng2-completer';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { CanalService } from '../../_service/canal.service';
-import { UnidadService } from '../../_service/unidad.service';
-import { ZonaService } from '../../_service/zona.service';
-import { SeccionService } from '../../_service/seccion.service';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
@@ -20,31 +17,11 @@ export class ProgramacionSemanalComponent implements OnInit {
 
   //autocompleter
   public dataCanal: CompleterData;
-  public dataUnidad: CompleterData;
-  public dataSeccion: CompleterData;
-  public dataZona: CompleterData;
   //id seleccionado en el autocompleter
   public idCanal: number;
-  public idUnidad: number;
-  public idZona: number;
-  public idSeccion: number;
   public sCanal: string;
-  public sUnidad: string;
-  public sZona: string;
-  public sSeccion: string;
   //segun el valor numerico mostrara un mensaje al usuario
   public estado: number;
-  /*
-  * determinara si se graficara los datos de una canal, seccion, zona o unidad
-  * 1 = unidad
-  * 2 = zona
-  * 3 = seccion
-  * 4 = canal
-  * por defecto sera 4
-  */
-  public tipoConsulta: number;
-  // dira si se han seleccionado todos los autocompleter
-  public valido: boolean;
   //fecha del datepicker, debe de ser solamente los lunes
   public fecha: Date;
   // sera true si la fecha seleccionada no es un lunes
@@ -60,14 +37,9 @@ export class ProgramacionSemanalComponent implements OnInit {
     private completerService: CompleterService,
     private spinnerService: Ng4LoadingSpinnerService,
     private canalService: CanalService,
-    private unidadService: UnidadService,
-    private zonaService: ZonaService,
-    private seccionService: SeccionService,
     private _localeService: BsLocaleService,
     private programacionSemanalService: ProgramacionSemanalService
   ) {
-    this.tipoConsulta = 4;
-    this.valido = false;
     this.fechaInvalida = false;
     this.fecha = new Date();
     this.consultado = false;
@@ -80,111 +52,15 @@ export class ProgramacionSemanalComponent implements OnInit {
     this._localeService.use('es');
 
     //inicializamos el autocompleter
-    this.dataCanal = this.completerService.remote(this.canalService.urlListarPorNombreOCodigo, 'nombre,codigo', 'nombre');
-
-    // inicializamos el auto-completer de unidad
-    this.spinnerService.show();
-
-    this.unidadService.listarTodos().subscribe(res => {
-
-      this.dataUnidad = this.completerService.local(res, 'nombre', 'nombre');
-      this.spinnerService.hide();
-
-    }, err => {
-      this.estado = 0;
-      this.spinnerService.hide();
-    });
-
+    this.dataCanal = this.completerService.remote(this.canalService.urlListarPorNombreOCodigoNoServidores, 'nombre,codigo', 'nombre');
   }
 
   onSourceSelect(selected: CompleterItem) {
 
     this.idCanal = 0;
-    this.valido = false;
 
     if (selected) {
       this.idCanal = selected.originalObject.id;
-      this.valido = true;
-    }
-  }
-
-  onUnidadSelect(selected: CompleterItem) {
-
-    this.idUnidad = 0;
-    this.valido = false;
-    //limpiamos los autocompleter en cascada
-    this.idZona = 0;
-    this.sZona = '';
-    this.idSeccion = 0;
-    this.sSeccion = '';
-
-    if (selected) {
-
-      this.idUnidad = selected.originalObject.id;
-      this.valido = true;
-
-      // buscamos las zonas de la unidad solo si esta seleccionado zona o seccion (radio boton)
-      if (this.tipoConsulta != 1) {
-
-        this.valido = false;
-
-        this.spinnerService.show();
-
-        this.zonaService.buscarPorUnidadId(this.idUnidad).subscribe(res => {
-
-          this.dataZona = this.completerService.local(res, 'nombre', 'nombre');
-          this.spinnerService.hide();
-
-        }, err => {
-          this.estado = 0;
-          this.spinnerService.hide();
-        });
-      }
-    }
-  }
-
-  onZonaSelect(selected: CompleterItem) {
-
-    this.idZona = 0;
-    this.valido = false;
-
-    //limpiamos los valores de la seccion
-    this.idSeccion = 0;
-    this.sSeccion = '';
-
-    if (selected) {
-
-      this.idZona = selected.originalObject.id;
-      this.valido = true;
-
-      //se buscaran las secciones si esta seleccionado la seccion (radio boton)
-      if (this.tipoConsulta == 3) {
-
-        this.spinnerService.show();
-
-        this.valido = false;
-
-        this.seccionService.buscarPorZonaId(this.idZona).subscribe(res => {
-
-          this.dataSeccion = this.completerService.local(res, 'nombre', 'nombre');
-          this.spinnerService.hide();
-
-        }, err => {
-          this.estado = 0;
-          this.spinnerService.hide();
-        })
-      }
-    }
-  }
-
-  onSeccionSelect(selected: CompleterItem) {
-
-    this.idSeccion = 0;
-    this.valido = false;
-
-    if (selected) {
-      this.idSeccion = selected.originalObject.id;
-      this.valido = true;
     }
   }
 
@@ -193,7 +69,7 @@ export class ProgramacionSemanalComponent implements OnInit {
     this.spinnerService.show();
 
     this.programacionSemanalService.programacionSemanal(this.idCanal, 4, this.fecha).subscribe(res => {
-
+      
       // verificamos que el canal si posee la informacion para realizar los calculos
       if (res.area == 0) {
 
@@ -205,7 +81,7 @@ export class ProgramacionSemanalComponent implements OnInit {
       //guardamos la informacion en el array
       this.programacionSemanal = res;
       //calculamos el consumo de agua
-      this.consumo = this.programacionSemanal.area * this.programacionSemanal.lamina * 10000 / 604800;
+      this.consumo = res.caudal;
       //borramos cualquier estado que pudiera haber
       this.estado = undefined;
       //mostramos el form
@@ -220,37 +96,27 @@ export class ProgramacionSemanalComponent implements OnInit {
 
   }
 
-  //volvemos a calcular el consumo cuando modifiquen el area
-  onKeyUpHa(event: any) {
+  //volvemos a calcular el consumo cuando modifiquen el area o la lamina
+  onKeyUp() {
 
-    this.consumo = this.programacionSemanal.lamina * event.target.value * 10000 / 604800;
-  }
-
-  /*
-   * al seleccionar un item del radio button para mostrar los autocompleter
-   * segun el item seleccionado 
-   */
-  onClickChoose(tipo: number, form) {
-    this.tipoConsulta = tipo;
-    //reinisiamos los id de los autocompleter
-    this.idUnidad = 0;
-    this.idSeccion = 0;
-    this.idZona = 0;
-    this.idCanal = 0;
-    this.sUnidad = '';
-    this.sSeccion = '';
-    this.sZona = '';
-    this.sCanal = '';
-
-    //reseteamos el form donde estan los autocompleter
-    form.reset();
+    this.consumo = this.programacionSemanal.lamina * this.programacionSemanal.area * 10000 / 604800;
   }
 
   registrar(form) {
 
-    this.programacionSemanal.fecha = this.fecha;
+    // se tenia problemas al obtener la fecha asi que tomamos los valores por separado para no tener erroes
+    let year:number = this.fecha.getFullYear();
+    let month = this.fecha.getMonth();
+    let day = this.fecha.getDate();
+
+    let d = new Date(year,month,day);
+
+    this.programacionSemanal.fecha = d;
 
     this.spinnerService.show();
+
+    // almacenamos el consumo que es posible que se haya modificado desde el formulario
+    this.programacionSemanal.caudal = this.consumo;
 
     this.programacionSemanalService.guardar(this.programacionSemanal).subscribe(res => {
 
@@ -277,6 +143,7 @@ export class ProgramacionSemanalComponent implements OnInit {
     } else {
       this.fechaInvalida = false;
     }
+
   }
 
 }

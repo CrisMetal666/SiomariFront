@@ -7,4 +7,5 @@ export class Zona {
 	nombre: string;
 	unidadId: Unidad;
 	lstSeccion: Seccion[];
+	canalServidor: number;
 }

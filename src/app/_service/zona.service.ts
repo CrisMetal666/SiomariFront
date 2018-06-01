@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Zona } from '../_model/zona';
 import { url } from './var.const';
+import { Canal } from '../_model/canal';
 
 @Injectable()
 export class ZonaService {
@@ -40,5 +41,24 @@ export class ZonaService {
   existePorNombreYUnidad(nombre: string, unidad: number){
     //los espacios en blanco se deben reemplazar por '+'
     return this.http.get<any>(`${this.url}existe/nombreYUnidad/${nombre.replace(' ', '+')}/${unidad}`);
+  }
+
+    /**
+   * actualizara el canal servidor
+   * @param id id de la zona
+   * @param servidor id del canal servidor
+   */
+  updateCanalServidor(id: number, servidor: number) {
+
+    return this.http.put(`${this.url}canalServidor/${id}/${servidor}`,null);
+  }
+
+  /**
+   * se buscara el canal servidor por su id
+   * @param id id de la zona
+   */
+  buscarCanalServidorPorId(id: number) {
+
+    return this.http.get<Canal>(`${this.url}buscarCanalServidorPorId/${id}`);
   }
 }

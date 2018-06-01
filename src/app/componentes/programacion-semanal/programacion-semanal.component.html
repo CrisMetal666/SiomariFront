@@ -24,53 +24,9 @@
 
     <div class="col-xs-6">
 
-      <!--
-      <form class="form-inline">
-
-        <div class="form-check form-check-inline">
-          <input (click)="onClickChoose(1,formAC)" class="form-check-input" type="radio" name="choose" />
-          <label class="form-check-label">Unidad</label>
-
-
-          <input (click)="onClickChoose(2,formAC)" class="form-check-input" type="radio" name="choose" />
-          <label class="form-check-label">Zona</label>
-
-          <input (click)="onClickChoose(3,formAC)" class="form-check-input" type="radio" name="choose" />
-          <label class="form-check-label">Sección</label>
-
-          <input (click)="onClickChoose(4,formAC)" class="form-check-input" type="radio" name="choose" checked/>
-          <label class="form-check-label">Canal</label>
-        </div>
-
-      </form>
--->
       <form #formAC="ngForm" autocomplete="off">
 
-        <div *ngIf="tipoConsulta != 4" [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Unidad</label>
-          <ng2-completer [(ngModel)]="sUnidad" [inputClass]="['form-control']" [datasource]="dataUnidad" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
-            #cUnidad="ngModel" name="unidadC" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
-        </div>
-
-        <div *ngIf="tipoConsulta == 2 || tipoConsulta == 3" [ngClass]="(cZona.invalid && cZona.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Zona</label>
-          <ng2-completer [(ngModel)]="sZona" [inputClass]="['form-control']" [datasource]="dataZona" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
-            #cZona="ngModel" name="zonaS" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
-        </div>
-
-        <div *ngIf="tipoConsulta == 3" [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Sección</label>
-          <ng2-completer [(ngModel)]="sSeccion" [inputClass]="['form-control']" [datasource]="dataSeccion" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
-            #cSeccion="ngModel" name="seccionC" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
-        </div>
-
-        <div *ngIf="tipoConsulta == 4" [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
+        <div [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label">Canal</label>
           <ng2-completer [(ngModel)]="sCanal" [inputClass]="['form-control']" [datasource]="dataCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
             [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
@@ -90,7 +46,7 @@
           <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
           <span class="msg-error" *ngIf="fechaInvalida">La fecha debe de ser un lunes</span>
         </div>
-        <button [disabled]="!form.form.valid || !formAC.form.valid || !valido || fechaInvalida" class="btn btn-primary" type="submit">Consultar</button>
+        <button [disabled]="!form.form.valid || !formAC.form.valid || idCanal == 0 || fechaInvalida" class="btn btn-primary" type="submit">Consultar</button>
       </form>
     </div>
 <!--
@@ -118,14 +74,15 @@
 
       <div class="col-xs-6">
 
-        <div class="form-group">
+        <div [ngClass]="(!cLn.valid && cLn.touched) ? 'form-group has-error' : 'form-group'">
           <label>Lamina (m)</label>
-          <input value="{{programacionSemanal.lamina}}" type="text" class="form-control" readonly/>
+          <input [(ngModel)]="programacionSemanal.lamina" (keyup)="onKeyUp()" #cLn="ngModel" name="cln"type="number" class="form-control" />
+          <span class="msg-error" *ngIf="!cLn.valid && cLn.touched">Valor incorrecto</span>
         </div>
 
         <div [ngClass]="(!cHa.valid && cHa.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label">Superficie (ha)</label>
-          <input [(ngModel)]="programacionSemanal.area" (keyup)="onKeyUpHa($event)" type="number" class="form-control" placeholder="Ingrese la superficie" #cHa="ngModel" name="nombre" 
+          <input [(ngModel)]="programacionSemanal.area" (keyup)="onKeyUp()" type="number" class="form-control" placeholder="Ingrese la superficie" #cHa="ngModel" name="nombre" 
             required/>
           <span class="msg-error" *ngIf="!cHa.valid && cHa.touched">Valor incorrecto</span>
         </div>

@@ -4,12 +4,17 @@
 
     <h2>Calculo de caudal semanal</h2>
 
+
+
     <ng4-loading-spinner> </ng4-loading-spinner>
 
     <br/>
 
     <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
-      No hay informacion.
+      No se han especificado los canales servidores.
+    </div>
+    <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+      Información guardada exitosamente.
     </div>
     <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
       Ha ocurrido un error, intente mas tarde.
@@ -17,7 +22,7 @@
 
   </div>
 
-  <div class="row">
+  <div *ngIf="!consultado" class="row">
 
     <div class="col-xs-6">
 
@@ -42,7 +47,31 @@
 
       <form #formAC="ngForm" autocomplete="off">
 
-        <div [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
+        <div *ngIf="tipo != 4" [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Unidad</label>
+          <ng2-completer [(ngModel)]="sUnidad" [inputClass]="['form-control']" [datasource]="dataUnidad" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
+            #cUnidad="ngModel" name="unidadC" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
+        </div>
+
+        <div *ngIf="tipo == 2 || tipo == 3" [ngClass]="(cZona.invalid && cZona.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Zona</label>
+          <ng2-completer [(ngModel)]="sZona" [inputClass]="['form-control']" [datasource]="dataZona" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
+            #cZona="ngModel" name="zonaS" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
+        </div>
+
+        <div *ngIf="tipo == 3" [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Sección</label>
+          <ng2-completer [(ngModel)]="sSeccion" [inputClass]="['form-control']" [datasource]="dataSeccion" [minSearchLength]="4" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
+            #cSeccion="ngModel" name="seccionC" [clearUnselected]="true" required></ng2-completer>
+          <span class="msg-error" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
+        </div>
+
+        <div *ngIf="tipo == 4" [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label">Canal</label>
           <ng2-completer [(ngModel)]="sCanal" [inputClass]="['form-control']" [datasource]="dataCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
             [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
@@ -66,24 +95,39 @@
           <span class="msg-error" *ngIf="fechaInvalida">La fecha debe de ser un lunes</span>
         </div>
 
-        <button [disabled]="!form.form.valid || !formAC.form.valid || idCanal == 0 || fechaInvalida" class="btn btn-primary" type="submit">Consultar</button>
+        <!---->
+
+        <button [disabled]="!form.form.valid || !formAC.form.valid || !valido || fechaInvalida" class="btn btn-primary" type="submit">Consultar</button>
       </form>
     </div>
 
   </div>
 
-  <br>
-
   <div *ngIf="consultado" class="row">
 
-    <div class="panel panel-default">
+    <form #form="ngForm" (ngSubmit)="guardar()" autocomplete="off">
 
-      <div class="panel-heading">Calculo de caudal semanal</div>
+      <div class="col-xs-6">
 
-      <table class="table">
-        <tr>
-          <th class="text-center">Superficie (ha)</th>
-          <th class="text-center">Caudal solicitado
+        <div class="form-group">
+          <label class="control-label">Superficie (ha)</label>
+          <input value="{{programacionSemanal.area}}" class="form-control" type="text" readonly>
+        </div>
+
+        <div [ngClass]="(cFactor.invalid && cFactor.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Factor</label>
+          <input [(ngModel)]="factor" (keyup)="onKeyUpFactor()" #cFactor="ngModel" name="cfa" class="form-control" type="number" required/>
+          <span class="msg-error" *ngIf="cFactor.invalid && cFactor.touched">Valor incorrecto</span>
+        </div>
+
+        <button class="btn btn-success" type="submit">Guardar</button>
+        <button (click)="consultado = false" class="btn btn-danger" type="button">Cancelar</button>
+
+      </div>
+      <div class="col-xs-6">
+
+        <div class="form-group">
+          <label class="control-label">Caudal solicitado
             <span>(
               <i>m</i>
               <sup>
@@ -91,9 +135,12 @@
               </sup>
               <i>/seg</i>)
             </span>
-          </th>
-          <th class="text-center">Factor</th>
-          <th class="text-center">Caudal total
+          </label>
+          <input value="{{programacionSemanal.caudal}}" class="form-control" type="text" readonly>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Caudal total
             <span>(
               <i>m</i>
               <sup>
@@ -101,17 +148,16 @@
               </sup>
               <i>/seg</i>)
             </span>
-          </th>
-        </tr>
-        <tr>
-          <td class="text-center">{{programacionSemanal.area}}</td>
-          <td class="text-center">{{caudalSolicitado | number:'1.3-3'}}</td>
-          <td class="text-center">{{1/programacionSemanal.eficiencia | number:'1.2-2'}}</td>
-          <td class="text-center">{{caudalTotal | number:'1.3-3'}}</td>
-        </tr>
-      </table>
-    </div>
+          </label>
+          <input value="{{caudalTotal | number:'1.3-3'}}" class="form-control" type="text" readonly>
+        </div>
+
+      </div>
+
+
+    </form>
 
   </div>
-</div>
 
+
+</div>

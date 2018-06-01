@@ -7,4 +7,5 @@ export class Seccion {
 	nombre: string;
 	zonaId: Zona;
 	lstSeccionCanal: SeccionCanal[];
+	canalServidor: number;
 }
