@@ -251,8 +251,6 @@ export class CalculoQSemanalComponent implements OnInit {
 
     this.programacionSemanalService.calculoCaudalSemanal(this.fecha, id, this.tipo).subscribe(res => {
 
-      console.log(res);
-
       // si el id es -1 significa que no se han especificado los canales servidores
       if (res.id == -1) {
         this.estado = 2;
