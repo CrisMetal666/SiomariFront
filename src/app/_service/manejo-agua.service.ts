@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { url } from './var.const';
 import { HttpClient } from '@angular/common/http';
 import { ManejoAgua } from '../_model/manejo-agua';
+import { EficienciaPerdidas } from '../_model/eficiencia-perdidas';
 
 @Injectable()
 export class ManejoAguaService {
@@ -55,6 +56,14 @@ export class ManejoAguaService {
     let mesString: string = mes < 10 ? '0' + mes : '' + mes;
 
     return `${fecha.getFullYear()}-${mesString}-${diaString}`;
+  }
+
+  calcularEficienciaPerdidas(id: number, tipo: number, fecha1: Date, fecha2: Date) {
+
+    let txtFecha1: string = this.dateToString(fecha1);
+    let txtFecha2: string = this.dateToString(fecha2);
+
+    return this.http.get<EficienciaPerdidas>(`${this.url}calcularEficienciaPerdidas?id=${id}&tipo=${tipo}&fecha1=${txtFecha1}&fecha2=${txtFecha2}`);
   }
 
 }

@@ -24,6 +24,7 @@ import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/ma
 import { ProgramacionSemanalComponent } from './componentes/programacion-semanal/programacion-semanal.component';
 import { CalculoQSemanalComponent } from './componentes/calculo-q-semanal/calculo-q-semanal.component';
 import { EstablecerCanalesDistribucionComponent } from './componentes/establecer-canales-distribucion/establecer-canales-distribucion.component';
+import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent },
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     { path: 'programacion-semanal', component: ProgramacionSemanalComponent },
     { path: 'calculo-caudal-semanal', component: CalculoQSemanalComponent },
     { path: 'establecer-servidores', component: EstablecerCanalesDistribucionComponent },
+    { path: 'eficiencia-perdidas', component: EficienciaPerdidasComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

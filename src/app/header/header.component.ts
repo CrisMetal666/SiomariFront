@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
    * 6 - Distribución
    * 7 - Entregas
    * 8 - Reportes
+   * 9 - Evaluación
    */
   public seleccionado: number;
 

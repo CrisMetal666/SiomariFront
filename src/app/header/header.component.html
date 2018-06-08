@@ -8,17 +8,17 @@
 
       <!-- Menu principal -->
       <ul *ngIf="seleccionado == 0" class="nav navbar-nav">
-        <li (click)="cambiarNav(1)">
-          <a class="cursor-nav">Planeación</a>
-        </li>
         <li (click)="cambiarNav(2)">
           <a class="cursor-nav">Registro</a>
         </li>
         <li (click)="cambiarNav(3)">
-          <a class="cursor-nav">Estructura operacional</a>
+          <a class="cursor-nav">Estropel</a>
         </li>
         <li (click)="cambiarNav(4)">
           <a class="cursor-nav">Hidrometría</a>
+        </li>
+        <li (click)="cambiarNav(1)">
+          <a class="cursor-nav">Planeación</a>
         </li>
         <li (click)="cambiarNav(5)">
           <a class="cursor-nav">Programación</a>
@@ -29,8 +29,11 @@
         <li [routerLinkActive]="['active']">
           <a class="cursor-nav" routerLink="/entrega">Entregas</a>
         </li>
+        <li (click)="cambiarNav(9)">
+          <a class="cursor-nav">Evaluacion</a>
+        </li>
         <li (click)="cambiarNav(8)">
-          <a class="cursor-nav">Reportes</a>
+          <a class="cursor-nav">Consultas</a>
         </li>
       </ul>
 
@@ -179,9 +182,6 @@
 
       <ul *ngIf="seleccionado == 3" class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
-          <a routerLink="/estructura-control">Estructura de control</a>
-        </li>
-        <li [routerLinkActive]="['active']">
           <a routerLink="/climatologia">Climatologia</a>
         </li>
         <li [routerLinkActive]="['active']">
@@ -192,6 +192,33 @@
         </li>
       </ul>
 
+      <!-- Sub-menu 4 -->
+      <ul *ngIf="seleccionado == 4" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/estructura-control">Estructura de control</a>
+        </li>
+      </ul>
+
+      <!-- Sub-menu 5 -->
+      <ul *ngIf="seleccionado == 5" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/programacion-semanal">Programacion semanal</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/calculo-caudal-semanal">Caudal semanal</a>
+        </li>
+      </ul>
+
+      <!-- Sub-menu 6 -->
+      <ul *ngIf="seleccionado == 6" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/registro-manejo-grafica">Grafica de manejo de agua</a>
+        </li>
+      </ul>
+
       <!-- Sub-menu 8 -->
       <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
@@ -199,9 +226,24 @@
         </li>
       </ul>
 
+      <!-- Sub-menu 9 -->
+      <ul *ngIf="seleccionado == 9" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/eficiencia-perdidas">Eficiencia/Perdidas</a>
+        </li>
+      </ul>
+
+      <ul *ngIf="seleccionado != 0" class="nav navbar-nav">
+        <li (click)="cambiarNav(0)">
+          <a class="cursor-nav">Atras</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 
-      <!--
+<!--
       <div class="nav navbar-nav">
         <li [routerLinkActive]="['active']" class="dropdown" dropdown>
           <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Editar
@@ -284,32 +326,3 @@
       </ul>
 
       -->
-
-      <!-- Sub-menu 5 -->
-      <ul *ngIf="seleccionado == 5" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/programacion-semanal">Programacion semanal</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/calculo-caudal-semanal">Caudal semanal</a>
-        </li>
-      </ul>
-
-      <!-- Sub-menu 6 -->
-      <ul *ngIf="seleccionado == 6" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/registro-manejo-grafica">Grafica de manejo de agua</a>
-        </li>
-      </ul>
-
-      <ul *ngIf="seleccionado != 0" class="nav navbar-nav">
-        <li (click)="cambiarNav(0)">
-          <a class="cursor-nav">Atras</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>

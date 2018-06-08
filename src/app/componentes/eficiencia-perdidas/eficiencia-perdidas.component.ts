@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { CompleterData, CompleterService, CompleterItem } from 'ng2-completer';
-import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { CanalService } from '../../_service/canal.service';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { ProgramacionSemanalService } from '../../_service/programacion-semanal.service';
-import { ProgramacionSemanal } from '../../_model/programacion-semanal';
+import { CompleterData, CompleterService, CompleterItem } from 'ng2-completer';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { CanalService } from '../../_service/canal.service';
 import { UnidadService } from '../../_service/unidad.service';
 import { ZonaService } from '../../_service/zona.service';
 import { SeccionService } from '../../_service/seccion.service';
+import { ManejoAguaService } from '../../_service/manejo-agua.service';
+import { EficienciaPerdidas } from '../../_model/eficiencia-perdidas';
 
 @Component({
-  selector: 'app-calculo-q-semanal',
-  templateUrl: './calculo-q-semanal.component.html',
-  styleUrls: ['./calculo-q-semanal.component.css']
+  selector: 'app-eficiencia-perdidas',
+  templateUrl: './eficiencia-perdidas.component.html',
+  styleUrls: ['./eficiencia-perdidas.component.css']
 })
-export class CalculoQSemanalComponent implements OnInit {
+export class EficienciaPerdidasComponent implements OnInit {
 
+  // rango de fecha seleccionado
+  public fecha: Date[];
   //autocompleter
   public dataCanal: CompleterData;
   public dataUnidad: CompleterData;
@@ -34,53 +36,43 @@ export class CalculoQSemanalComponent implements OnInit {
   public sSeccion: string;
   //segun el valor numerico mostrara un mensaje al usuario
   public estado: number;
-  // sera true si la fecha seleccionada no es un lunes
-  public fechaInvalida: boolean;
-  // guardaremos los datos consultados para mostrarlo 
-  public programacionSemanal: ProgramacionSemanal;
-  //calculo del caudal total para ser mostrado (caudalSolicitado * factor)
-  public caudalTotal: number;
-  //fecha del datepicker, debe de ser solamente los lunes
-  public fecha: Date;
   // mostrara el panel cuando ya se haya hecho una consulta
   public consultado: boolean;
   /*
-  * determinara si se consultara canal, seccion, zona o unidad
-  * 1 = unidad
-  * 2 = zona
-  * 3 = seccion
-  * 4 = canal
-  * por defecto sera 4
-  */
+ * determinara si se consultara canal, seccion, zona o unidad
+ * 1 = unidad
+ * 2 = zona
+ * 3 = seccion
+ * 4 = canal
+ * por defecto sera 4
+ */
   public tipo: number;
   // dira si se han seleccionado todos los autocompleter
   public valido: boolean;
-  // el factor es el inverso de la eficiencia
-  public factor: number;
+  // almacenaremos la informacion de la consulta para ser mostrado al usuario
+  public eficienciaPerdidas: EficienciaPerdidas;
 
   constructor(
-    private completerService: CompleterService,
-    private spinnerService: Ng4LoadingSpinnerService,
-    private canalService: CanalService,
     private _localeService: BsLocaleService,
-    private programacionSemanalService: ProgramacionSemanalService,
     private unidadService: UnidadService,
     private zonaService: ZonaService,
-    private seccionService: SeccionService
+    private seccionService: SeccionService,
+    private canalService: CanalService,
+    private completerService: CompleterService,
+    private spinnerService: Ng4LoadingSpinnerService,
+    private manejoAguaService: ManejoAguaService
   ) {
-    this.programacionSemanal = new ProgramacionSemanal();
     this.consultado = false;
     this.tipo = 4;
   }
 
   ngOnInit() {
-
     //definimos el idioma del datepicker
     defineLocale('es', esLocale);
     this._localeService.use('es');
 
     //inicializamos el autocompleter
-    this.dataCanal = this.completerService.remote(this.canalService.urlListarPorNombreOCodigoNoServidores, 'nombre,codigo', 'nombre');
+    this.dataCanal = this.completerService.remote(this.canalService.urlListarPorNombreOCodigo, 'nombre,codigo', 'nombre');
 
     // inicializamos el auto-completer de unidad
     this.spinnerService.show();
@@ -211,26 +203,11 @@ export class CalculoQSemanalComponent implements OnInit {
     form.reset();
   }
 
-  //nos aseguraremos que la fecha seleccionada sea un lunes
-  onValueChange(value: Date): void {
-
-    if (value == null) {
-      this.fechaInvalida = false;
-    } else if (value.getDay() != 1) {
-      this.fechaInvalida = true;
-    } else {
-      this.fechaInvalida = false;
-    }
-  }
-
   consultar() {
 
-    this.spinnerService.show();
-
-    // establecemos el id que vamos a enviar al servidor
     let id = 0;
 
-    // verificamos si tenemos que consultar la unidad, zona o seccion
+    // almanecamos el id dependiendo de si se trata de una unidad, zona, seccion o canal
     if (this.tipo == 1) {
 
       id = this.idUnidad;
@@ -249,63 +226,22 @@ export class CalculoQSemanalComponent implements OnInit {
 
     } else return;
 
-    this.programacionSemanalService.calculoCaudalSemanal(this.fecha, id, this.tipo).subscribe(res => {
-
-      // si el id es -1 significa que no se han especificado los canales servidores
-      if (res.id == -1) {
-        this.estado = 2;
-        this.consultado = false;
-        this.spinnerService.hide();
-        return;
-      }
-
-      this.programacionSemanal = res;
-
-      if (this.programacionSemanal.eficiencia == 0 || this.programacionSemanal.eficiencia == undefined) {
-        this.factor = 0;
-      } else {
-        this.factor = Math.round((1 / this.programacionSemanal.eficiencia) * 100) / 100;
-      }
-
-      this.caudalTotal = res.caudal * this.factor;
-
-      this.estado = undefined;
-      this.consultado = true;
-
-      this.spinnerService.hide();
-
-    }, err => {
-      this.estado = 0;
-      this.consultado = false;
-      this.spinnerService.hide();
-    });
-  }
-
-  guardar() {
-
     this.spinnerService.show();
 
-    if (this.factor == 0 || this.factor == undefined) {
-      this.programacionSemanal.eficiencia = 0;
-    } else {
-      this.programacionSemanal.eficiencia = Math.pow(this.factor, -1);
-    }
+    this.manejoAguaService.calcularEficienciaPerdidas(id, this.tipo, this.fecha[0],
+      this.fecha[1]).subscribe(res => {
 
-    this.programacionSemanalService.guardar(this.programacionSemanal).subscribe(res => {
-
-      this.estado = 1;
-      this.programacionSemanal = new ProgramacionSemanal();
-      this.consultado = false;
-      this.spinnerService.hide();
+        this.eficienciaPerdidas = res;
+        this.estado = undefined;
+        this.consultado = true;
+        this.spinnerService.hide();
 
     }, err => {
       this.estado = 0;
+      this.consultado = false;
       this.spinnerService.hide();
     });
-  }
 
-  onKeyUpFactor() {
-    this.caudalTotal = this.programacionSemanal.caudal * this.factor;
-  }
 
+  }
 }

@@ -60,6 +60,7 @@ import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/ma
 import { ProgramacionSemanalComponent } from './componentes/programacion-semanal/programacion-semanal.component';
 import { CalculoQSemanalComponent } from './componentes/calculo-q-semanal/calculo-q-semanal.component';
 import { EstablecerCanalesDistribucionComponent } from './componentes/establecer-canales-distribucion/establecer-canales-distribucion.component';
+import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { EstablecerCanalesDistribucionComponent } from './componentes/establecer
     ManejoAguaGraficaComponent,
     ProgramacionSemanalComponent,
     CalculoQSemanalComponent,
-    EstablecerCanalesDistribucionComponent
+    EstablecerCanalesDistribucionComponent,
+    EficienciaPerdidasComponent
   ],
   imports: [
     BrowserModule, 
