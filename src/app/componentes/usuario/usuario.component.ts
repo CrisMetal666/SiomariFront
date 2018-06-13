@@ -45,7 +45,7 @@ export class UsuarioComponent implements OnInit {
   ngOnInit() {
 
     this.dataServicePredio = this.completerService.remote(this.predioService.urlBuscarIdCodigoNombrePorNombreOCodigoSinUsuarios, 'nombre,codigo', 'nombre');
-    this.dataServiceUsuario = this.completerService.remote(this.usuarioService.urlBuscarPorIdentificacion, 'cedula', 'nombre');
+    this.dataServiceUsuario = this.completerService.remote(this.usuarioService.urlBuscarPorNombreCompletoOIdentificacion, 'cedula,nombreCompleto', 'nombreCompleto');
     this.resetVariables();
 
     /*
@@ -91,9 +91,12 @@ export class UsuarioComponent implements OnInit {
 
         //guardamos la informacion en el objeto principal
         this.usuario = res;
-        //llenamos el autocompleter para poder visualizarlo
-        this.predioId = this.usuario.predioId;
-        this.searchPredio = this.predioId.nombre;
+
+        if (this.usuario.predioId != null) {
+          //llenamos el autocompleter para poder visualizarlo
+          this.predioId = this.usuario.predioId;
+          this.searchPredio = this.predioId.nombre;
+        }
 
         this.mostrarForm = true;
 
@@ -108,14 +111,13 @@ export class UsuarioComponent implements OnInit {
 
   registrar(form) {
 
-    if (this.searchPredio == '') {
-      this.estado = 3;
-      return;
-    }
-
     this.spinnerService.show();
 
-    this.usuario.predioId = this.predioId;
+    if (this.searchPredio != '') {
+      this.usuario.predioId = this.predioId;
+    } else {
+      delete this.usuario.predioId;
+    }
 
     this.usuarioService.existePorCedula(this.usuario.cedula).subscribe(res => {
 
@@ -131,14 +133,14 @@ export class UsuarioComponent implements OnInit {
         }
 
         this.usuarioService.editar(this.usuario).subscribe(res => {
-  
+
           this.estado = 1;
           form.reset();
           this.resetVariables();
           this.mostrarForm = false;
-  
+
           this.spinnerService.hide();
-  
+
         }, err => {
           this.spinnerService.hide()
           this.estado = 0;

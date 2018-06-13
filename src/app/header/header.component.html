@@ -225,6 +225,16 @@
           <a routerLink="/reporte/caudalServido">Entregas</a>
         </li>
       </ul>
+      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="consulta/usuario">Usuario</a>
+        </li>
+      </ul>
+      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="consulta/predio">Predio</a>
+        </li>
+      </ul>
 
       <!-- Sub-menu 9 -->
       <ul *ngIf="seleccionado == 9" class="nav navbar-nav">

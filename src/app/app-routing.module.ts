@@ -25,6 +25,8 @@ import { ProgramacionSemanalComponent } from './componentes/programacion-semanal
 import { CalculoQSemanalComponent } from './componentes/calculo-q-semanal/calculo-q-semanal.component';
 import { EstablecerCanalesDistribucionComponent } from './componentes/establecer-canales-distribucion/establecer-canales-distribucion.component';
 import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
+import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consulta-usuario.component';
+import { ConsultaPredioComponent } from './componentes/consulta-predio/consulta-predio.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent },
@@ -51,6 +53,8 @@ const appRoutes: Routes = [
     { path: 'calculo-caudal-semanal', component: CalculoQSemanalComponent },
     { path: 'establecer-servidores', component: EstablecerCanalesDistribucionComponent },
     { path: 'eficiencia-perdidas', component: EficienciaPerdidasComponent },
+    { path: 'consulta/usuario', component: ConsultaUsuarioComponent },
+    { path: 'consulta/predio', component: ConsultaPredioComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

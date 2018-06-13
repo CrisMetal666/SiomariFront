@@ -6,6 +6,7 @@ export class Predio {
 	codigo: string;
 	nombre: string;
 	nombrePropietario: string;
+	nombreUsuario: string;
 	areaTotal: number;
 	areaPotencialRiego: number;
 	areaBajoRiego: number;

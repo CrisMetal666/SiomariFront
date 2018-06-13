@@ -8,13 +8,13 @@ export class UsuarioService {
 
   private url: string;
   //usado por los autocompleter
-  public urlBuscarPorIdentificacion: string;
+  public urlBuscarPorNombreCompletoOIdentificacion: string;
 
   constructor(
     private http: HttpClient
   ) { 
     this.url = `${url}usuario/`;
-    this.urlBuscarPorIdentificacion =  `${this.url}buscarPorIdentificacion?s=`;
+    this.urlBuscarPorNombreCompletoOIdentificacion =  `${this.url}buscarPorNombreCompletoOIdentificacion?s=`;
   }
 
   registrar(usuario: Usuario) {

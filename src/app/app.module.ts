@@ -61,6 +61,16 @@ import { ProgramacionSemanalComponent } from './componentes/programacion-semanal
 import { CalculoQSemanalComponent } from './componentes/calculo-q-semanal/calculo-q-semanal.component';
 import { EstablecerCanalesDistribucionComponent } from './componentes/establecer-canales-distribucion/establecer-canales-distribucion.component';
 import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
+import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consulta-usuario.component';
+import { ConsultaPredioComponent } from './componentes/consulta-predio/consulta-predio.component';
+
+// angular meterial
+import {
+  MatInputModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, 
+  MatDividerModule, MatToolbarModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, 
+  MatSortModule, MatPaginatorIntl, MatCardModule, MatSnackBarModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatListModule, MatExpansionModule, MatNativeDateModule, MatAutocompleteModule
+} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -90,10 +100,12 @@ import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/e
     ProgramacionSemanalComponent,
     CalculoQSemanalComponent,
     EstablecerCanalesDistribucionComponent,
-    EficienciaPerdidasComponent
+    EficienciaPerdidasComponent,
+    ConsultaUsuarioComponent,
+    ConsultaPredioComponent
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     AppRoutingModule,
     ChartsModule,
     FormsModule,
@@ -105,15 +117,20 @@ import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/e
     Ng2CompleterModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    MatInputModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, 
+  MatDividerModule, MatToolbarModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, 
+  MatSortModule, MatCardModule, MatSnackBarModule, MatDialogModule, 
+  MatSelectModule, MatDatepickerModule, MatListModule, MatExpansionModule, MatNativeDateModule, 
+  MatAutocompleteModule, BrowserAnimationsModule
   ],
   providers: [
     UnidadService,
     ZonaService,
-    SeccionService, 
+    SeccionService,
     CanalService,
     CultivoService,
-    PredioService, 
+    PredioService,
     ObraService,
     UsuarioService,
     ClimatologiaDatosService,

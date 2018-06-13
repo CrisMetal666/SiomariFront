@@ -13,4 +13,5 @@ export class Usuario {
 	correo: string;
 	propietario: boolean;
 	predioId: Predio;
+	nombreCompleto: string;
 }

@@ -1,0 +1,95 @@
+<div class="col-xs-12">
+
+  <div class="row">
+    <h2>Consulta de usuarios</h2>
+
+    <br>
+
+    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+      Se ha producido un error, intente mas tarde.
+    </div>
+
+    <form class="col-xs-6">
+      <div class="form-group">
+        <label>Buscar Usuario</label>
+        <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceUsuario" [minSearchLength]="5" [textSearching]="'Buscando...'"
+          [placeholder]="'Buscar por nombre o identificación'" [textNoResults]="'Sin resultados'" (selected)="onUsuarioSelect($event)"
+          [(ngModel)]="searchUsuario" name="cPredio" required [clearUnselected]=true></ng2-completer>
+      </div>
+    </form>
+  </div>
+
+  <form *ngIf="consultado">
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+          <h3 class="panel-title">Datos personales</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+
+          <div class="col-xs-6">
+
+            <div class="form-group">
+              <label>Identificación</label>
+              <input [(ngModel)]="usuario.cedula" name="identificacion" type="text" class="form-control" readonly>
+            </div>
+
+            <div class="form-group">
+              <label>Nombres</label>
+              <input [(ngModel)]="usuario.nombre" name="nombre" type="text" class="form-control" readonly/>
+
+            </div>
+
+            <div class="form-group">
+              <label>Apellidos</label>
+              <input [(ngModel)]="usuario.apellido" name="apellido" type="text" class="form-control" readonly/>
+            </div>
+
+            <div class="form-group">
+              <label>Dirección</label>
+              <input [(ngModel)]="usuario.direccion" name="direccion" type="text" class="form-control" readonly/>
+
+            </div>
+            <div class="form-group">
+              <label>Predio</label>
+              <input [(ngModel)]="usuario.predioId.nombre" class="form-control" name="predio" type="text" readonly />
+            </div>
+
+          </div>
+
+          <div class="col-xs-6">
+
+            <div class="form-group">
+              <label>Ciudad</label>
+              <input [(ngModel)]="usuario.ciudad" name="ciudad" type="text" class="form-control" readonly/>
+
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Telefono</label>
+              <input [(ngModel)]="usuario.telefono"  name="telefono" type="text" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Celular</label>
+              <input [(ngModel)]="usuario.celular" name="celular" type="text" class="form-control" readonly/>
+            </div>
+
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input [(ngModel)]="usuario.correo" name="correo" type="text" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Propietario</label>
+              <input *ngIf="usuario.propietario" class="form-control" value="Si" type="text" readonly/>
+              <input *ngIf="!usuario.propietario" class="form-control" value="No" type="text" readonly/>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

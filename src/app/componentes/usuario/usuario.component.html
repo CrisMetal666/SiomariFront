@@ -56,15 +56,14 @@
             placeholder="Ingrese la dirección" required/>
           <span class="msg-error" *ngIf="!direccion.valid && direccion.touched">Campo obligatorio</span>
         </div>
-        <div [ngClass]="(!predio.valid && predio.touched) ? 'form-group has-error' : 'form-group'">
+        <div class="form-group">
           <label class="control-label" for="predio">Predio</label>
           <ng2-completer [inputClass]="['form-control']" [datasource]="dataServicePredio" [minSearchLength]="3" [textSearching]="'Buscando...'"
             [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onPredioSelect($event)"
-            #predio="ngModel" [(ngModel)]="searchPredio" id="predio" name="predio" required [clearUnselected]=true></ng2-completer>
-          <span class="msg-error" *ngIf="!predio.valid && predio.touched">Campo obligatorio</span>
+            #predio="ngModel" [(ngModel)]="searchPredio" id="predio" name="predio" [clearUnselected]=true></ng2-completer>
         </div>
 
-        <button type="submit" [disabled]="!form.form.valid || predioId == null" class="btn btn-primary">Guardar</button>
+        <button type="submit" [disabled]="!form.form.valid" class="btn btn-primary">Guardar</button>
         <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
 
       </div>
