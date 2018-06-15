@@ -27,6 +27,8 @@ import { EstablecerCanalesDistribucionComponent } from './componentes/establecer
 import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
 import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consulta-usuario.component';
 import { ConsultaPredioComponent } from './componentes/consulta-predio/consulta-predio.component';
+import { DitribucionAguaMensualComponent } from './componentes/ditribucion-agua-mensual/ditribucion-agua-mensual.component';
+import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-canal.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent },
@@ -55,6 +57,8 @@ const appRoutes: Routes = [
     { path: 'eficiencia-perdidas', component: EficienciaPerdidasComponent },
     { path: 'consulta/usuario', component: ConsultaUsuarioComponent },
     { path: 'consulta/predio', component: ConsultaPredioComponent },
+    { path: 'distribucion-agua-mensual', component: DitribucionAguaMensualComponent },
+    { path: 'consulta/canal', component: ConsultaCanalComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

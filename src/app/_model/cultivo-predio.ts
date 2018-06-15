@@ -6,6 +6,7 @@ export class CultivoPredio {
 
     id: number;
 	hectareas: number;
+	modulo: number;
 	predioId: Predio;
 	cultivoId: Cultivo;
 	planSiembraId: PlanSiembra;

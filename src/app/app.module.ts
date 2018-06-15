@@ -12,6 +12,7 @@ import { Ng2CompleterModule } from "ng2-completer";
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 /*              SERVICE                                       */
 import { UnidadService } from './_service/unidad.service';
@@ -71,6 +72,8 @@ import {
   MatSortModule, MatPaginatorIntl, MatCardModule, MatSnackBarModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatListModule, MatExpansionModule, MatNativeDateModule, MatAutocompleteModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DitribucionAguaMensualComponent } from './componentes/ditribucion-agua-mensual/ditribucion-agua-mensual.component';
+import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-canal.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +105,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     EstablecerCanalesDistribucionComponent,
     EficienciaPerdidasComponent,
     ConsultaUsuarioComponent,
-    ConsultaPredioComponent
+    ConsultaPredioComponent,
+    DitribucionAguaMensualComponent,
+    ConsultaCanalComponent
   ],
   imports: [
     BrowserModule,
@@ -118,6 +123,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
+    AccordionModule.forRoot(),
     MatInputModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, 
   MatDividerModule, MatToolbarModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, 
   MatSortModule, MatCardModule, MatSnackBarModule, MatDialogModule, 

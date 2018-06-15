@@ -1,0 +1,111 @@
+<h1>Distribución de agua mensual</h1>
+
+<br/>
+
+<ng4-loading-spinner> </ng4-loading-spinner>
+
+<div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+  Ha ocurrido un error, intenta mas tarde.
+</div>
+
+<form class="form-inline">
+
+  <div class="form-check form-check-inline">
+    <input (click)="onClickChoose(1,formAC)" class="form-check-input" type="radio" name="choose" />
+    <label class="form-check-label">Unidad</label>
+
+
+    <input (click)="onClickChoose(2,formAC)" class="form-check-input" type="radio" name="choose" />
+    <label class="form-check-label">Zona</label>
+
+    <input (click)="onClickChoose(3,formAC)" class="form-check-input" type="radio" name="choose" />
+    <label class="form-check-label">Sección</label>
+
+    <input (click)="onClickChoose(4,formAC)" class="form-check-input" type="radio" name="choose" checked/>
+    <label class="form-check-label">Canal</label>
+  </div>
+
+</form>
+
+
+<form #form="ngForm" (ngSubmit)="consultar()">
+
+  <div class="row">
+
+    <div class="col-xs-6">
+
+      <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Fecha</label>
+        <input [(bsValue)]="fecha" [(ngModel)]="ff" #cFecha="ngModel" name="cFecha" type="text" class="form-control" #dp="bsDatepicker"
+          bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required placeholder="Ingrese la fecha"
+        />
+        <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
+      </div>
+
+      <button [disabled]="!form.form.valid" type="submit" class="btn btn-primary">Consultar</button>
+
+    </div>
+  </div>
+
+</form>
+
+<br/>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th class="text-vertical-center text-center" rowspan="3">Cultivo</th>
+      <th class="text-center" colspan="2">SUPERFICIES</th>
+      <th class="text-center" colspan="4">VOLUMENES
+        <span>
+          <i>M</i>
+          <sup>
+            <i>3</i>
+          </sup>
+        </span>
+      </th>
+      <th class="text-center" colspan="6">LAMINAS CM</th>
+    </tr>
+    <tr>
+      <th class="text-center" colspan="2">HAS</th>
+      <th class="text-center" colspan="2">SERVIDOS</th>
+      <th class="text-center" colspan="2">DERIVADOS</th>
+      <th class="text-center" colspan="2">NETAS</th>
+      <th class="text-center" colspan="2">BRUTAS</th>
+      <th class="text-center" colspan="2">EFICIENCIA</th>
+    </tr>
+    <tr>
+      <th class="text-center">Mes</th>
+      <th class="text-center">Fisica</th>
+      <th class="text-center">Mes</th>
+      <th class="text-center">Acumulado</th>
+      <th class="text-center">Mes</th>
+      <th class="text-center">Acumulado</th>
+      <th class="text-center">Mes</th>
+      <th class="text-center">Acumulado</th>
+      <th class="text-center">Mes</th>
+      <th class="text-center">Acumulado</th>
+      <th class="text-center">Mes</th>
+      <th class="text-center">Acumulado</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td class="text-center">Maiz</td>
+      <td class="text-center">7,400</td>
+      <td class="text-center">6,100</td>
+      <td class="text-center">11,100</td>
+      <td class="text-center">26,600</td>
+      <td class="text-center">16,000</td>
+      <td class="text-center">36,000</td>
+      <td class="text-center">15</td>
+      <td class="text-center">35</td>
+      <td class="text-center">21</td>
+      <td class="text-center">65</td>
+      <td class="text-center">0.71</td>
+      <td class="text-center">0.65</td>
+    </tr>
+
+  </tbody>
+</table>

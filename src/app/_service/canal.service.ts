@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { Canal } from '../_model/canal';
+import { ConsultaCanal } from '../_model/consulta-canal';
 
 @Injectable()
 export class CanalService {
@@ -23,7 +24,7 @@ export class CanalService {
 
   constructor(
     private http: HttpClient
-  ) { 
+  ) {
     this.url = `${url}canal/`;
     this.urlListarPorNombreOCodigo = `${this.url}buscarPorNombreOCodigo?s=`;
     this.urlListarPorNombreOCodigoServidores = `${this.url}buscarPorNombreOCodigoServidores?s=`;
@@ -56,6 +57,15 @@ export class CanalService {
    */
   buscarPorId(id: number) {
     return this.http.get<Canal>(`${this.url}${id}`);
+  }
+
+  /**
+   * se consultara todo sobre un canal
+   * @param id id del canal
+   */
+  consultaCompleta(id: number) {
+
+    return this.http.get<ConsultaCanal>(`${this.url}consultaCompleta/${id}`);
   }
 
 }

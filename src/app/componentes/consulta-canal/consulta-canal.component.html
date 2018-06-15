@@ -1,0 +1,158 @@
+<div class="col-xs-12">
+
+  <h2>Consulta de canal</h2>
+
+  <br>
+
+  <ng4-loading-spinner> </ng4-loading-spinner>
+
+  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    Se ha producido un error, intente mas tarde.
+  </div>
+
+  <div class="row">
+    <div *ngIf="!mostrarForm" class="form-group col-xs-6">
+      <div class="form-group">
+        <label class="control-label">Buscar canal</label>
+        <ng2-completer (selected)="onSelectedCanal($event)" [datasource]="dataServiceCanal" [inputClass]="['form-control']" [minSearchLength]="4"
+          [textSearching]="'Buscando...'" [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="consultado" class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Datos basicos</h3>
+    </div>
+    <div class="panel-body">
+
+      <div class="row">
+        <div class="col-xs-6">
+
+          <div class="form-group">
+            <label>Código</label>
+            <input value="{{canal.codigo}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Nombre</label>
+            <input value="{{canal.nombre}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Caudal diseño</label>
+            <input value="{{canal.caudalDisenio}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Logintud Km</label>
+            <input value="{{canal.longitud}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Sección tipica</label>
+            <input value="{{canal.seccionTipica}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Clase</label>
+            <input value="{{canal.clase}}" type="text" class="form-control" readonly/>
+          </div>
+
+        </div>
+
+        <div class="col-xs-6">
+
+          <div class="form-group">
+            <label>Clase</label>
+            <input value="{{canal.clase}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Tipo</label>
+            <input value="{{canal.tipo}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Categoría</label>
+            <input value="{{canal.categoria}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Estado</label>
+            <input value="{{canal.estadoDescripcion}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Canal servidor</label>
+            <input value="{{canal.canalServidor}}" type="text" class="form-control" readonly/>
+          </div>
+
+          <div class="form-group">
+            <label>Total predios servidos</label>
+            <input value="{{canal.sumPredios}}" type="text" class="form-control" readonly/>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-xs-3">
+
+          <h3>Estructuras de control</h3>
+
+          <div class="list-group">
+            <a *ngFor="let e of canal.lstEstructuraControl" href="" class="list-group-item">{{e.codigo}}</a>
+          </div>
+
+        </div>
+
+        <div class="col-xs-3">
+
+          <h3>Predios</h3>
+
+          <accordion>
+            <accordion-group *ngFor="let p of canal.lstPredio" heading="{{p.nombre}}">
+              <b>Usuario:</b> {{p.nombreUsuario}}
+            </accordion-group>
+          </accordion>
+
+
+        </div>
+
+        <div class="col-xs-3">
+
+          <h3>Obras</h3>
+
+          <accordion>
+            <accordion-group *ngFor="let o of canal.lstCanalObra" heading="{{o.obraId.nombre}}">
+              <p>
+                <b>Descripcion: {{o.descripcion}}</b>
+              </p>
+              <p>
+                <b>Coordenadas: ({{o.x}}, {{o.y}}, {{o.altitud}})</b>
+              </p>
+            </accordion-group>
+          </accordion>
+
+        </div>
+
+        <div class="col-xs-3">
+
+          <h3>Canales</h3>
+
+          <div class="list-group">
+            <p *ngFor="let c of canal.lstCanal">{{c}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
