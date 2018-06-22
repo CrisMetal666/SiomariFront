@@ -1,4 +1,4 @@
-<h1>Distribución de agua mensual</h1>
+<h1>Distribución mensual de agua</h1>
 
 <br/>
 
@@ -51,7 +51,7 @@
 
 <br/>
 
-<table class="table table-striped table-bordered">
+<table *ngIf="consultado" class="table table-striped table-bordered">
   <thead>
     <tr>
       <th class="text-vertical-center text-center" rowspan="3">Cultivo</th>
@@ -91,20 +91,36 @@
   </thead>
   <tbody>
 
+    <tr *ngFor="let x of lstDistribucionAgua">
+      <td class="text-center">{{x.cultivo}}</td>
+      <td class="text-center">{{x.superficieMes}}</td>
+      <td class="text-center">{{x.superficieFisica}}</td>
+      <td class="text-center">{{x.caudalServidoMes}}</td>
+      <td class="text-center">{{x.caudalServidoAcumulado}}</td>
+      <td class="text-center">{{x.caudalDerivadoMes}}</td>
+      <td class="text-center">{{x.caudalDerivadoAcumulado}}</td>
+      <td class="text-center">{{x.laminaNetaMes}}</td>
+      <td class="text-center">{{x.laminaNetaAcumulado}}</td>
+      <td class="text-center">{{x.laminaBrutaMes}}</td>
+      <td class="text-center">{{x.laminaBrutaAcumulado}}</td>
+      <td class="text-center">{{x.eficienciaMes}}</td>
+      <td class="text-center">{{x.eficienciaAcumulado}}</td>
+    </tr>
+
     <tr>
-      <td class="text-center">Maiz</td>
-      <td class="text-center">7,400</td>
-      <td class="text-center">6,100</td>
-      <td class="text-center">11,100</td>
-      <td class="text-center">26,600</td>
-      <td class="text-center">16,000</td>
-      <td class="text-center">36,000</td>
-      <td class="text-center">15</td>
-      <td class="text-center">35</td>
-      <td class="text-center">21</td>
-      <td class="text-center">65</td>
-      <td class="text-center">0.71</td>
-      <td class="text-center">0.65</td>
+      <td class="text-center">TOTALES</td>
+      <td class="text-center">{{total.superficieMes}}</td>
+      <td class="text-center">{{total.superficieFisica}}</td>
+      <td class="text-center">{{total.caudalServidoMes}}</td>
+      <td class="text-center">{{total.caudalServidoAcumulado}}</td>
+      <td class="text-center">{{total.caudalDerivadoMes}}</td>
+      <td class="text-center">{{total.caudalDerivadoAcumulado}}</td>
+      <td class="text-center">{{total.laminaNetaMes}}</td>
+      <td class="text-center">{{total.laminaNetaAcumulado}}</td>
+      <td class="text-center">{{total.laminaBrutaMes}}</td>
+      <td class="text-center">{{total.laminaBrutaAcumulado}}</td>
+      <td class="text-center">{{total.eficienciaMes}}</td>
+      <td class="text-center">{{total.eficienciaAcumulado}}</td>
     </tr>
 
   </tbody>

@@ -18,7 +18,7 @@
       <div [ngClass]="(cPredio.invalid && cPredio.touched) ? 'form-group has-error' : 'form-group'">
         <label class="control-label">Predio</label>
         <ng2-completer [(ngModel)]="searchPredio" [inputClass]="['form-control']" [datasource]="dataServicePredio" [minSearchLength]="4"
-          [textSearching]="'Buscando...'" [placeholder]="'Ingrese el mes'" [textNoResults]="'Sin resultados'" [pause]="1000"
+          [textSearching]="'Buscando...'" [placeholder]="'Buscar predio por nombre o código'" [textNoResults]="'Sin resultados'" [pause]="1000"
           (selected)="onPredioSelect($event)" #cPredio="ngModel" [disabled]="verificado" name="predioSearch" [clearUnselected]="true"
           required></ng2-completer>
         <span class="msg-error" *ngIf="cPredio.invalid && cPredio.touched">Campo obligatorio</span>
@@ -27,7 +27,7 @@
       <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
         <label class="control-label">Fecha y hora de entrega</label>
         <input [(bsValue)]="fechaEntrega" [(ngModel)]="ff" #cFecha="ngModel" name="cFecha" type="text" class="form-control" #dp="bsDatepicker"
-          bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required placeholder="Ingrese la fecha de entrega"
+          bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required placeholder="Ingrese la fecha de inicio del servicio"
         />
         <timepicker [(ngModel)]="fechaEntrega" name="h2"></timepicker>
         <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Campo obligatorio</span>
@@ -36,7 +36,7 @@
       <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
         <label class="control-label">Fecha y hora de suspensión</label>
         <input [(bsValue)]="fechaSuspension" [(ngModel)]="ffd" #cFecha2="ngModel" name="cFecha2" type="text" class="form-control" #dp2="bsDatepicker"
-        [minDate]="fechaEntrega" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required placeholder="Ingrese la fecha de entrega"
+        [minDate]="fechaEntrega" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required placeholder="Ingrese la fecha de suspensión del servicio"
         />
         <timepicker [(ngModel)]="fechaSuspension" name="h1"></timepicker>
         <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Campo obligatorio</span>

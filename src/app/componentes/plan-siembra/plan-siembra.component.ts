@@ -29,8 +29,6 @@ export class PlanSiembraComponent implements OnInit {
   private lstIdEliminar: number[];
   //hectareas del cultivoPredio
   public hectarea: number;
-  // modulo del cultivoPredio
-  public modulo: number;
   //id del cultivoPredio, se usa en el modal de edicion
   private idCultivoPredio: number;
   //id del plan siembra
@@ -207,7 +205,6 @@ export class PlanSiembraComponent implements OnInit {
     cultivoPredio.predioId = predio;
     cultivoPredio.planSiembraId = planSiembra;
     cultivoPredio.hectareas = this.hectarea;
-    cultivoPredio.modulo = this.modulo;
 
     //si esta editando reemplazamos el objeto, si no, agregamos uno nuevo
     if (this.editando) {
@@ -238,7 +235,6 @@ export class PlanSiembraComponent implements OnInit {
     this.searchCultivo = cultivoPredio.cultivoId.nombre;
     this.cultivo = cultivoPredio.cultivoId;
     this.hectarea = cultivoPredio.hectareas;
-    this.modulo = cultivoPredio.modulo;
     this.idCultivoPredio = cultivoPredio.id;
 
     //le damos un titulo al modal
@@ -313,7 +309,6 @@ export class PlanSiembraComponent implements OnInit {
   //limpiamos las variables usadas en el modal
   resetVariablesModal() {
     this.hectarea = undefined;
-    this.modulo = undefined;
     this.idCultivoPredio = undefined;
     this.cultivo = null;
     this.searchCultivo = undefined;

@@ -83,13 +83,7 @@
         <span class="msg-error" *ngIf="cHectarea.invalid && cHectarea.touched">Campo obligatorio</span>
         <span class="msg-error" *ngIf="!hectareaValid">Las hectareas establecidas son mayores que las del predio</span>
       </div>
-
-      <div [ngClass]="(cModulo.invalid && cModulo.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Modulo</label>
-        <input [(ngModel)]="modulo" type="number" [disabled]="!verificado" [disabled]="!verificado" #cModulo="ngModel" name="cMoudlo"
-          class="form-control" placeholder="Ingrese el modulo de riego" required />
-        <span class="msg-error" *ngIf="cModulo.invalid && cModulo.touched">Valor incorrecto</span>
-      </div>
+      
     </form>
 
   </div>

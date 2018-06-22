@@ -16,21 +16,26 @@
     <div class="col-xs-6">
 
       <div [ngClass]="(!cLamina.valid && cLamina.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Lamina</label>
+        <label class="control-label">Lamina (m)</label>
         <input type="number" class="form-control" placeholder="Ingrese la lamina" #cLamina="ngModel" name="lamina" [(ngModel)]="config.lamina"
           required/>
         <span class="msg-error" *ngIf="!cLamina.valid && cLamina.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!cEficiencia.valid && cEficiencia.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Eficiencia</label>
+        <label class="control-label">Eficiencia (Decimal)</label>
         <input type="number" class="form-control" placeholder="Ingrese la eficiencia" #cEficiencia="ngModel" name="eficiencia" [(ngModel)]="config.eficiencia"
           required/>
         <span class="msg-error" *ngIf="!cEficiencia.valid && cEficiencia.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!cCaudal.valid && cCaudal.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Caudal del 75% de probabilidad</label>
+        <label class="control-label">Caudal del 75% de probabilidad (<span>
+          <i>M</i>
+          <sup>
+            <i>3</i>
+          </sup>
+        </span>/s)</label>
         <input type="number" class="form-control" placeholder="Ingrese el caudal del 75% de probabilidad" #cCaudal="ngModel" name="caudal"
           [(ngModel)]="config.caudal" required/>
         <span class="msg-error" *ngIf="!cCaudal.valid && cCaudal.touched">Valor incorrecto</span>
@@ -43,7 +48,7 @@
     <div class="col-xs-6">
 
       <div [ngClass]="(!cHoras.valid && cHoras.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Horas de riego</label>
+        <label class="control-label">Tiempo de riego (h)</label>
         <input type="number" class="form-control" placeholder="Ingrese las horas de riego" #cHoras="ngModel" name="horas" [(ngModel)]="config.horas"
           required/>
         <span class="msg-error" *ngIf="!cHoras.valid && cHoras.touched">Valor incorrecto</span>
@@ -56,7 +61,7 @@
             <sup>
               <i>3</i>
             </sup>
-          </span> de agua</label>
+          </span> de agua (Pesos)</label>
         <input type="number" class="form-control" placeholder="Ingrese el costo" #cCosto="ngModel" name="costo" [(ngModel)]="config.costo"
           required/>
         <span class="msg-error" *ngIf="!cCosto.valid && cCosto.touched">Valor incorrecto</span>

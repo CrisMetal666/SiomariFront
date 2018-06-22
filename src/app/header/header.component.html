@@ -12,7 +12,7 @@
           <a class="cursor-nav">Registro</a>
         </li>
         <li (click)="cambiarNav(3)">
-          <a class="cursor-nav">Estropel</a>
+          <a class="cursor-nav">Estroper</a>
         </li>
         <li (click)="cambiarNav(4)">
           <a class="cursor-nav">Hidrometría</a>
@@ -188,7 +188,7 @@
           <a routerLink="/establecer-servidores">Canales servidores</a>
         </li>
         <li [routerLinkActive]="['active']">
-          <a routerLink="/config">Configuración</a>
+          <a routerLink="/config">Condeplan</a>
         </li>
       </ul>
 
@@ -222,17 +222,17 @@
       <!-- Sub-menu 8 -->
       <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
-          <a routerLink="/reporte/caudalServido">Entregas</a>
+          <a routerLink="/reporte/caudalServido">Facturación</a>
         </li>
       </ul>
       <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
-          <a routerLink="consulta/usuario">Usuario</a>
+          <a routerLink="consulta/usuario">RGU</a>
         </li>
       </ul>
       <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
-          <a routerLink="consulta/predio">Predio</a>
+          <a routerLink="consulta/predio">RGP</a>
         </li>
       </ul>
       <ul *ngIf="seleccionado == 8" class="nav navbar-nav">

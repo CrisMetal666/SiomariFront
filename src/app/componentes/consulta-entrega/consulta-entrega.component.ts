@@ -5,6 +5,7 @@ import { EntregaService } from '../../_service/entrega.service';
 import { PredioService } from '../../_service/predio.service';
 import { Predio } from '../../_model/predio';
 import { EntregaInfo } from '../../_model/entrega-info';
+import { Facturacion } from '../../_model/facturacion';
 
 @Component({
   selector: 'app-consulta-entrega',
@@ -21,9 +22,12 @@ export class ConsultaEntregaComponent implements OnInit {
   public rango: Date[];
   //segun el valor mostrara un mensaje al usuaruio
   public estado: number;
-  //lista del caudal entregado
-  public lstCaudal: EntregaInfo[];
+  //caudal entregado
+  public facturacion: Facturacion;
   public total: EntregaInfo;
+  public lstCaudal: EntregaInfo[];
+  public nombrePredio: string;
+  public nombreUsuario: string;
 
   constructor(
     private completerService: CompleterService,
@@ -31,8 +35,8 @@ export class ConsultaEntregaComponent implements OnInit {
     private entregaService: EntregaService,
     private spinnerService: Ng4LoadingSpinnerService
   ) {
-    this.lstCaudal = [];
     this.total = new EntregaInfo();
+    this.lstCaudal = [];
   }
 
   ngOnInit() {
@@ -61,14 +65,21 @@ export class ConsultaEntregaComponent implements OnInit {
     this.entregaService.caudalServidoPorRangoFecha(fecha1, fecha2, this.predio.id).subscribe(res => {
 
       //obtenemos el tamaño de la lista
-      let size: number = res.length;
+      let size: number = res.lstEntregaInfo.length;
 
       if (size != 0) {
 
-        // dejamos por fuera el ultimo elemento de la lista ya que es el total
-        this.lstCaudal = res.slice(0, size - 1);
         //asignamos el ultimo elemento para poder mostrarlo adecuadamente en la tabla
-        this.total = res[size - 1];
+        this.total = res.lstEntregaInfo[size - 1];
+
+        // dejamos por fuera el ultimo elemento de la lista ya que es el total
+        this.lstCaudal = res.lstEntregaInfo.splice(0, size - 1);
+
+        
+
+        this.nombrePredio = res.nombrePredio;
+        this.nombreUsuario = res.nombreUsuario;
+
         // decimos que todo esta ok y mostramos el resultado
         this.estado = 1;
 
