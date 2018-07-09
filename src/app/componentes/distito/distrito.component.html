@@ -1,0 +1,26 @@
+<div class="col-xs-6">
+
+  <h2 class="page-header" >Distrito</h2>
+
+  <ng4-loading-spinner> </ng4-loading-spinner>
+
+  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+    La informacion se ha guardado correctamente.
+  </div>
+  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    Se ha producido un error, intente mas tarde.
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="guardar()" autocomplete="off">
+
+    <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
+      <label class="control-label" for="nombre">Nombre del distrito</label>
+      <input [(ngModel)]="distrito.nombre" type="text" class="form-control" placeholder="Ingrese nombre del distrito" #nombre="ngModel" name="nombre" 
+        required/>
+      <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">El nombre es obligatorio</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Guardar</button>
+  </form>
+
+</div>

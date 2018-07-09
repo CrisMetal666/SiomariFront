@@ -3,24 +3,32 @@ import { HttpClient } from '@angular/common/http';
 import { Zona } from '../_model/zona';
 import { url } from './var.const';
 import { Canal } from '../_model/canal';
+import { HeaderToken } from './header-token';
 
 @Injectable()
 export class ZonaService {
 
   private url: string;
+  // objeto que contrira el header de autorizacion
+  private header: HeaderToken;
 
   constructor(
     private http: HttpClient
-  ) { 
+  ) {
     this.url = `${url}/zona/`;
+    this.header = new HeaderToken();
   }
 
   registrar(zona: Zona) {
-    return this.http.post<Zona>(`${this.url}`, zona);
+    return this.http.post<Zona>(`${this.url}`, zona,
+      this.header.getHeader()
+    );
   }
 
   editar(zona: Zona) {
-    return this.http.put<Zona>(`${this.url}`, zona);
+    return this.http.put<Zona>(`${this.url}`, zona,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -29,7 +37,9 @@ export class ZonaService {
    * @returns lista de zonas
    */
   buscarPorUnidadId(id: number) {
-    return this.http.get<Zona[]>(`${this.url}unidadId/${id}`);
+    return this.http.get<Zona[]>(`${this.url}unidadId/${id}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -38,19 +48,23 @@ export class ZonaService {
    * @param unidad id de la unidad
    * @returns true si existe, false si no existe
    */
-  existePorNombreYUnidad(nombre: string, unidad: number){
+  existePorNombreYUnidad(nombre: string, unidad: number) {
     //los espacios en blanco se deben reemplazar por '+'
-    return this.http.get<any>(`${this.url}existe/nombreYUnidad/${nombre.replace(' ', '+')}/${unidad}`);
+    return this.http.get<any>(`${this.url}existe/nombreYUnidad/${nombre.replace(' ', '+')}/${unidad}`,
+      this.header.getHeader()
+    );
   }
 
-    /**
-   * actualizara el canal servidor
-   * @param id id de la zona
-   * @param servidor id del canal servidor
-   */
+  /**
+ * actualizara el canal servidor
+ * @param id id de la zona
+ * @param servidor id del canal servidor
+ */
   updateCanalServidor(id: number, servidor: number) {
 
-    return this.http.put(`${this.url}canalServidor/${id}/${servidor}`,null);
+    return this.http.put(`${this.url}canalServidor/${id}/${servidor}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -59,6 +73,8 @@ export class ZonaService {
    */
   buscarCanalServidorPorId(id: number) {
 
-    return this.http.get<Canal>(`${this.url}buscarCanalServidorPorId/${id}`);
+    return this.http.get<Canal>(`${this.url}buscarCanalServidorPorId/${id}`,
+      this.header.getHeader()
+    );
   }
 }

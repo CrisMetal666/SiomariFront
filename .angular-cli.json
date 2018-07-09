@@ -24,7 +24,9 @@
         "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
       ],
       "scripts": [
+        
         "../node_modules/chart.js/src/chart.js"
+       
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

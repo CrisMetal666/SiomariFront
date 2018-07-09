@@ -5,20 +5,26 @@ import { Entrega } from '../_model/entrega';
 import { EntregaInfo } from '../_model/entrega-info';
 import { DistribucionAgua } from '../_model/distribucionAgua';
 import { Facturacion } from '../_model/facturacion';
+import { HeaderToken } from './header-token';
 
 @Injectable()
 export class EntregaService {
 
   private url: string;
+  // objeto que contrira el header de autorizacion
+  private header: HeaderToken;
 
   constructor(
     private http: HttpClient
   ) {
     this.url = `${url}entrega/`;
+    this.header = new HeaderToken();
   }
 
   registrar(entrega: Entrega) {
-    return this.http.post<Entrega>(this.url, entrega);
+    return this.http.post<Entrega>(this.url, entrega,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -28,7 +34,9 @@ export class EntregaService {
    * @param predio id del predio
    */
   caudalServidoPorRangoFecha(inicio: string, fin: string, predio: number) {
-    return this.http.get<Facturacion>(`${this.url}caudalServidoPorRangoFecha?inicio=${inicio}&fin=${fin}&predio=${predio}`);
+    return this.http.get<Facturacion>(`${this.url}caudalServidoPorRangoFecha?inicio=${inicio}&fin=${fin}&predio=${predio}`,
+    this.header.getHeader()
+  );
   }
 
   /**
@@ -41,7 +49,9 @@ export class EntregaService {
 
     let txtFecha = this.dateToString(fecha);
 
-    return this.http.get<DistribucionAgua[]>(`${this.url}distribucionDeAgua?tipo=${tipo}&id=${id}&fecha=${txtFecha}`);
+    return this.http.get<DistribucionAgua[]>(`${this.url}distribucionDeAgua?tipo=${tipo}&id=${id}&fecha=${txtFecha}`,
+    this.header.getHeader()
+  );
 
   }
 

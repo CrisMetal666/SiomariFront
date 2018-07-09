@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
-import { Decada } from '../_model/decada';
+import { Distrito } from '../_model/distrito';
 import { HeaderToken } from './header-token';
 
-
 @Injectable()
-export class DecadaService {
+export class DistritoService {
 
   private url: string;
   // objeto que contrira el header de autorizacion
@@ -15,17 +14,18 @@ export class DecadaService {
   constructor(
     private http: HttpClient
   ) {
+    this.url = `${url}/distrito/`;
     this.header = new HeaderToken();
-    this.url = `${url}decada/`;
   }
 
-  /**
-   * se traera los datos por mes y año especificado
-   * @param mes se debe especificar del 1-12 siendo 1 = enero y 12 = diciembre
-   * @param year año
-   */
-  datosPorMesYYear(mes: number, year: number) {
-    return this.http.get<Decada>(`${this.url}mesYYear/${mes}/${year}`,
+  guardar(distrito: Distrito) {
+    return this.http.post<boolean>(this.url, distrito,
+      this.header.getHeader()
+    );
+  }
+
+  getNombre() {
+    return this.http.get<Distrito>(this.url,
       this.header.getHeader()
     );
   }

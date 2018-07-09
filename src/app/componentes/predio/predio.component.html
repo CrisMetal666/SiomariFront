@@ -53,21 +53,21 @@
         </div>
 
         <div [ngClass]="(!areaPR.valid && areaPR.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label" for="areaPotencialRiego">Área potencial de riego (ha)</label>
+          <label class="control-label" for="areaPotencialRiego">Área potencial de riego (Ha)</label>
           <input [(ngModel)]="predio.areaPotencialRiego" #areaPR="ngModel" name="areaPR" id="areaPotencialRiego" type="number" class="form-control"
             placeholder="Ingrese el área potencial de riego" required/>
           <span class="msg-error" *ngIf="!areaPR.valid && areaPR.touched">Valor incorrecto</span>
         </div>
 
         <div [ngClass]="(!areaBajoRiego.valid && areaBajoRiego.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label" for="areaBajoRiego">Área bajo riego (ha)</label>
+          <label class="control-label" for="areaBajoRiego">Área bajo riego (Ha)</label>
           <input [(ngModel)]="predio.areaBajoRiego" #areaBajoRiego="ngModel" name="areaBajoRiego" id="areaBajoRiego" type="number"
             class="form-control" placeholder="Ingrese el área bajo riego" required/>
           <span class="msg-error" *ngIf="!areaBajoRiego.valid && areaBajoRiego.touched">Valor incorrecto</span>
         </div>
 
         <div [ngClass]="(!areaTotal.valid && areaTotal.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label" for="areaTotal">Área total (ha)</label>
+          <label class="control-label" for="areaTotal">Área total (Ha)</label>
           <input [(ngModel)]="predio.areaTotal" #areaTotal="ngModel" name="areaTotal" id="areaTotal" type="number" class="form-control"
             placeholder="Ingrese el area total" required/>
           <span class="msg-error" *ngIf="!areaTotal.valid && areaTotal.touched">Valor incorrecto</span>
@@ -112,17 +112,17 @@
 
         <div class="form-group">
           <label>X</label>
-          <input [(ngModel)]="predio.x" name="latitud" class="form-control" placeholder="Ingrese la latitud" type="number"/>
+          <input [(ngModel)]="predio.x" name="latitud" class="form-control" placeholder="Ingrese la coordenada x" type="number"/>
         </div>
 
         <div class="form-group">
           <label>Y</label>
-          <input [(ngModel)]="predio.y" name="long" class="form-control" placeholder="Ingrese la longitud" type="number" />
+          <input [(ngModel)]="predio.y" name="long" class="form-control" placeholder="Ingrese la coordeanda y" type="number" />
         </div>
 
         <div class="form-group">
-          <label>Altitud</label>
-          <input [(ngModel)]="predio.altitud" name="long" class="form-control" placeholder="Ingrese la longitud" type="number" />
+          <label>Altitud (m.s.n.m)</label>
+          <input [(ngModel)]="predio.altitud" name="long" class="form-control" placeholder="Ingrese la altitud" type="number" />
         </div>
 
       </div>

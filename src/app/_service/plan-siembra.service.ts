@@ -2,15 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { PlanSiembra } from '../_model/plan-siembra';
+import { HeaderToken } from './header-token';
 
 @Injectable()
 export class PlanSiembraService {
 
   private url: string;
+  // objeto que contrira el header de autorizacion
+  private header: HeaderToken;
 
   constructor(
     private http: HttpClient
   ) {
+    this.header = new HeaderToken();
     this.url = `${url}planSiembra/`;
   }
 
@@ -28,7 +32,9 @@ export class PlanSiembraService {
     let day = fecha.getDate();
     let periodo: number = this.calcularPeriodo(day);
 
-    return this.http.get<PlanSiembra>(`${this.url}YearMesPeriodo/${year}/${month}/${periodo}`);
+    return this.http.get<PlanSiembra>(`${this.url}YearMesPeriodo/${year}/${month}/${periodo}`,
+    this.header.getHeader()
+  );
   }
 
   /**

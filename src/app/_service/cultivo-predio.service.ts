@@ -3,16 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { CultivoPredio } from '../_model/cultivo-predio';
 import { PlaneacionInfo } from '../_model/planeacion-info';
+import { HeaderToken } from './header-token';
 
 @Injectable()
 export class CultivoPredioService {
 
   private url: string;
+  // objeto que contrira el header de autorizacion
+  private header: HeaderToken;
 
   constructor(
     private http: HttpClient
   ) {
     this.url = `${url}cultivoPredio/`;
+    this.header = new HeaderToken();
   }
 
   /**
@@ -20,7 +24,9 @@ export class CultivoPredioService {
    * @param cultivoPredio lista de cultivoPredio 
    */
   guardarLista(cultivoPredio: CultivoPredio[]) {
-    return this.http.post(`${this.url}list`, cultivoPredio);
+    return this.http.post(`${this.url}list`, cultivoPredio,
+    this.header.getHeader()
+  );
   }
 
    /**
@@ -28,7 +34,9 @@ export class CultivoPredioService {
    * @param cultivoPredio 
    */
   guardar(cultivoPredio: CultivoPredio) {
-    return this.http.post<CultivoPredio>(this.url, cultivoPredio);
+    return this.http.post<CultivoPredio>(this.url, cultivoPredio,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -37,7 +45,9 @@ export class CultivoPredioService {
    * 
    */
   buscarPorPredioIdPlanSiembraId(predio: number, planSiembra: number) {
-      return this.http.get<CultivoPredio[]>(`${this.url}predioIdPlanSiembraId/${predio}/${planSiembra}`);
+      return this.http.get<CultivoPredio[]>(`${this.url}predioIdPlanSiembraId/${predio}/${planSiembra}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -50,7 +60,9 @@ export class CultivoPredioService {
    */
   planeacionInfo(cultivo: number, year: number, campania: string) {
 
-    return this.http.get<PlaneacionInfo[]>(`${this.url}planeacionInfo/${cultivo}/${year}/${campania}`);
+    return this.http.get<PlaneacionInfo[]>(`${this.url}planeacionInfo/${cultivo}/${year}/${campania}`,
+    this.header.getHeader()
+  );
   }
 
   /**
@@ -61,7 +73,9 @@ export class CultivoPredioService {
    */
   planeacionInfoDemanda(year: number, campania: string) {
 
-    return this.http.get<any>(`${this.url}planeacionInfoDemanda/${year}/${campania}`);
+    return this.http.get<any>(`${this.url}planeacionInfoDemanda/${year}/${campania}`,
+    this.header.getHeader()
+  );
   }
 
   /**
@@ -71,7 +85,9 @@ export class CultivoPredioService {
    */
   demandaTotalDecadal(year: number, campania: string) {
 
-    return this.http.get<any>(`${this.url}demandaTotalDecadal/${year}/${campania}`);
+    return this.http.get<any>(`${this.url}demandaTotalDecadal/${year}/${campania}`,
+    this.header.getHeader()
+  );
   }
 
 

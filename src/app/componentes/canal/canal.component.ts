@@ -29,10 +29,6 @@ export class CanalComponent implements OnInit {
   @ViewChild('staticTabs') staticTabs: TabsetComponent;
   //Objeto donde se almacenaran los datos a registrar
   public canal: Canal;
-  //lista de obras utilizado en el select 
-  public lstObra: Obra[];
-  //objeto usado para asignarle las obras al canal
-  public lstCanalObra: CanalObra[];
   //Las secciones seleccionadas se van almacenado en este array 
   public lstSeccionCanal: SeccionCanal[];
   //Se almacenan los nombres de las unidades, zonas y secciones
@@ -47,44 +43,23 @@ export class CanalComponent implements OnInit {
   public estatus: number;
   //Se guardara el canal seleccionado en el auto-completer
   private canalId: Canal;
-  //se guarda el nombre de la obra para despues pasarlo al array
-  public idObra: number;
-  //se almacena la descripcion del canal para depues pasarlo al array
-  public obraDescripcion: string;
-  // necesario para la georreferenciacion de las obras
-  public gX: number;
-  // necesario para la georreferenciacion de las obras
-  public gY: number;
-  // necesario para la georreferenciacion de las obras
-  public gAltitud: number;
   // auto-completer
   public canalCompleter: string;
   public unidadCompleter: string;
   public zonaCompleter: string;
   public seccionCompleter: string;
-  public obraCompleter: string;
   public dataServiceCanal: CompleterData;
   public dataServiceUnidad: CompleterData;
   public dataServiceZona: CompleterData;
   public dataServiceSeccion: CompleterData;
-  public dataServiceObra: CompleterData;
-  //estableceremos el valor para bloquear o desbloquear el tab de obras
-  public disabledObras: boolean;
-  //nos sirve para manejar el modal
-  private modalRef: BsModalRef;
-  //se usara para el modal de editar obra
-  public canalObraEditar: CanalObra;
-  //almacenara la posicion de la obra de la lista de obras, para poder modificarla
-  public indexCanalObra: number;
-  //cuando se vaya a modificar una obra, almacenaremos en esta variable, la posicion
-  //de la obra que se quiera modificar
-  public indexObraEditar: number;
   //valor necesario para saber si estamos editando o registrando
   public edicion: boolean;
   //valor con el cual sabremos si debemos mostrar el formulario de registro al usuario
   public mostrarForm: boolean;
   //titulo de la pagina
   public title: string;
+  // deshablilitar el boton de guardar
+  disabledGuardar: boolean;
 
 
   constructor(
@@ -94,8 +69,6 @@ export class CanalComponent implements OnInit {
     private seccionService: SeccionService,
     private canalService: CanalService,
     private completerService: CompleterService,
-    private obraService: ObraService,
-    private modalService: BsModalService,
     private _route: ActivatedRoute,
     private _router: Router
   ) {
@@ -105,9 +78,6 @@ export class CanalComponent implements OnInit {
 
     //inicializamos el auto-completer
     this.dataServiceCanal = this.completerService.remote(this.canalService.urlListarPorNombreOCodigo, 'nombre,codigo', 'nombre');
-    this.dataServiceObra = this.completerService.remote(this.obraService.urlBuscarPorNombre, 'nombre', 'nombre');
-    //inicializamos la lista para no tener problemas con los select
-    this.lstObra = [];
     this.resetVariables();
 
     this.spinnerService.show();
@@ -153,9 +123,6 @@ export class CanalComponent implements OnInit {
       this.spinnerService.hide();
     });
 
-    this.obraService.listar().subscribe(res => {
-      this.lstObra = res;
-    });
   }
 
   //evento del autocompleter buscar canal
@@ -170,8 +137,6 @@ export class CanalComponent implements OnInit {
         //asignamos la respuesta al objeto para que se muestre en el formulario
         this.canal = res;
 
-        //inicializamos las listas necesarias para que funcione correctamente 
-        this.lstCanalObra = this.canal.lstCanalObra;
         this.lstSeccionCanal = this.canal.lstSeccionCanal;
 
         this.lstSeccionCanal.forEach(item => {
@@ -284,84 +249,12 @@ export class CanalComponent implements OnInit {
     }
   }
 
-  agregarObra() {
-
-    if (this.idObra < 0) return;
-
-    //verificamos que hayan agregado la descripcion
-    if (this.obraDescripcion.trim() == '') {
-      this.estatus = 4;
-      this.resetEstatus();
-      return;
-    }
-
-    //Declaramos los objetos para no modificar los objetos originales
-    let co: CanalObra = new CanalObra();
-    let o: Obra = new Obra();
-
-    //Obtenemos la obra seleccionada de la lista
-    let obraLista = this.lstObra[this.idObra];
-
-    //Llevamos los datos al objeto nuevo para la lista
-    o.id = obraLista.id;
-    o.nombre = obraLista.nombre;
-    co.descripcion = this.obraDescripcion;
-    co.obraId = o;
-    co.x = this.gX;
-    co.y = this.gY;
-    co.altitud = this.gAltitud;
-
-    this.lstCanalObra.push(co);
-
-    this.idObra = -1;
-    this.obraDescripcion = '';
-    this.gX = undefined;
-    this.gY = undefined;
-    this.gAltitud = undefined;
-  }
-
-  eliminarObra(index: number) {
-    this.lstCanalObra.splice(index, 1);
-  }
-
-  editarObra(template: TemplateRef<any>) {
-
-    //reemplazamos el objeto viejo por el nuevo
-    this.lstCanalObra[this.indexCanalObra] = this.canalObraEditar;
-
-    this.canalObraEditar = new CanalObra();
-    this.modalRef.hide();
-
-
-  }
-
-  openModalEditar(template: TemplateRef<any>, index: number) {
-    //establesco el indice de la lista el cual se va a modificar
-    this.indexCanalObra = index;
-    //llenamos el objeto que se usara en el modal para modificarlo
-    this.canalObraEditar = this.lstCanalObra[index];
-    this.obraCompleter = this.canalObraEditar.obraId.nombre;
-    //mostramos el modal
-    this.modalRef = this.modalService.show(template);
-  }
-
-  onSelectedObra(selected: CompleterItem) {
-
-    this.canalObraEditar.obraId = null;
-
-    if (selected) {
-      this.canalObraEditar.obraId = selected.originalObject;
-    }
-
-  }
-
   registrar(form) {
 
     this.spinnerService.show();
 
     //llenamos las listas
     this.canal.lstSeccionCanal = this.lstSeccionCanal;
-    this.canal.lstCanalObra = this.lstCanalObra;
 
     //asignamos id del si canal si el canal pertenece a un canal padre
     if (this.canalId != null) this.canal.canalId = this.canalId;
@@ -476,19 +369,19 @@ export class CanalComponent implements OnInit {
     setTimeout(() => this.estatus = -1, 5000);
   }
 
-  //necesario para bloquear o desbloquear el tab de obras
+  // bloqueara el boton de guardar dependiendo la categoria seleccionada
   categoriaChange() {
 
-    if (this.canal.categoria == '') this.disabledObras = true;
+    if (this.canal.categoria == '') this.disabledGuardar = true;
 
     if (this.canal.categoria == 'CANAL_ADUCCION' || this.canal.categoria == 'CANAL_PRINCIPAL') {
-      this.disabledObras = false;
+      this.disabledGuardar = false;
     } else {
 
       if (this.canalId == null || this.canalCompleter == '') {
-        this.disabledObras = true;
+        this.disabledGuardar = true;
       } else {
-        this.disabledObras = false;
+        this.disabledGuardar = false;
       }
     }
   }
@@ -513,19 +406,12 @@ export class CanalComponent implements OnInit {
     this.lstSeccionCanal = [];
     this.lstSeccionCanal = [];
     this.lstUbicacionCanal = [];
-    this.lstCanalObra = [];
-    this.obraDescripcion = '';
-    this.idObra = -1;
     this.canalId = null;
     this.canalCompleter = '';
     this.unidadCompleter = '';
     this.zonaCompleter = '';
     this.seccionCompleter = '';
-    this.disabledObras = true;
-    this.gX = undefined;
-    this.gY = undefined;
-    this.gAltitud = undefined;
-    this.canalObraEditar = new CanalObra();
+    this.disabledGuardar = true;
   }
 
 

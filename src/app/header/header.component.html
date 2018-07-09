@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top">
+<div *ngIf="isAuthenticated()" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="nav-header">
       <a href="#" class="navbar-brand">SIOMARI</a>
@@ -48,6 +48,12 @@
         <li [routerLinkActive]="['active']">
           <a routerLink="/balance">Balance</a>
         </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/climatologia">Climatología</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/config">Condeplan</a>
+        </li>
       </ul>
 
       <!-- Sub-menu 2 -->
@@ -84,6 +90,12 @@
       </div>
 
       <!-- Sub-menu 3 -->
+      <ul *ngIf="seleccionado == 3" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/distrito">Distrito</a>
+        </li>
+      </ul>
+
       <div *ngIf="seleccionado == 3" class="nav navbar-nav">
         <li [routerLinkActive]="['active']" class="dropdown" dropdown>
           <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Unidad
@@ -144,6 +156,9 @@
             <li [routerLinkActive]="['active']">
               <a style="cursor: pointer" routerLink="canal/editar">Editar</a>
             </li>
+            <li [routerLinkActive]="['active']">
+              <a style="cursor: pointer" routerLink="agregar-obra">Agregar obra</a>
+            </li>
           </ul>
         </li>
       </div>
@@ -182,13 +197,7 @@
 
       <ul *ngIf="seleccionado == 3" class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
-          <a routerLink="/climatologia">Climatologia</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/establecer-servidores">Canales servidores</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/config">Condeplan</a>
+          <a routerLink="/establecer-servidores">Servidores</a>
         </li>
       </ul>
 

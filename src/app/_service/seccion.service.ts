@@ -3,24 +3,32 @@ import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { Seccion } from '../_model/seccion';
 import { Canal } from '../_model/canal';
+import { HeaderToken } from './header-token';
 
 @Injectable()
 export class SeccionService {
 
   private url: string;
+  // objeto que contrira el header de autorizacion
+  private header: HeaderToken;
 
   constructor(
     private http: HttpClient
-  ) { 
+  ) {
     this.url = `${url}seccion/`;
+    this.header = new HeaderToken();
   }
 
   registrar(seccion: Seccion) {
-    return this.http.post<Seccion>(`${this.url}`, seccion);
+    return this.http.post<Seccion>(`${this.url}`, seccion,
+      this.header.getHeader()
+    );
   }
 
   editar(seccion: Seccion) {
-    return this.http.put<Seccion>(`${this.url}`, seccion);
+    return this.http.put<Seccion>(`${this.url}`, seccion,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -29,7 +37,9 @@ export class SeccionService {
    * @returns lista de secciones
    */
   buscarPorZonaId(id: number) {
-    return this.http.get<Seccion[]>(`${this.url}zonaId/${id}`);
+    return this.http.get<Seccion[]>(`${this.url}zonaId/${id}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -38,9 +48,11 @@ export class SeccionService {
    * @param zona id de la zona
    * @returns true si existe, false si no existe
    */
-  existePorNombreYZona(nombre: string, zona: number){
+  existePorNombreYZona(nombre: string, zona: number) {
     //los espacios en blanco se deben reemplazar por '+'
-    return this.http.get<any>(`${this.url}existe/nombreYZona/${nombre.replace(' ', '+')}/${zona}`);
+    return this.http.get<any>(`${this.url}existe/nombreYZona/${nombre.replace(' ', '+')}/${zona}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -50,7 +62,9 @@ export class SeccionService {
    */
   updateCanalServidor(id: number, servidor: number) {
 
-    return this.http.put(`${this.url}canalServidor/${id}/${servidor}`,null);
+    return this.http.put(`${this.url}canalServidor/${id}/${servidor}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -59,6 +73,8 @@ export class SeccionService {
    */
   buscarCanalServidorPorId(id: number) {
 
-    return this.http.get<Canal>(`${this.url}buscarCanalServidorPorId/${id}`);
+    return this.http.get<Canal>(`${this.url}buscarCanalServidorPorId/${id}`,
+      this.header.getHeader()
+    );
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,9 @@ export class HeaderComponent implements OnInit {
    */
   public seleccionado: number;
 
-  constructor() { 
+  constructor(
+    private router: Router
+  ) { 
     this.seleccionado = 0;
   }
 
@@ -33,4 +36,13 @@ export class HeaderComponent implements OnInit {
     this.seleccionado = seleccion;
   }
 
+  isAuthenticated() {
+    let token = sessionStorage.getItem('token');
+    return token != null;
+  }
+
+  cerrarSesion() {    
+    sessionStorage.clear();
+    this.router.navigate(['login']);
+  }
 }

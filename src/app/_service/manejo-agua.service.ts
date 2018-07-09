@@ -3,20 +3,27 @@ import { url } from './var.const';
 import { HttpClient } from '@angular/common/http';
 import { ManejoAgua } from '../_model/manejo-agua';
 import { EficienciaPerdidas } from '../_model/eficiencia-perdidas';
+import { HeaderToken } from './header-token';
 
 @Injectable()
 export class ManejoAguaService {
 
   private url: string;
+  // objeto que contrira el header de autorizacion
+  private header: HeaderToken;
 
   constructor(
     private http: HttpClient
   ) {
     this.url = `${url}manejoAgua/`
+    this.header = new HeaderToken();
   }
 
   registrar(manejoAgua: ManejoAgua) {
-    return this.http.post<ManejoAgua>(this.url, manejoAgua, { observe: 'response' });
+    return this.http.post<ManejoAgua>(this.url, manejoAgua, {
+      observe: 'response',
+      headers: this.header.header()
+    });
   }
 
   /**
@@ -40,7 +47,9 @@ export class ManejoAguaService {
     let txtFecha1: string = this.dateToString(fecha1);
     let txtFecha2: string = this.dateToString(fecha2);
 
-    return this.http.get<Array<Array<number>>>(`${this.url}calcularLanLamEfic?fecha1=${txtFecha1}&fecha2=${txtFecha2}&id=${id}&tipo=${tipo}`);
+    return this.http.get<Array<Array<number>>>(`${this.url}calcularLanLamEfic?fecha1=${txtFecha1}&fecha2=${txtFecha2}&id=${id}&tipo=${tipo}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -63,7 +72,9 @@ export class ManejoAguaService {
     let txtFecha1: string = this.dateToString(fecha1);
     let txtFecha2: string = this.dateToString(fecha2);
 
-    return this.http.get<EficienciaPerdidas>(`${this.url}calcularEficienciaPerdidas?id=${id}&tipo=${tipo}&fecha1=${txtFecha1}&fecha2=${txtFecha2}`);
+    return this.http.get<EficienciaPerdidas>(`${this.url}calcularEficienciaPerdidas?id=${id}&tipo=${tipo}&fecha1=${txtFecha1}&fecha2=${txtFecha2}`,
+      this.header.getHeader()
+    );
   }
 
 }

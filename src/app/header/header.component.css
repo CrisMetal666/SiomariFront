@@ -1,24 +1,4 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-.example-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .example-sidenav-container {    
-    flex: 1;
-  }
-  
-  .example-spacer {
-    flex: 1 1 auto;
-  }
-/*
 .cursor-nav {
     cursor: pointer;
 }
-*/
+

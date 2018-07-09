@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { Canal } from '../_model/canal';
 import { ConsultaCanal } from '../_model/consulta-canal';
+import { HeaderToken } from './header-token';
 
 @Injectable()
 export class CanalService {
@@ -22,33 +23,47 @@ export class CanalService {
    */
   public urlListarPorNombreOCodigoNoServidores: string;
 
+  // objeto que contrira el header de autorizacion
+  private header: HeaderToken;
+
   constructor(
     private http: HttpClient
   ) {
+    this.header = new HeaderToken();
     this.url = `${url}canal/`;
-    this.urlListarPorNombreOCodigo = `${this.url}buscarPorNombreOCodigo?s=`;
-    this.urlListarPorNombreOCodigoServidores = `${this.url}buscarPorNombreOCodigoServidores?s=`;
-    this.urlListarPorNombreOCodigoNoServidores = `${this.url}buscarPorNombreOCodigoNoServidores?s=`;
+    this.urlListarPorNombreOCodigo = `${this.url}buscarPorNombreOCodigo?access_token=${this.header.getToken()}&s=`;
+    this.urlListarPorNombreOCodigoServidores = `${this.url}buscarPorNombreOCodigoServidores?access_token=${this.header.getToken()}&s=`;
+    this.urlListarPorNombreOCodigoNoServidores = `${this.url}buscarPorNombreOCodigoNoServidores?access_token=${this.header.getToken()}&s=`;
   }
 
   existeCanalPorCodigo(codigo: string) {
-    return this.http.get<any>(`${this.url}existe/codigo/${codigo}`);
+    return this.http.get<any>(`${this.url}existe/codigo/${codigo}`,
+      this.header.getHeader()
+    );
   }
 
   registrar(canal: Canal) {
-    return this.http.post<Canal>(`${this.url}`, canal);
+    return this.http.post<Canal>(`${this.url}`, canal,
+      this.header.getHeader()
+    );
   }
 
   editar(canal: Canal) {
-    return this.http.put<Canal>(`${this.url}`, canal);
+    return this.http.put<Canal>(`${this.url}`, canal,
+      this.header.getHeader()
+    );
   }
 
   buscarPorSeccionId(id: number) {
-    return this.http.get<Canal[]>(`${this.url}seccionId/${id}`);
+    return this.http.get<Canal[]>(`${this.url}seccionId/${id}`,
+      this.header.getHeader()
+    );
   }
 
   listar() {
-    return this.http.get<Canal[]>(`${this.url}`);
+    return this.http.get<Canal[]>(`${this.url}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -56,7 +71,9 @@ export class CanalService {
    * @param id 
    */
   buscarPorId(id: number) {
-    return this.http.get<Canal>(`${this.url}${id}`);
+    return this.http.get<Canal>(`${this.url}${id}`,
+      this.header.getHeader()
+    );
   }
 
   /**
@@ -65,7 +82,9 @@ export class CanalService {
    */
   consultaCompleta(id: number) {
 
-    return this.http.get<ConsultaCanal>(`${this.url}consultaCompleta/${id}`);
+    return this.http.get<ConsultaCanal>(`${this.url}consultaCompleta/${id}`,
+      this.header.getHeader()
+    );
   }
 
 }

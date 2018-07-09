@@ -1,3 +1,4 @@
+
 <app-header></app-header>
 
 <div class="container">
@@ -7,3 +8,101 @@
     </div>
   </div>
 </div>
+<!--
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="nav-header">
+      <a href="javascript: void(0)" class="navbar-brand">SIOMARI</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li (click)="cambiarSubMenu(1)">
+          <a href="javascript: void(0)">Registro</a>
+        </li>
+        <li (click)="cambiarSubMenu(2)">
+          <a href="javascript: void(0)">Estroper</a>
+        </li>
+        <li (click)="cambiarSubMenu(3)">
+          <a href="javascript: void(0)">Hidrometría</a>
+        </li>
+        <li (click)="cambiarSubMenu(4)">
+          <a href="javascript: void(0)">Planeación</a>
+        </li>
+        <li (click)="cambiarSubMenu(5)">
+          <a href="javascript: void(0)">Programación</a>
+        </li>
+        <li (click)="cambiarSubMenu(6)">
+          <a href="javascript: void(0)">Distribución</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a href="javascript: void(0)" routerLink="/entrega">Entregas</a>
+        </li>
+        <li (click)="cambiarSubMenu(8)">
+          <a href="javascript: void(0)">Evaluacion</a>
+        </li>
+        <li (click)="cambiarSubMenu(9)">
+          <a href="javascript: void(0)">Consultas</a>
+        </li>
+        <li (click)="mostrar = !mostrar">
+          <a href="javascript: void(0)">Mostrar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="mostrar" class="col-sm-3 col-md-2 sidebar" style="background-color: #fff;">
+
+      <!-- Registro --
+      <ul class="nav nav-sidebar">
+
+
+        <li>
+          <a href="">link1</a>
+        </li>
+        <accordion>
+
+          <accordion-group (mouseenter) ="over(true)"  (mouseleave) ="over(false)" heading="link" >
+            This content is straight in the template.
+          </accordion-group>
+
+          <li>
+            <a class="sub-menu" href="">
+              <accordion-group heading="Another group">
+                <p>Some content</p>
+              </accordion-group>
+            </a>
+          </li>
+          <accordion-group heading="Another group">
+            <p>Some content</p>
+          </accordion-group>
+          <accordion-group heading="Another group">
+            <p>Some content</p>
+          </accordion-group>
+        </accordion>
+
+
+
+
+      </ul>
+    </div>
+
+    <!-- Content 
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    --
+    <div [ngClass]="mostrar ? 'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main' : 'col-sm-12'" class="col-sm-12 main">
+
+
+
+
+      <router-outlet></router-outlet>
+
+
+    </div>
+  </div>
+</div>
+-->

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './test/login/login.component';
 import { GraficaComponent } from './test/grafica/grafica.component';
-import { TablasComponent } from './test/tablas/tablas.component';
 import { CanalComponent } from './componentes/canal/canal.component';
 import { CultivoComponent } from './componentes/cultivo/cultivo.component';
 import { PredioComponent } from './componentes/predio/predio.component';
@@ -29,6 +28,8 @@ import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consult
 import { ConsultaPredioComponent } from './componentes/consulta-predio/consulta-predio.component';
 import { DitribucionAguaMensualComponent } from './componentes/ditribucion-agua-mensual/ditribucion-agua-mensual.component';
 import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-canal.component';
+import { CanalObraComponent } from './componentes/canal-obra/canal-obra.component';
+import { DistritoComponent } from './componentes/distito/distrito.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent },
@@ -59,6 +60,8 @@ const appRoutes: Routes = [
     { path: 'consulta/predio', component: ConsultaPredioComponent },
     { path: 'distribucion-agua-mensual', component: DitribucionAguaMensualComponent },
     { path: 'consulta/canal', component: ConsultaCanalComponent },
+    { path: 'agregar-obra', component: CanalObraComponent },
+    { path: 'distrito', component: DistritoComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

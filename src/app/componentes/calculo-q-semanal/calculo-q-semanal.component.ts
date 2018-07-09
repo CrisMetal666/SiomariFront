@@ -279,6 +279,7 @@ export class CalculoQSemanalComponent implements OnInit {
       this.consultado = false;
       this.spinnerService.hide();
     });
+
   }
 
   guardar() {

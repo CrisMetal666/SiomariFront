@@ -62,12 +62,12 @@ export class UsuarioComponent implements OnInit {
       if (params['edicion'] == 'editar') {
         this.edicion = true;
         this.mostrarForm = false;
-        this.title = 'Edición de usuario';
+        this.title = 'Edición de Usuario';
 
       } else if (params['edicion'] == 'registrar') {
         this.edicion = false;
         this.mostrarForm = true;
-        this.title = 'Registro de usuario';
+        this.title = 'Registro de Usuario';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
         this._router.navigate(['/']);

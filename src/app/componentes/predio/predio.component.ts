@@ -63,12 +63,12 @@ export class PredioComponent implements OnInit {
       if (params['edicion'] == 'editar') {
         this.edicion = true;
         this.mostrarForm = false;
-        this.title = 'Edición de predio';
+        this.title = 'Edición de Predio';
 
       } else if (params['edicion'] == 'registrar') {
         this.edicion = false;
         this.mostrarForm = true;
-        this.title = 'Registro de predio';
+        this.title = 'Registro de Predio';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
         this._router.navigate(['/']);

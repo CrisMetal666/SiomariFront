@@ -185,70 +185,7 @@
       </form>
     </tab>
 
-    <tab [disabled]="!form.form.valid || lstSeccionCanal.length == 0" heading="Obras">
-      <!-- [disabled]="disabledObras" -->
-
-      <br/>
-
-      <div *ngIf="estatus == 4" class="alert alert-warning" role="alert">
-        No puedes dejar la descripcion vacia.
-      </div>
-      <div *ngIf="estatus == 5" class="alert alert-warning" role="alert">
-        Valor incorrecto en la georreferenciación.
-      </div>
-
-      <div class="row">
-        <div class="col-xs-6">
-
-          <div class="form-group ">
-            <label for="obras">Obras</label>
-            <select [(ngModel)]="idObra" name="obras" class="form-control">
-              <option value="-1">-- Seleccione --</option>
-              <option *ngFor="let o of lstObra; let i = index" [attr.data-index]="i" value="{{i}}">{{o.nombre}}</option>
-              <option *ngIf="lstObra.length == 0" value="-1">No hay obras registradas</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label">Descripcion de la obra</label>
-            <textarea [(ngModel)]="obraDescripcion" name="estadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>X</label>
-            <input [(ngModel)]="gX" placeholder="Ingrese la coordenada x" class="form-control" name="cLatitud" type="number" />
-          </div>
-
-          <div class="form-group">
-            <label>Y</label>
-            <input [(ngModel)]="gY" placeholder="Ingrese la coordenada y" class="form-control" name="cLongitud" type="number" />
-          </div>
-
-          <div class="form-group">
-            <label>Altitud</label>
-            <input [(ngModel)]="gAltitud" placeholder="Ingrese la altitud" class="form-control" name="cLongitud" type="number" />
-          </div>
-
-          <button class="btn btn-success" type="button" (click)="agregarObra()">Agregar</button>
-
-        </div>
-
-        <div class="col-xs-6">
-
-          <table class="table table-striped">
-            <tr *ngFor="let o of lstCanalObra; let i = index" [attr.data-index]="i">
-              <td>{{o.obraId.nombre}}</td>
-              <td>
-                <button (click)="openModalEditar(templateEditar,i)" type="button" class="btn btn-info">Editar</button>
-                <button (click)="eliminarObra(i)" type="button" class="btn btn-danger">Eliminar</button>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </tab>
-
-    <tab [disabled]="!form.form.valid || lstCanalObra.length == 0 || lstSeccionCanal.length == 0" heading="Categoria" >
+    <tab [disabled]="!form.form.valid || lstSeccionCanal.length == 0" heading="Categoria" >
 
 
         <br/>
@@ -270,7 +207,7 @@
               </select>
             </div>
 
-            <button [disabled]="!form.form.valid || disabledObras" (click)="registrar(form)" type="button" class="btn btn-primary">Guardar</button>
+            <button [disabled]="!form.form.valid || disabledGuardar" (click)="registrar(form)" type="button" class="btn btn-primary">Guardar</button>
             <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
   
           </div>
@@ -291,48 +228,4 @@
 
   </tabset>
 
-
-  <ng-template #templateEditar>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left">Editar Obra</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-
-      <div class="form-group">
-        <label class="control-label">Obra</label>
-        <ng2-completer [(ngModel)]="obraCompleter" name="cObra" (selected)="onSelectedObra($event)" [datasource]="dataServiceObra" [inputClass]="['form-control']" [minSearchLength]="4"
-          [textSearching]="'Buscando...'" [placeholder]="'Buscar obra'" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
-      </div>
-
-      <div class="form-group">
-        <label class="control-label">Descripcion de la obra</label>
-        <textarea [(ngModel)]="canalObraEditar.descripcion" name="mestadoO" class="form-control" rows="4" placeholder="Ingrese la descripción del estado (Opcional)"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>X</label>
-        <input [(ngModel)]="canalObraEditar.x" placeholder="Ingrese la coordenada x" class="form-control" name="mcLatitud" type="number"
-        />
-      </div>
-
-      <div class="form-group">
-        <label>Y</label>
-        <input [(ngModel)]="canalObraEditar.y" placeholder="Ingrese la coordenada y" class="form-control" name="mcLongitud" type="number"
-        />
-      </div>
-
-      <div class="form-group">
-        <label>Altitud</label>
-        <input [(ngModel)]="canalObraEditar.altitud" placeholder="Ingrese la altitud" class="form-control" name="mcLongitud" type="number"
-        />
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" (click)="editarObra()" class="btn btn-success">Aceptar</button>
-      <button type="button" (click)="modalRef.hide()" class="btn btn-danger">Cancelar</button>
-    </div>
-  </ng-template>
 </div>

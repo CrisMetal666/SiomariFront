@@ -23,7 +23,6 @@ import { CultivoService } from './_service/cultivo.service';
 import { PredioService } from './_service/predio.service';
 import { ObraService } from './_service/obra.service';
 import { UsuarioService } from './_service/usuario.service';
-import { ClimatologiaDatosService } from './_service/climatologia-datos.service';
 import { ClimatologiaYearService } from './_service/climatologia-year.service';
 import { CultivoPredioService } from './_service/cultivo-predio.service';
 import { PlanSiembraService } from './_service/plan-siembra.service';
@@ -33,6 +32,10 @@ import { EstructuraControlService } from './_service/estructura-control.service'
 import { EntregaService } from './_service/entrega.service';
 import { ManejoAguaService } from './_service/manejo-agua.service';
 import { ProgramacionSemanalService } from './_service/programacion-semanal.service';
+import { CanalObraService } from './_service/canal-obra.service';
+import { DistritoService } from './_service/distrito.service';
+import { LoginService } from './_service/login.service';
+import { GuardService } from './_service/guard.service';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
@@ -64,16 +67,11 @@ import { EstablecerCanalesDistribucionComponent } from './componentes/establecer
 import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
 import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consulta-usuario.component';
 import { ConsultaPredioComponent } from './componentes/consulta-predio/consulta-predio.component';
-
-// angular meterial
-import {
-  MatInputModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, 
-  MatDividerModule, MatToolbarModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, 
-  MatSortModule, MatPaginatorIntl, MatCardModule, MatSnackBarModule, MatDialogModule, MatSelectModule, MatDatepickerModule, MatListModule, MatExpansionModule, MatNativeDateModule, MatAutocompleteModule
-} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DitribucionAguaMensualComponent } from './componentes/ditribucion-agua-mensual/ditribucion-agua-mensual.component';
 import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-canal.component';
+import { CanalObraComponent } from './componentes/canal-obra/canal-obra.component';
+import { DistritoComponent } from './componentes/distito/distrito.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +105,9 @@ import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-ca
     ConsultaUsuarioComponent,
     ConsultaPredioComponent,
     DitribucionAguaMensualComponent,
-    ConsultaCanalComponent
+    ConsultaCanalComponent,
+    CanalObraComponent,
+    DistritoComponent
   ],
   imports: [
     BrowserModule,
@@ -124,11 +124,7 @@ import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-ca
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     AccordionModule.forRoot(),
-    MatInputModule, MatButtonModule, MatIconModule, MatMenuModule, MatSidenavModule, 
-  MatDividerModule, MatToolbarModule, MatFormFieldModule, MatTableModule, MatPaginatorModule, 
-  MatSortModule, MatCardModule, MatSnackBarModule, MatDialogModule, 
-  MatSelectModule, MatDatepickerModule, MatListModule, MatExpansionModule, MatNativeDateModule, 
-  MatAutocompleteModule, BrowserAnimationsModule
+    BrowserAnimationsModule
   ],
   providers: [
     UnidadService,
@@ -139,7 +135,6 @@ import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-ca
     PredioService,
     ObraService,
     UsuarioService,
-    ClimatologiaDatosService,
     ClimatologiaYearService,
     CultivoPredioService,
     PlanSiembraService,
@@ -148,7 +143,11 @@ import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-ca
     EstructuraControlService,
     EntregaService,
     ManejoAguaService,
-    ProgramacionSemanalService
+    ProgramacionSemanalService,
+    CanalObraService,
+    DistritoService,
+    LoginService,
+    GuardService
   ],
   bootstrap: [AppComponent]
 })

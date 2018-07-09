@@ -59,30 +59,31 @@
     </div>
     <div class="modal-body">
       <div [ngClass]="(!evaporacion.valid && evaporacion.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="evaporacion" class="control-label">Evaporación</label>
+        <label for="evaporacion" class="control-label">Evaporación (mm)</label>
         <input [(ngModel)]="climatologiaDatos.evaporacion" #evaporacion="ngModel" type="number" name="evaporacion" class="form-control"
           placeholder="Ingrese la evaporación" required/>
         <span class="msg-error" *ngIf="!evaporacion.valid && evaporacion.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!precipitacion.valid && precipitacion.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="precipitacion" class="control-label">Precipitación</label>
+        <label for="precipitacion" class="control-label">Precipitación (mm)</label>
         <input [(ngModel)]="climatologiaDatos.precipitacion" #precipitacion="ngModel" type="number" name="precipitacion" class="form-control"
           placeholder="Ingrese la precipitación" required/>
         <span class="msg-error" *ngIf="!precipitacion.valid && precipitacion.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!qPrecipitacion.valid && qPrecipitacion.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="qPrecipitacion" class="control-label">Caudal del 75% de probabilidad
+        <label for="qPrecipitacion" class="control-label">Caudal concesionado (
           <span>
             <i>m</i>
             <sup>
               <i>3</i>
             </sup>
           </span>
+          )
         </label>
         <input [(ngModel)]="climatologiaDatos.qPrecipitacion" #qPrecipitacion="ngModel" type="number" name="qPrecipitacion" class="form-control"
-          placeholder="Ingrese el caudal de precipitación" required/>
+          placeholder="Ingrese el caudal concesionado" required/>
         <span class="msg-error" *ngIf="!qPrecipitacion.valid && qPrecipitacion.touched">Valor incorrecto</span>
       </div>
 
