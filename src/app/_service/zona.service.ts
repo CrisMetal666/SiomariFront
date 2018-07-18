@@ -15,7 +15,7 @@ export class ZonaService {
   constructor(
     private http: HttpClient
   ) {
-    this.url = `${url}/zona/`;
+    this.url = `${url}zona/`;
     this.header = new HeaderToken();
   }
 

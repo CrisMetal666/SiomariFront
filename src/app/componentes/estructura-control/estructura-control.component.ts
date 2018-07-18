@@ -5,6 +5,7 @@ import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { CanalService } from '../../_service/canal.service';
 import { Canal } from '../../_model/canal';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-estructura-control',
@@ -37,27 +38,8 @@ export class EstructuraControlComponent implements OnInit {
   public canalCompleter: string;
   //mostrara un mensaje al usuario dependiendo del valor numerico
   public estado: number;
-  // variables para generar la grafica
   // lineChart
-  public lineChartData: Array<any> = [
-    { data: [0, 0, 0, 0, 0, 0, 0], label: 'Curva de calibración' }
-  ];
-  public lineChartLabels: Array<any> = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
-  public lineChartOptions: any = {
-    responsive: true
-  };
-  public lineChartColors: Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: '#FF8000',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend: boolean = true;
-  public lineChartType: string = 'line';
+  chart;
   // nos dira si debemos mostrar la grafica
   public graficar: boolean;
   //dira si hay ecuacion de calibracion
@@ -226,6 +208,7 @@ export class EstructuraControlComponent implements OnInit {
 
   onSelectedEstructuraGraficar(selected: CompleterItem) {
 
+
     if (selected) {
 
       //mostramos la grafica
@@ -247,16 +230,71 @@ export class EstructuraControlComponent implements OnInit {
         y.push(p);
 
       }
-      this.lineChartData = [
-        { data: y, label: 'Curva de calibración' }
-      ];
+      //calculamos los valores para graficarlos
+      for (let i = 0; i <= 600; i += 50) {
+
+        let p = this.a * Math.pow(i, this.b);
+        y.push(p);
+
+      }
+
+      let x: Array<any> = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
+
+      this.chart = new Chart('canvas', {
+        type: 'line',
+        data: {
+          labels: x,
+          datasets: [
+            {
+              label: 'Curva de calibración',
+              steppedLine: false,
+              data: y,
+              borderColor: "#3cba9f",
+              fill: false,
+              backgroundColor: [
+                'rgba(148,159,177,0)',
+                '#FF8000',
+                'rgba(148,159,177,1)',
+                '#fff',
+                '#fff',
+                'rgba(148,159,177,0.8)'
+              ],
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Caudal (L/s)'
+              }
+            }],
+            yAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Tirante de agua (m)'
+              }
+            }],
+          }
+        }
+      });
 
     }
+
   }
 
   onKeyUpGraficar() {
     this.graficar = false;
     this.ecuacion = false;
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 
   resetVariables() {

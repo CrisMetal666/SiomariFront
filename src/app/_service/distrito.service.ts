@@ -14,7 +14,7 @@ export class DistritoService {
   constructor(
     private http: HttpClient
   ) {
-    this.url = `${url}/distrito/`;
+    this.url = `${url}distrito/`;
     this.header = new HeaderToken();
   }
 

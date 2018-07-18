@@ -36,6 +36,7 @@ import { CanalObraService } from './_service/canal-obra.service';
 import { DistritoService } from './_service/distrito.service';
 import { LoginService } from './_service/login.service';
 import { GuardService } from './_service/guard.service';
+import { UsersService } from './_service/users.service';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
@@ -72,6 +73,8 @@ import { DitribucionAguaMensualComponent } from './componentes/ditribucion-agua-
 import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-canal.component';
 import { CanalObraComponent } from './componentes/canal-obra/canal-obra.component';
 import { DistritoComponent } from './componentes/distito/distrito.component';
+import { UsersComponent } from './componentes/users/users.component';
+import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +110,9 @@ import { DistritoComponent } from './componentes/distito/distrito.component';
     DitribucionAguaMensualComponent,
     ConsultaCanalComponent,
     CanalObraComponent,
-    DistritoComponent
+    DistritoComponent,
+    UsersComponent,
+    CambiarClaveComponent
   ],
   imports: [
     BrowserModule,
@@ -147,7 +152,8 @@ import { DistritoComponent } from './componentes/distito/distrito.component';
     CanalObraService,
     DistritoService,
     LoginService,
-    GuardService
+    GuardService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })

@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
    * 7 - Entregas
    * 8 - Reportes
    * 9 - Evaluación
+   * 10 - cuenta
    */
   public seleccionado: number;
 

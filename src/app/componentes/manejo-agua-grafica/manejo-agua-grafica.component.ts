@@ -9,6 +9,7 @@ import { ManejoAguaService } from '../../_service/manejo-agua.service';
 import { UnidadService } from '../../_service/unidad.service';
 import { ZonaService } from '../../_service/zona.service';
 import { SeccionService } from '../../_service/seccion.service';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-manejo-agua-grafica',
@@ -36,6 +37,7 @@ export class ManejoAguaGraficaComponent implements OnInit {
   //segun el vlaor numerico, se mostrara un mensaje al usuario
   public estado: number;
   // lineChart
+  chart;
   public lineChartData: Array<any> = [];
   public lineChartLabels: Array<any> = [];
   public lineChartOptions: any = {
@@ -275,11 +277,11 @@ export class ManejoAguaGraficaComponent implements OnInit {
         let ejeX: Array<string> = [];
 
         for (let i = 1; i <= res[0].length; i++) {
-          
+
           let fechaX = new Date();
           fechaX.setDate(this.fecha[0].getDate() + i - 1);
 
-          ejeX.push(fechaX.toISOString().substring(0,10));
+          ejeX.push(fechaX.toISOString().substring(0, 10));
         }
 
         this.lineChartData = [
@@ -290,6 +292,8 @@ export class ManejoAguaGraficaComponent implements OnInit {
 
         this.lineChartLabels = ejeX;
 
+        this.crearGrafica(res, ejeX);
+
         this.mostrarGrafica = true;
         this.spinnerService.hide();
 
@@ -299,4 +303,117 @@ export class ManejoAguaGraficaComponent implements OnInit {
       });
   }
 
+  private crearGrafica(data: Array<number[]>, ejeX) {
+    this.chart = new Chart('canvas', {
+      type: 'line',
+      data: {
+        labels: ejeX,
+        datasets: [
+          {
+            label: 'Eficiencia',
+            steppedLine: false,
+            data: data[0],
+            borderColor: "#3cba9f",
+            fill: false,
+            backgroundColor: [
+              'rgba(148,159,177,0)',
+              '#c62828',
+              'rgba(148,159,177,1)',
+              '#fff',
+              '#fff',
+              'rgba(148,159,177,0.8)'
+            ],
+          },
+          {
+            label: 'Lam',
+            steppedLine: false,
+            data: data[1],
+            borderColor: "#3cba9f",
+            fill: false,
+            backgroundColor: [
+              'rgba(148,159,177,0)',
+              '#0d47a1',
+              'rgba(148,159,177,1)',
+              '#fff',
+              '#fff',
+              'rgba(148,159,177,0.8)'
+            ],
+          },
+          {
+            label: 'Ln',
+            steppedLine: false,
+            data: data[0] ,
+            borderColor: "#3cba9f",
+            fill: false,
+            backgroundColor: [
+              'rgba(148,159,177,0)',
+              '#90caf9',
+              'rgba(148,159,177,1)',
+              '#fff',
+              '#fff',
+              'rgba(148,159,177,0.8)'
+            ],
+          }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Caudal (L/s)'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Tirante de agua (m)'
+            }
+          }],
+        }
+      }
+    });
+  }
+
 }
+
+/*
+public lineChartData: Array<any> = [];
+  public lineChartLabels: Array<any> = [];
+  public lineChartOptions: any = {
+    responsive: true
+  };
+  public lineChartColors: Array<any> = [
+    {
+      backgroundColor: 'rgba(148,159,177,0)',
+      borderColor: '#c62828',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    {
+      backgroundColor: 'rgba(148,159,177,0)',
+      borderColor: '#0d47a1',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    {
+      backgroundColor: 'rgba(148,159,177,0)',
+      borderColor: '#90caf9',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegend: boolean = true;
+  public lineChartType: string = 'line';
+*/

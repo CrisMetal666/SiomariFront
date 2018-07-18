@@ -87,6 +87,8 @@ export class SeccionComponent implements OnInit {
           this._router.navigate(['/']);
         }
 
+        console.log(this.zonaId);
+
         this.spinnerService.hide();
       });
 

@@ -44,7 +44,7 @@ export class CanalObraService {
     formdata.append('body', JSON.stringify(canalObra)
     );
 
-    return this.http.post<number>(this.url, formdata,
+    return this.http.post<number>(`${this.url}`, formdata,
       this.header.getHeaderSendFile()
     );
   }

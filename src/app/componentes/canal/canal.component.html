@@ -19,7 +19,7 @@
   <div *ngIf="!mostrarForm" class="form-group col-xs-6">
     <div class="form-group">
       <label class="control-label">Buscar canal</label>
-      <ng2-completer (selected)="onSelectedCanal($event)" [datasource]="dataServiceCanal" [inputClass]="['form-control']" [minSearchLength]="4"
+      <ng2-completer (selected)="onSelectedCanal($event)" [datasource]="dataServiceCanal" [inputClass]="['form-control']" [minSearchLength]="3"
         [textSearching]="'Buscando...'" [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
     </div>
   </div>
@@ -216,7 +216,7 @@
   
             <div [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error' : 'form-group'">
               <label class="control-label" for="canalSearch">Canal</label>
-              <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="2" [textSearching]="'Buscando...'"
+              <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="3" [textSearching]="'Buscando...'"
                 [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
                 #canalSearch="ngModel" [(ngModel)]="canalCompleter" id="canalSearch" name="canalSearch" required [clearUnselected]=true></ng2-completer>
               <span class="msg-error" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>

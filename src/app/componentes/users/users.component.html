@@ -1,0 +1,65 @@
+<div class="col-xs-6">
+
+  <h2 class="page-header">{{title}}</h2>
+
+  <br>
+
+  <ng4-loading-spinner> </ng4-loading-spinner>
+
+  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+    La informacion se ha guardado correctamente.
+  </div>
+  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    Se ha producido un error, intente mas tarde.
+  </div>
+  <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+    La identificación ya se encuentra en uso.
+  </div>
+  <div *ngIf="estado == 3" class="alert alert-warning" role="alert">
+    La identificación no se encuentra registrada.
+  </div>
+
+  <div *ngIf="!mostrarForm" class="form-group">
+    <form #fBuscar="ngForm" (ngSubmit)="onClickBuscar()">
+      <div class="form-group">
+        <label class="control-label">Buscar cuenta</label>
+        <input [(ngModel)]="identificacion" placeholder="Buscar por identificación" name="identificacion" class="form-control" type="text" required />
+      </div>
+      <button [disabled]="!fBuscar.form.valid" type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+  </div>
+
+  <form *ngIf="mostrarForm" #form="ngForm" (ngSubmit)="guardar(form)" autocomplete="off">
+
+    <div [ngClass]="(!cIdent.valid && cIdent.touched) ? 'form-group has-error' : 'form-group'">
+      <label class="control-label">Identificación</label>
+      <input [(ngModel)]="users.identificacion" #cIdent="ngModel" type="text" class="form-control" placeholder="Ingrese la identificación" name="ident" 
+        required/>
+      <span class="msg-error" *ngIf="!cIdent.valid && cIdent.touched">Campo obligatorio</span>
+    </div>
+
+    <div [ngClass]="(!cRol.valid && cRol.touched) ? 'form-group has-error' : 'form-group'">
+      <label class="control-label">Rol</label>
+      <select [(ngModel)]="users.rol" #cRol="ngModel" name="rol" class="form-control" required>
+        <option value="">-- Seleccione --</option>
+        <option value="ROLE_JEFE_DISTRITO">Jefe de distrito</option>
+        <option value="ROLE_JEFE_OPERACION">Jefe de operación</option>
+        <option value="ROLE_USUARIO">Usuario</option>
+      </select>
+      <span class="msg-error" *ngIf="!cRol.valid && cRol.touched">Campo obligatorio</span>
+    </div>  
+
+    <div *ngIf="edicion" [ngClass]="(!cEstado.valid && cEstado.touched) ? 'form-group has-error' : 'form-group'">
+      <label class="control-label">Estado</label>
+      <select [(ngModel)]="users.estado" #cEstado="ngModel" name="estado" class="form-control" required>
+        <option value="true">Habilitado</option>
+        <option value="false">Inhabilitado</option>
+      </select>
+      <span class="msg-error" *ngIf="!cEstado.valid && cEstado.touched">Campo obligatorio</span>
+    </div>  
+
+    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Guardar</button>
+    <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
+  </form>
+
+</div>

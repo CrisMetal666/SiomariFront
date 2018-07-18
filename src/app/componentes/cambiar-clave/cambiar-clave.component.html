@@ -1,0 +1,37 @@
+<div class="col-xs-6">
+
+  <h2 class="page-header">Cambiar contraseña</h2>
+
+  <br>
+
+  <ng4-loading-spinner> </ng4-loading-spinner>
+
+  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+    La informacion se ha guardado correctamente.
+  </div>
+  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    Se ha producido un error, intente mas tarde.
+  </div>
+
+  <form  #form="ngForm" (ngSubmit)="guardar(form)" autocomplete="off">
+
+    <div [ngClass]="((!cClave.valid && cClave.touched) || incorrecto) ? 'form-group has-error' : 'form-group'">
+      <label class="control-label">Contraseña</label>
+      <input (keyup)="coinciden()" [(ngModel)]="clave" #cClave="ngModel" type="password" class="form-control" placeholder="Contraseña nueva"
+        name="clave" required/>
+      <span class="msg-error" *ngIf="!cClave.valid && cClave.touched">Campo obligatorio</span>
+      <span class="msg-error" *ngIf="incorrecto">Las contraseñas no coinciden</span>
+    </div>
+
+    <div [ngClass]="((!cClave2.valid && cClave2.touched) || incorrecto) ? 'form-group has-error' : 'form-group'">
+      <label class="control-label">Confirmar contraseña</label>
+      <input (keyup)="coinciden()" [(ngModel)]="clave2" #cClave2="ngModel" type="password" class="form-control" placeholder="Confirmar contraseña"
+        name="clave2" required/>
+      <span class="msg-error" *ngIf="!cClave2.valid && cClave2.touched">Campo obligatorio</span>
+      <span class="msg-error" *ngIf="incorrecto">Las contraseñas no coinciden</span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid || incorrecto">Guardar</button>
+  </form>
+
+</div>

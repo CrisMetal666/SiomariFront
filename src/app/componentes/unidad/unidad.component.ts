@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Unidad } from '../../_model/unidad';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { UnidadService } from '../../_service/unidad.service';

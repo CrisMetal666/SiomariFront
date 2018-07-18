@@ -160,7 +160,7 @@ export class CanalObraComponent implements OnInit {
       }
 
       // eliminamos el elemento del array que fue eliminado 
-      this.lstCanalObra.splice(index,1);
+      this.lstCanalObra.splice(index, 1);
       this.estado = 1;
       this.spinnerService.hide();
 
@@ -189,7 +189,9 @@ export class CanalObraComponent implements OnInit {
 
     this.spinnerService.show();
 
-    this.canalObraService.guardar(this.canalObra, this.selectedFiles.item(0)).subscribe(res => {
+    let file: File = this.selectedFiles != null ? this.selectedFiles.item(0) : new File(new Array<Blob>(), '');
+
+    this.canalObraService.guardar(this.canalObra, file).subscribe(res => {
 
       this.estado = res;
 
@@ -200,6 +202,8 @@ export class CanalObraComponent implements OnInit {
       if (res == 1) {
         this.canalObraService.buscarIdNombrePorCanalId(this.idCanal).subscribe(res => {
           this.lstCanalObra = res;
+          // borramos el archivo seleccionado
+          this.selectedFiles = null;
           this.spinnerService.hide();
         });
       } else {
@@ -212,6 +216,7 @@ export class CanalObraComponent implements OnInit {
       this.estado = 0;
       this.spinnerService.hide();
     });
+
 
 
   }

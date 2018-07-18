@@ -35,6 +35,12 @@
         <li (click)="cambiarNav(8)">
           <a class="cursor-nav">Consultas</a>
         </li>
+        <li (click)="cambiarNav(10)">
+          <a class="cursor-nav">Cuentas</a>
+        </li>
+        <li (click)="cerrarSesion()">
+          <a class="cursor-nav">Cerrar sesión</a>
+        </li>
       </ul>
 
       <!-- Sub-menu 1 -->
@@ -262,6 +268,19 @@
         </li>
       </ul>
 
+      <!-- Sub-menu 10 -->
+      <ul *ngIf="seleccionado == 10" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/cuenta/registrar">Crear</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/cuenta/editar">Actualizar</a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a routerLink="/cambiar-clave">Cambiar contraseña</a>
+        </li>
+      </ul>
+
       <ul *ngIf="seleccionado != 0" class="nav navbar-nav">
         <li (click)="cambiarNav(0)">
           <a class="cursor-nav">Atras</a>
@@ -270,88 +289,3 @@
     </div>
   </div>
 </div>
-
-
-<!--
-      <div class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Editar
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="canal/editar">Canal</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="cultivo/editar">Cultivo</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="obra/editar">Obra</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="predio/editar">Predio</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="seccion/editar">Sección</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="unidad/editar">Unidad</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="usuario/editar">Usuario</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="zona/editar">Zona</a>
-            </li>
-          </ul>
-        </li>
-      </div>
-
-      <div class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Registrar
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="canal/registrar">Canal</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="cultivo/registrar">Cultivo</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="obra/registrar">Obra</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="predio/registrar">Predio</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="seccion/registrar">Sección</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="unidad/registrar">Unidad</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="usuario/registrar">Usuario</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="zona/registrar">Zona</a>
-            </li>
-          </ul>
-        </li>
-      </div>
-
-      <ul class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/estructura-control">Estructura de control</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/climatologia">Climatologia</a>
-        </li>
-        
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/config">Configuración</a>
-        </li>
-      </ul>
-
-      -->
