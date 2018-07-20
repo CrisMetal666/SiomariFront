@@ -38,40 +38,6 @@ export class ManejoAguaGraficaComponent implements OnInit {
   public estado: number;
   // lineChart
   chart;
-  public lineChartData: Array<any> = [];
-  public lineChartLabels: Array<any> = [];
-  public lineChartOptions: any = {
-    responsive: true
-  };
-  public lineChartColors: Array<any> = [
-    {
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: '#c62828',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    {
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: '#0d47a1',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    {
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: '#90caf9',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend: boolean = true;
-  public lineChartType: string = 'line';
-  public mostrarGrafica: boolean;
   /*
   * determinara si se graficara los datos de una canal, seccion, zona o unidad
   * 1 = unidad
@@ -94,7 +60,6 @@ export class ManejoAguaGraficaComponent implements OnInit {
     private zonaService: ZonaService,
     private seccionService: SeccionService
   ) {
-    this.mostrarGrafica = false;
     this.tipoGrafico = 4;
     this.valido = false;
   }
@@ -234,8 +199,6 @@ export class ManejoAguaGraficaComponent implements OnInit {
   consultar() {
 
     this.spinnerService.show();
-    //necesario para que la grafica se refresque
-    this.mostrarGrafica = false;
 
     // guardaremos el id segun el tipo que se escoja 
     let id = 0;
@@ -268,7 +231,9 @@ export class ManejoAguaGraficaComponent implements OnInit {
         //si la lista esta vacia mostramos un mensaje al usuario
         if (res.length == 0) {
           this.estado = 2;
-          this.mostrarGrafica = false;
+          if (this.chart) {
+            this.chart.destroy();
+          }
           this.spinnerService.hide();
           return;
         }
@@ -284,17 +249,8 @@ export class ManejoAguaGraficaComponent implements OnInit {
           ejeX.push(fechaX.toISOString().substring(0, 10));
         }
 
-        this.lineChartData = [
-          { data: res[2], label: 'Eficiencia ( % )' },
-          { data: res[1], label: 'Lam ( cm )' },
-          { data: res[0], label: 'Ln ( cm )' },
-        ];
-
-        this.lineChartLabels = ejeX;
-
         this.crearGrafica(res, ejeX);
 
-        this.mostrarGrafica = true;
         this.spinnerService.hide();
 
       }, err => {
@@ -304,6 +260,11 @@ export class ManejoAguaGraficaComponent implements OnInit {
   }
 
   private crearGrafica(data: Array<number[]>, ejeX) {
+
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
@@ -312,67 +273,78 @@ export class ManejoAguaGraficaComponent implements OnInit {
           {
             label: 'Eficiencia',
             steppedLine: false,
-            data: data[0],
-            borderColor: "#3cba9f",
+            data: data[2],
+            yAxisID: 'porcentaje',
+            borderColor: "#C3000E",
             fill: false,
             backgroundColor: [
-              'rgba(148,159,177,0)',
-              '#c62828',
-              'rgba(148,159,177,1)',
-              '#fff',
-              '#fff',
-              'rgba(148,159,177,0.8)'
+              '#C3000E'
+            ],
+          },
+          {
+            label: 'Ln',
+            steppedLine: false,
+            data: data[0],
+            yAxisID: 'porcentaje',
+            borderColor: "#9DB9FF",
+            fill: false,
+            backgroundColor: [
+              '#9DB9FF'
             ],
           },
           {
             label: 'Lam',
             steppedLine: false,
             data: data[1],
-            borderColor: "#3cba9f",
+            yAxisID: 'porcentaje',
+            borderColor: "#3F00A7",
             fill: false,
             backgroundColor: [
-              'rgba(148,159,177,0)',
-              '#0d47a1',
-              'rgba(148,159,177,1)',
-              '#fff',
-              '#fff',
-              'rgba(148,159,177,0.8)'
-            ],
-          },
-          {
-            label: 'Ln',
-            steppedLine: false,
-            data: data[0] ,
-            borderColor: "#3cba9f",
-            fill: false,
-            backgroundColor: [
-              'rgba(148,159,177,0)',
-              '#90caf9',
-              'rgba(148,159,177,1)',
-              '#fff',
-              '#fff',
-              'rgba(148,159,177,0.8)'
+              '#3F00A7'
             ],
           }
         ]
       },
       options: {
+        title: {
+          display: true,
+          text: 'Grafica de Eficiencia - Lamina - Tiempo'
+        },
         legend: {
-          display: false
+          display: true
         },
         scales: {
           xAxes: [{
             display: true,
             scaleLabel: {
               display: true,
-              labelString: 'Caudal (L/s)'
+              labelString: 'Fecha'
             }
           }],
           yAxes: [{
+            type: 'linear',
             display: true,
+            position: 'left',
+            id: 'porcentaje',
             scaleLabel: {
               display: true,
-              labelString: 'Tirante de agua (m)'
+              labelString: 'Eficiencia (%)'
+            }
+          },
+          {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            id: 'lamina',
+            scaleLabel: {
+              display: true,
+              labelString: 'Lamina (cm)'
+            },
+            ticks: {
+              display: false
+            },
+            gridLines: {
+              display: false
             }
           }],
         }

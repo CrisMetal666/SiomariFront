@@ -104,7 +104,7 @@
 
         <div [ngClass]="(!canalS.valid && canalS.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label" for="canalS">Canal servidor</label>
-          <ng2-completer (keyup)="onKeyUpCanal()" [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
+          <ng2-completer (keyup)="onKeyUpCanal()" [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="3" [textSearching]="'Buscando...'"
             [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
             #canalS="ngModel" [(ngModel)]="searchCanal" id="canalS" name="canalS" required [clearUnselected]=true></ng2-completer>
           <span class="msg-error" *ngIf="!canalS.valid && canalS.touched">Campo obligatorio</span>

@@ -177,7 +177,7 @@
 </div>
 
 <!--*ngIf="graficar && option == 3"-->
-<div  style="height: 500px; width: 70%; padding-bottom: 20px">
+<div style="height: 500px; width: 70%; padding-bottom: 20px">
   <div [hidden]="!chart || !graficar || option != 3" style="display: block; height:400">
     <canvas width="400" height="200" id="canvas">{{ chart }}</canvas>
   </div>

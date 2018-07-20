@@ -263,6 +263,10 @@ export class EstructuraControlComponent implements OnInit {
           ]
         },
         options: {
+          title: {
+            display: true,
+            text: 'Curva de calibración'
+          },
           legend: {
             display: false
           },
