@@ -16,7 +16,7 @@
     El codigo del predio ya existe.
   </div>
 
-  <form  *ngIf="!mostrarForm" class="col-xs-6">
+  <form *ngIf="!mostrarForm" class="col-xs-6">
     <div class="form-group">
       <label>Buscar predio</label>
       <ng2-completer [inputClass]="['form-control']" [datasource]="dataServicePredio" [minSearchLength]="3" [textSearching]="'Buscando...'"
@@ -52,6 +52,24 @@
           <span class="msg-error" *ngIf="!nombrePropietario.valid && nombrePropietario.touched">Campo obligatorio</span>
         </div>
 
+        <div [ngClass]="(!cUser.valid && cUser.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Buscar usuario</label>
+          <ng2-completer #cUser="ngModel" [inputClass]="['form-control']" [datasource]="dataServiceUsuario" [minSearchLength]="3" [textSearching]="'Buscando...'"
+            [placeholder]="'Buscar por nombre o identificación'" [textNoResults]="'Sin resultados'" (selected)="onUsuarioSelect($event)"
+            (keyup)="onKeyUpUsuario()" [(ngModel)]="searchUsuario" name="cUser" required [clearUnselected]=true></ng2-completer>
+          <span class="msg-error" *ngIf="!cUser.valid && cUser.touched">Campo obligatorio</span>
+        </div>
+
+        <div [ngClass]="(!cPro.valid && cPro.touched) ? 'form-group has-error' : 'form-group'">
+          <label class="control-label">Usuario Propietario</label>
+          <select class="form-control" [(ngModel)]="predio.propietario" #cPro="ngModel" name="propietario" id="propietario" required>
+            <option [ngValue]="undefined">-- Seleccione --</option>
+            <option value="true">Si</option>
+            <option value="false">No</option>
+          </select>
+          <span class="msg-error" *ngIf="!cPro.valid && cPro.touched">Campo obligatorio</span>
+        </div>
+
         <div [ngClass]="(!areaPR.valid && areaPR.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label" for="areaPotencialRiego">Área potencial de riego (Ha)</label>
           <input [(ngModel)]="predio.areaPotencialRiego" #areaPR="ngModel" name="areaPR" id="areaPotencialRiego" type="number" class="form-control"
@@ -66,20 +84,19 @@
           <span class="msg-error" *ngIf="!areaBajoRiego.valid && areaBajoRiego.touched">Valor incorrecto</span>
         </div>
 
+        <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid || canalId == null || usuarioId == null">Guardar</button>
+        <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
+
+      </div>
+
+      <div class="col-xs-6">
+
         <div [ngClass]="(!areaTotal.valid && areaTotal.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label" for="areaTotal">Área total (Ha)</label>
           <input [(ngModel)]="predio.areaTotal" #areaTotal="ngModel" name="areaTotal" id="areaTotal" type="number" class="form-control"
             placeholder="Ingrese el area total" required/>
           <span class="msg-error" *ngIf="!areaTotal.valid && areaTotal.touched">Valor incorrecto</span>
         </div>
-
-        <br/>
-        <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid || canalId == null">Guardar</button>
-        <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
-
-      </div>
-
-      <div class="col-xs-6">
 
         <div [ngClass]="(!moduloRiego.valid && moduloRiego.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label" for="moduloRiego">Modulo de riego (L/s)</label>
@@ -104,15 +121,16 @@
 
         <div [ngClass]="(!canalS.valid && canalS.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label" for="canalS">Canal servidor</label>
-          <ng2-completer (keyup)="onKeyUpCanal()" [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="3" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
-            #canalS="ngModel" [(ngModel)]="searchCanal" id="canalS" name="canalS" required [clearUnselected]=true></ng2-completer>
+          <ng2-completer (keyup)="onKeyUpCanal()" [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="3"
+            [textSearching]="'Buscando...'" [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'"
+            (selected)="onCanalSelect($event)" #canalS="ngModel" [(ngModel)]="searchCanal" id="canalS" name="canalS" required
+            [clearUnselected]=true></ng2-completer>
           <span class="msg-error" *ngIf="!canalS.valid && canalS.touched">Campo obligatorio</span>
         </div>
 
         <div class="form-group">
           <label>X</label>
-          <input [(ngModel)]="predio.x" name="latitud" class="form-control" placeholder="Ingrese la coordenada x" type="number"/>
+          <input [(ngModel)]="predio.x" name="latitud" class="form-control" placeholder="Ingrese la coordenada x" type="number" />
         </div>
 
         <div class="form-group">

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../_model/usuario';
-import { Predio } from '../../_model/predio';
-import { PredioService } from '../../_service/predio.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { UsuarioService } from '../../_service/usuario.service';
@@ -14,16 +12,12 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 })
 export class UsuarioComponent implements OnInit {
 
-  //se guarda el predio seleccionado en el autocompleter
-  private predioId: Predio;
   //objeto principal donde se guardara al infomacion
   public usuario: Usuario;
   //segun el valor numerico se mostrara un mensaje al usuiario
   private estado: number;
   //auto-completer
-  public searchPredio: string;
   public searchUsuario: string;
-  public dataServicePredio: CompleterData;
   public dataServiceUsuario: CompleterData;
   //valor necesario para saber si estamos editando o registrando
   public edicion: boolean;
@@ -33,7 +27,6 @@ export class UsuarioComponent implements OnInit {
   public title: string;
 
   constructor(
-    private predioService: PredioService,
     private spinnerService: Ng4LoadingSpinnerService,
     private completerService: CompleterService,
     private usuarioService: UsuarioService,
@@ -44,7 +37,6 @@ export class UsuarioComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataServicePredio = this.completerService.remote(this.predioService.urlBuscarIdCodigoNombrePorNombreOCodigoSinUsuarios, 'nombre,codigo', 'nombre');
     this.dataServiceUsuario = this.completerService.remote(this.usuarioService.urlBuscarPorNombreCompletoOIdentificacion, 'cedula,nombreCompleto', 'nombreCompleto');
     this.resetVariables();
 
@@ -75,14 +67,6 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
-  //evento del auto-completer
-  onPredioSelect(selected: CompleterItem) {
-    if (selected) {
-      this.predioId = new Predio();
-      this.predioId.id = selected.originalObject.id;
-    }
-  }
-
   onUsuarioSelect(selected: CompleterItem) {
     if (selected) {
       this.spinnerService.show();
@@ -91,12 +75,6 @@ export class UsuarioComponent implements OnInit {
 
         //guardamos la informacion en el objeto principal
         this.usuario = res;
-
-        if (this.usuario.predioId != null) {
-          //llenamos el autocompleter para poder visualizarlo
-          this.predioId = this.usuario.predioId;
-          this.searchPredio = this.predioId.nombre;
-        }
 
         this.mostrarForm = true;
 
@@ -112,12 +90,6 @@ export class UsuarioComponent implements OnInit {
   registrar(form) {
 
     this.spinnerService.show();
-
-    if (this.searchPredio != '') {
-      this.usuario.predioId = this.predioId;
-    } else {
-      delete this.usuario.predioId;
-    }
 
     this.usuarioService.existePorCedula(this.usuario.cedula).subscribe(res => {
 
@@ -181,8 +153,6 @@ export class UsuarioComponent implements OnInit {
 
   resetVariables() {
     this.usuario = new Usuario();
-    this.predioId = null;
     this.searchUsuario = '';
-    this.searchPredio = '';
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { url } from './var.const';
 import { Distrito } from '../_model/distrito';
 import { HeaderToken } from './header-token';
+import { Divoper } from '../_model/divoper';
 
 @Injectable()
 export class DistritoService {
@@ -26,6 +27,13 @@ export class DistritoService {
 
   getNombre() {
     return this.http.get<Distrito>(this.url,
+      this.header.getHeader()
+    );
+  }
+
+  consultaGeneral(id: number, tipo: number) {
+
+    return this.http.get<Divoper>(`${this.url}consultaGeneral/${id}/${tipo}`,
       this.header.getHeader()
     );
   }

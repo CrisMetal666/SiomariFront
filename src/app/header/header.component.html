@@ -230,7 +230,7 @@
           <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
         </li>
         <li [routerLinkActive]="['active']">
-          <a routerLink="/registro-manejo-grafica">Grafica de manejo de agua</a>
+          <a routerLink="/manejo-agua-grafica">Grafica de manejo de agua</a>
         </li>
       </ul>
 
@@ -253,6 +253,11 @@
       <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
         <li [routerLinkActive]="['active']">
           <a routerLink="consulta/canal">Canal</a>
+        </li>
+      </ul>
+      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
+        <li [routerLinkActive]="['active']">
+          <a routerLink="consulta/divoper">Divoper</a>
         </li>
       </ul>
       <ul *ngIf="seleccionado == 8" class="nav navbar-nav">

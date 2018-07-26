@@ -13,6 +13,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 /*              SERVICE                                       */
 import { UnidadService } from './_service/unidad.service';
@@ -75,6 +76,7 @@ import { CanalObraComponent } from './componentes/canal-obra/canal-obra.componen
 import { DistritoComponent } from './componentes/distito/distrito.component';
 import { UsersComponent } from './componentes/users/users.component';
 import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
+import { DivoperComponent } from './componentes/divoper/divoper.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +114,8 @@ import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave
     CanalObraComponent,
     DistritoComponent,
     UsersComponent,
-    CambiarClaveComponent
+    CambiarClaveComponent,
+    DivoperComponent
   ],
   imports: [
     BrowserModule,
@@ -129,6 +132,7 @@ import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     AccordionModule.forRoot(),
+    PaginationModule.forRoot(),
     BrowserAnimationsModule
   ],
   providers: [

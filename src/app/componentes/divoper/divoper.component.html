@@ -1,0 +1,250 @@
+<div class="row">
+
+  <h2 class="page-header">Divoper</h2>
+
+  <ng4-loading-spinner> </ng4-loading-spinner>
+
+  <div class="col-xs-6">
+
+    <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+      No hay información para mostrar.
+    </div>
+    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+      Ha ocurrido un error, intente mas tarde.
+    </div>
+
+    <form class="form-inline">
+
+      <div class="form-check form-check-inline">
+
+        <input (click)="onClickChoose(0,formAC)" class="form-check-input" type="radio" name="choose" />
+        <label class="form-check-label">Distrito</label>
+
+        <input (click)="onClickChoose(1,formAC)" class="form-check-input" type="radio" name="choose" checked />
+        <label class="form-check-label">Unidad</label>
+
+        <input (click)="onClickChoose(2,formAC)" class="form-check-input" type="radio" name="choose" />
+        <label class="form-check-label">Zona</label>
+
+        <input (click)="onClickChoose(3,formAC)" class="form-check-input" type="radio" name="choose" />
+        <label class="form-check-label">Sección</label>
+
+      </div>
+
+    </form>
+
+    <form (ngSubmit)="consultar()" #formAC="ngForm">
+
+      <div *ngIf="tipo != 0" [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Unidad</label>
+        <ng2-completer [(ngModel)]="sUnidad" [inputClass]="['form-control']" [datasource]="dataUnidad" [minSearchLength]="4" [textSearching]="'Buscando...'"
+          [placeholder]="'Buscar unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
+          #cUnidad="ngModel" name="unidadC" [clearUnselected]="true" required></ng2-completer>
+        <span class="msg-error" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
+      </div>
+
+      <div *ngIf="tipo == 2 || tipo == 3" [ngClass]="(cZona.invalid && cZona.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Zona</label>
+        <ng2-completer [(ngModel)]="sZona" [inputClass]="['form-control']" [datasource]="dataZona" [minSearchLength]="4" [textSearching]="'Buscando...'"
+          [placeholder]="'Buscar zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
+          #cZona="ngModel" name="zonaS" [clearUnselected]="true" required></ng2-completer>
+        <span class="msg-error" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
+      </div>
+
+      <div *ngIf="tipo == 3" [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'form-group has-error' : 'form-group'">
+        <label class="control-label">Sección</label>
+        <ng2-completer [(ngModel)]="sSeccion" [inputClass]="['form-control']" [datasource]="dataSeccion" [minSearchLength]="4" [textSearching]="'Buscando...'"
+          [placeholder]="'Buscar sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
+          #cSeccion="ngModel" name="seccionC" [clearUnselected]="true" required></ng2-completer>
+        <span class="msg-error" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
+      </div>
+
+      <button *ngIf="tipo != 0" [disabled]="!formAC.form.valid || !valido" class="btn btn-primary" type="submit">Consultar</button>
+
+    </form>
+
+  </div>
+</div>
+
+<br/>
+<br/>
+
+<div *ngIf="consultado" class="row">
+
+  <form>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">División Operacional</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+
+          <div class="col-xs-6">
+
+            <div class="form-group">
+              <label>Total Obras</label>
+              <input value="{{divoper.totalObras}}" name="obras" type="text" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+              <label>Total area Servida</label>
+              <input value="{{divoper.totalAreaServida | number}}" name="areaServida" type="text" class="form-control" readonly />
+
+            </div>
+
+            <div class="form-group">
+              <label>Total Canales</label>
+              <input value="{{divoper.totalCanales}}" name="apellido" type="text" class="form-control" readonly/>
+            </div>
+
+          </div>
+
+          <div class="col-xs-6">
+
+            <div class="form-group">
+              <label>Total Predios</label>
+              <input value="{{divoper.totalPredios}}" name="direccion" type="text" class="form-control" readonly/>
+            </div>
+
+            <div *ngIf="tipo != 3" class="form-group">
+              <label>Total {{titleDivision}}</label>
+              <input value="{{divoper.totalDivision}}" name="ciudad" type="text" class="form-control" readonly/>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <tabset>
+
+      <tab heading="Canales - Predios">
+
+
+        <div class="row">
+
+          <div class="col-xs-6">
+
+            <table class="table table-striped table-bordered">
+
+              <caption>Canales</caption>
+
+              <thead>
+                <tr>
+                  <th class="text-center">Nombre</th>
+                  <th class="text-center">Código</th>
+                </tr>
+              </thead>
+
+              <tbody *ngIf="divoper.lstCanal.length != 0">
+                <tr *ngFor="let c of divoper.lstCanal.slice((pageCanal-1) * 10, pageCanal * 10)">
+                  <td class="text-center">{{c.nombre}}</td>
+                  <td class="text-center">{{c.codigo}}</td>
+                </tr>
+                <tr>
+                  <td class="text-center" colspan="2">
+                    <pagination [(ngModel)]="pageCanal" [totalItems]="divoper.lstCanal.length" previousText="&lsaquo;" nextText="&rsaquo;" name="pageCanal"></pagination>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody *ngIf="divoper.lstCanal.length == 0">
+                <tr>
+                  <td class="text-center">No hay información registrada.</td>
+                </tr>
+              </tbody>
+
+            </table>
+
+          </div>
+          <div class="col-xs-6">
+
+            <table class="table table-striped table-bordered">
+
+              <caption>Predios</caption>
+
+              <thead>
+                <tr>
+                  <th class="text-center">Nombre</th>
+                  <th class="text-center">Código</th>
+                </tr>
+              </thead>
+
+              <tbody *ngIf="divoper.lstPredio.length != 0">
+                <tr *ngFor="let p of divoper.lstPredio.slice((pagePredio-1) * 10, pagePredio * 10)">
+                  <td class="text-center">{{p.nombre}}</td>
+                  <td class="text-center">{{p.codigo}}</td>
+                </tr>
+                <tr>
+                  <td class="text-center" colspan="2">
+                    <pagination [(ngModel)]="pagePredio" [totalItems]="divoper.lstPredio.length" previousText="&lsaquo;" nextText="&rsaquo;"
+                      name="pagePredio"></pagination>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody *ngIf="divoper.lstPredio.length == 0">
+                <tr>
+                  <td class="text-center">No hay información registrada.</td>
+                </tr>
+              </tbody>
+
+            </table>
+
+          </div>
+        </div>
+
+      </tab>
+
+      <tab *ngIf="tipo != 3" heading="{{titleDivision}}">
+
+        <div class="row">
+
+          <caption>{{titleDivision}}</caption>
+
+          <div class="col-xs-3"></div>
+
+          <div class="col-xs-6">
+
+            <table class="table table-striped table-bordered">
+
+              <thead>
+                <tr>
+                  <th class="text-center">Nombre</th>
+                </tr>
+              </thead>
+
+              <tbody *ngIf="divoper.lstDivision.length != 0">
+                <tr *ngFor="let x of divoper.lstDivision.slice((pageDivision-1) * 10, pageDivision * 10)">
+                  <td class="text-center">{{x}}</td>
+                </tr>
+                <tr>
+                  <td class="text-center">
+                    <pagination [(ngModel)]="pageDivision" [totalItems]="divoper.lstDivision.length" previousText="&lsaquo;" nextText="&rsaquo;"
+                      name="pageDivison"></pagination>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody *ngIf="divoper.lstDivision.length == 0">
+                <tr>
+                  <td class="text-center">No hay información registrada.</td>
+                </tr>
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <div class="col-xs-3"></div>
+
+        </div>
+
+      </tab>
+
+    </tabset>
+
+  </form>
+</div>

@@ -23,7 +23,7 @@
           [textSearching]="'Buscando...'" [placeholder]="'Buscar canal por nombre o código'" [textNoResults]="'Sin resultados'"
           [(ngModel)]="completerCanal" name="canal" [disableInput]="seleccionado" [clearUnselected]="true"></ng2-completer>
       </div>
-      
+
       <button (click)="onClickAgregar()" *ngIf="seleccionado && !mostrarForm" type="button" class="btn btn-success">Agregar</button>
       <button (click)="resetVariables(true)" *ngIf="seleccionado && !mostrarForm" type="button" class="btn btn-warning">Cancelar</button>
     </div>
@@ -73,6 +73,12 @@
             name="ultima" rows="3"></textarea>
         </div>
 
+        <div class="form-group">
+          <label class="control-label">Observación</label>
+          <textarea [(ngModel)]="canalObra.observacion" placeholder="Ingrese la Observación" class="form-control" name="observaion"
+            rows="3"></textarea>
+        </div>
+
         <button [disabled]="!form.form.valid || idObra == 0" type="submit" class="btn btn-success">Guardar</button>
         <button (click)="resetVariables(false)" type="button" class="btn btn-danger">Cancelar</button>
 
@@ -113,8 +119,7 @@
 <ng-template #modalImg>
   <div class="modal-body">
 
-    <img class="center-block" style="max-width: 750px; max-height: 750px;" [src]="imagenData"
-    />
+    <img class="center-block" style="max-width: 750px; max-height: 750px;" [src]="imagenData" />
 
   </div>
 

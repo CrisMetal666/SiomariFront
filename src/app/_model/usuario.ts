@@ -11,7 +11,6 @@ export class Usuario {
 	telefono: string;
 	celular: string;
 	correo: string;
-	propietario: boolean;
-	predioId: Predio;
 	nombreCompleto: string;
+	lstPredio: Predio[];
 }

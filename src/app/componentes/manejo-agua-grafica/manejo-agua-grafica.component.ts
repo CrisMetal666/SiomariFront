@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { esLocale } from 'ngx-bootstrap/locale';
-import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { CompleterData, CompleterService, CompleterItem } from 'ng2-completer';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -10,6 +10,7 @@ import { UnidadService } from '../../_service/unidad.service';
 import { ZonaService } from '../../_service/zona.service';
 import { SeccionService } from '../../_service/seccion.service';
 import { Chart } from 'chart.js';
+import { LnLamEficiencia } from '../../_model/lnLamEficiencia';
 
 @Component({
   selector: 'app-manejo-agua-grafica',
@@ -228,8 +229,10 @@ export class ManejoAguaGraficaComponent implements OnInit {
 
         this.estado = undefined;
 
+        console.log(res);
+
         //si la lista esta vacia mostramos un mensaje al usuario
-        if (res.length == 0) {
+        if (res.lstEfic == null) {
           this.estado = 2;
           if (this.chart) {
             this.chart.destroy();
@@ -238,18 +241,7 @@ export class ManejoAguaGraficaComponent implements OnInit {
           return;
         }
 
-        //valores del eje x que son igual a la cantidad de posiciones en el array
-        let ejeX: Array<string> = [];
-
-        for (let i = 1; i <= res[0].length; i++) {
-
-          let fechaX = new Date();
-          fechaX.setDate(this.fecha[0].getDate() + i - 1);
-
-          ejeX.push(fechaX.toISOString().substring(0, 10));
-        }
-
-        this.crearGrafica(res, ejeX);
+        this.crearGrafica(res);
 
         this.spinnerService.hide();
 
@@ -259,7 +251,7 @@ export class ManejoAguaGraficaComponent implements OnInit {
       });
   }
 
-  private crearGrafica(data: Array<number[]>, ejeX) {
+  private crearGrafica(data: LnLamEficiencia) {
 
     if (this.chart) {
       this.chart.destroy();
@@ -268,12 +260,12 @@ export class ManejoAguaGraficaComponent implements OnInit {
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: ejeX,
+        labels: data.lstFecha,
         datasets: [
           {
             label: 'Eficiencia',
             steppedLine: false,
-            data: data[2],
+            data: data.lstEfic,
             yAxisID: 'porcentaje',
             borderColor: "#C3000E",
             fill: false,
@@ -284,7 +276,7 @@ export class ManejoAguaGraficaComponent implements OnInit {
           {
             label: 'Ln',
             steppedLine: false,
-            data: data[0],
+            data: data.lstLn,
             yAxisID: 'porcentaje',
             borderColor: "#9DB9FF",
             fill: false,
@@ -295,7 +287,7 @@ export class ManejoAguaGraficaComponent implements OnInit {
           {
             label: 'Lam',
             steppedLine: false,
-            data: data[1],
+            data: data.lstLam,
             yAxisID: 'porcentaje',
             borderColor: "#3F00A7",
             fill: false,
@@ -308,7 +300,8 @@ export class ManejoAguaGraficaComponent implements OnInit {
       options: {
         title: {
           display: true,
-          text: 'Grafica de Eficiencia - Lamina - Tiempo'
+          text: 'Grafica de Eficiencia - Lamina - Tiempo',
+          fontSize: 20
         },
         legend: {
           display: true
@@ -318,7 +311,8 @@ export class ManejoAguaGraficaComponent implements OnInit {
             display: true,
             scaleLabel: {
               display: true,
-              labelString: 'Fecha'
+              labelString: 'Fecha',
+              fontColor: '#000'
             }
           }],
           yAxes: [{
@@ -328,7 +322,8 @@ export class ManejoAguaGraficaComponent implements OnInit {
             id: 'porcentaje',
             scaleLabel: {
               display: true,
-              labelString: 'Eficiencia (%)'
+              labelString: 'Eficiencia (%)',
+              fontColor: '#000'
             }
           },
           {
@@ -338,7 +333,8 @@ export class ManejoAguaGraficaComponent implements OnInit {
             id: 'lamina',
             scaleLabel: {
               display: true,
-              labelString: 'Lamina (cm)'
+              labelString: 'Lamina (cm)',
+              fontColor: '#000'
             },
             ticks: {
               display: false
@@ -353,39 +349,3 @@ export class ManejoAguaGraficaComponent implements OnInit {
   }
 
 }
-
-/*
-public lineChartData: Array<any> = [];
-  public lineChartLabels: Array<any> = [];
-  public lineChartOptions: any = {
-    responsive: true
-  };
-  public lineChartColors: Array<any> = [
-    {
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: '#c62828',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    {
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: '#0d47a1',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    {
-      backgroundColor: 'rgba(148,159,177,0)',
-      borderColor: '#90caf9',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend: boolean = true;
-  public lineChartType: string = 'line';
-*/

@@ -47,7 +47,7 @@ export class ConsultaUsuarioComponent implements OnInit {
         this.estado = undefined;
 
         // nos aseguramos de no dejar el predio nulo
-        if(this.usuario.predioId == null) this.usuario.predioId = new Predio();
+        //if(this.usuario.predioId == null) this.usuario.predioId = new Predio();
 
         //mostramos el form
         this.consultado = true;

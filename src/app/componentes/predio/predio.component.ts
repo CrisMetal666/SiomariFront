@@ -6,6 +6,8 @@ import { Predio } from '../../_model/predio';
 import { PredioService } from '../../_service/predio.service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Usuario } from '../../_model/usuario';
+import { UsuarioService } from '../../_service/usuario.service';
 
 @Component({
   selector: 'app-predio',
@@ -16,6 +18,7 @@ export class PredioComponent implements OnInit {
 
   //guarda el valor del select canal
   public canalId: Canal;
+  public usuarioId: Usuario;
   //---------------------------- listas para los select
   public lstCanal: Canal[];
   //----------------------------
@@ -25,7 +28,9 @@ export class PredioComponent implements OnInit {
   // auto-completer
   public searchCanal: string;
   public searchPredio: string;
+  public searchUsuario: string;
   public dataServiceCanal: CompleterData;
+  public dataServiceUsuario: CompleterData;
   public dataServicePredio: CompleterData;
   //valor necesario para saber si estamos editando o registrando
   public edicion: boolean;
@@ -38,6 +43,7 @@ export class PredioComponent implements OnInit {
     private spinnerService: Ng4LoadingSpinnerService,
     private canalService: CanalService,
     private predioService: PredioService,
+    private usuarioService: UsuarioService,
     private completerService: CompleterService,
     private _route: ActivatedRoute,
     private _router: Router,
@@ -49,6 +55,7 @@ export class PredioComponent implements OnInit {
     this.lstCanal = [];
     this.dataServiceCanal = this.completerService.remote(this.canalService.urlListarPorNombreOCodigo, 'nombre,codigo', 'nombre');
     this.dataServicePredio = this.completerService.remote(this.predioService.urlBuscarIdCodigoNombrePorNombreOCodigo, 'nombre,codigo', 'nombre');
+    this.dataServiceUsuario = this.completerService.remote(this.usuarioService.urlBuscarPorNombreCompletoOIdentificacion, 'cedula,nombreCompleto', 'nombreCompleto');
     /*
     * obtenemos el parametro y establecemos si es edicion o no, si es edicion ocultamos el 
     * formulario principal y mostramos otro en el cual buscaremos lo que vamos a editar, si no es 
@@ -86,8 +93,22 @@ export class PredioComponent implements OnInit {
     }
   }
 
+  //evento del auto-completer
+  onUsuarioSelect(selected: CompleterItem) {
+    if (selected) {
+      this.usuarioId = new Usuario();
+      this.usuarioId.id = selected.originalObject.id;
+    } else {
+      this.usuarioId = null;
+    }
+  }
+
   onKeyUpCanal() {
     this.canalId = null;
+  }
+
+  onKeyUpUsuario() {
+    this.usuarioId = null;
   }
 
   //evento del auto-completer
@@ -99,12 +120,17 @@ export class PredioComponent implements OnInit {
       //traemos toda la informacion del predio seleccionado
       this.predioService.buscarPorId(selected.originalObject.id).subscribe(res => {
 
+        // limpiamos estados pasados
+        this.estado = undefined;
+
         //le asignamos el valor consultado para que sea mostrado en el formulario
         this.predio = res;
         //se ncesita iniciaizar para que el formulario funcione correctamente
         this.canalId = res.canalId;
+        this.usuarioId = res.usuarioId;
         //text que se mostrara en el autocompleter
         this.searchCanal = this.canalId.nombre;
+        this.searchUsuario = this.usuarioId.nombreCompleto;
 
         this.mostrarForm = true;
 
@@ -122,11 +148,13 @@ export class PredioComponent implements OnInit {
 
   registrar(form) {
 
-    if (this.searchCanal == '') {
+    if (this.searchCanal == '' || this.searchUsuario == '') {
       this.estado = 3;
+      return;
     }
 
     this.predio.canalId = this.canalId;
+    this.predio.usuarioId = this.usuarioId;
 
     this.spinnerService.show();
 

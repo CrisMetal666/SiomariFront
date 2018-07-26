@@ -1,4 +1,5 @@
 import { Canal } from "./canal";
+import { Usuario } from "./usuario";
 
 export class Predio {
     
@@ -17,4 +18,6 @@ export class Predio {
 	y: number;
 	altitud: number;
 	canalId: Canal;
+	usuarioId: Usuario;
+	propietario: boolean;
 }

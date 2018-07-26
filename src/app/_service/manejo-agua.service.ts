@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { url } from './var.const';
 import { HttpClient } from '@angular/common/http';
 import { ManejoAgua } from '../_model/manejo-agua';
+import { LnLamEficiencia } from '../_model/lnLamEficiencia';
 import { EficienciaPerdidas } from '../_model/eficiencia-perdidas';
 import { HeaderToken } from './header-token';
 
@@ -47,7 +48,7 @@ export class ManejoAguaService {
     let txtFecha1: string = this.dateToString(fecha1);
     let txtFecha2: string = this.dateToString(fecha2);
 
-    return this.http.get<Array<Array<number>>>(`${this.url}calcularLanLamEfic?fecha1=${txtFecha1}&fecha2=${txtFecha2}&id=${id}&tipo=${tipo}`,
+    return this.http.get<LnLamEficiencia>(`${this.url}calcularLanLamEfic?fecha1=${txtFecha1}&fecha2=${txtFecha2}&id=${id}&tipo=${tipo}`,
       this.header.getHeader()
     );
   }

@@ -1,7 +1,6 @@
-import { CanalObra } from "./canal-obra";
-import { Canal } from "./canal";
 import { Predio } from "./predio";
 import { EstructuraControl } from "./estructura-control";
+import { ObraDetalle } from "./obra-detalle";
 
 export class ConsultaCanal {
 
@@ -10,6 +9,7 @@ export class ConsultaCanal {
 	nombre: string;
 	caudalDisenio: number;
 	longitud: number;
+	areaServida: number;
 	seccionTipica: string;
 	clase: string;
 	tipo: string;
@@ -18,7 +18,7 @@ export class ConsultaCanal {
 	estadoDescripcion: string;
 	canalServidor: string;
 	sumPredios: number;
-	lstCanalObra: CanalObra[];
+	lstObraDetalle: ObraDetalle[];
 	lstCanal: string[];
 	lstPredio: Predio[];
     lstEstructuraControl: EstructuraControl[];
