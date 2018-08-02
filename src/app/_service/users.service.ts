@@ -38,9 +38,24 @@ export class UsersService {
     );
   }
 
+  /**
+   * se cambiara la contraseña de un usuario
+   * @param users contraseña nueva y usuario
+   */
   cambiarClave(users: Users) {
 
-    return this.http.put(`${this.url}clave`, users,
+    return this.http.put<number>(`${this.url}clave`, users,
+      this.header.getHeader()
+    );
+  }
+
+  /**
+   * se buscara si el usuario es nuevo
+   * @param identificacion identificacion del usuario
+   */
+  buscarNuevoPorIdentificacion(identificacion: string) {
+
+    return this.http.get<boolean>(`${this.url}nuevo/${identificacion}`,
       this.header.getHeader()
     );
   }

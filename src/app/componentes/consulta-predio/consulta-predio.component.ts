@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Predio } from '../../_model/predio';
 import { PredioService } from '../../_service/predio.service';
 import { CompleterService, CompleterData, CompleterItem } from 'ng2-completer';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-consulta-predio',
@@ -19,11 +21,14 @@ export class ConsultaPredioComponent implements OnInit {
   estado: number;
   //mostrara o ocultara el formulario que muesta la informacion
   consultado: boolean;
+  // modal de google maps
+  modalMapa:BsModalRef;
 
   constructor(
     private spinnerService: Ng4LoadingSpinnerService,
     private predioService: PredioService,
     private completerService: CompleterService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
@@ -57,5 +62,10 @@ export class ConsultaPredioComponent implements OnInit {
       });
 
     }
+  }
+
+  georreferenciacion(template: TemplateRef<any>) {
+
+    this.modalMapa = this.modalService.show(template, { class: 'second modal-lg' });
   }
 }

@@ -20,4 +20,5 @@ export class Predio {
 	canalId: Canal;
 	usuarioId: Usuario;
 	propietario: boolean;
+	plano: string;
 }

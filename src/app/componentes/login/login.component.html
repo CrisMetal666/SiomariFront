@@ -13,12 +13,21 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
+
+              <ng4-loading-spinner> </ng4-loading-spinner>
+
+              <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+                Credenciales incorrectas.
+              </div>
+
               <form (ngSubmit)="iniciarSesion()" style="display: block;">
                 <div class="form-group">
-                  <input [(ngModel)]="identificacion" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Ingrese la identificacion" required />
+                  <input [(ngModel)]="identificacion" type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Ingrese la identificacion"
+                    required />
                 </div>
                 <div class="form-group">
-                  <input [(ngModel)]="clave" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Ingrese la contraseña" required />
+                  <input [(ngModel)]="clave" type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Ingrese la contraseña"
+                    required />
                 </div>
                 <div class="form-group">
                   <div class="row">

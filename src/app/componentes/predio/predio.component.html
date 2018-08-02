@@ -70,6 +70,13 @@
           <span class="msg-error" *ngIf="!cPro.valid && cPro.touched">Campo obligatorio</span>
         </div>
 
+        <div class="form-group">
+          <label class="control-label">Plano Predial &nbsp; &nbsp; &nbsp; &nbsp;
+            <button (click)="downloadPlano()" *ngIf="verBotonDescarga" class="btn btn-info btn-sm" type="button">Descargar</button>
+          </label>
+          <input (change)="selectFile($event)" placeholder="Seleccione el plano" class="form-control-file" type="file" />
+        </div>
+
         <div [ngClass]="(!areaPR.valid && areaPR.touched) ? 'form-group has-error' : 'form-group'">
           <label class="control-label" for="areaPotencialRiego">Área potencial de riego (Ha)</label>
           <input [(ngModel)]="predio.areaPotencialRiego" #areaPR="ngModel" name="areaPR" id="areaPotencialRiego" type="number" class="form-control"
@@ -140,7 +147,7 @@
 
         <div class="form-group">
           <label>Altitud (m.s.n.m)</label>
-          <input [(ngModel)]="predio.altitud" name="long" class="form-control" placeholder="Ingrese la altitud" type="number" />
+          <input [(ngModel)]="predio.altitud" name="altitud" class="form-control" placeholder="Ingrese la altitud" type="number" />
         </div>
 
       </div>

@@ -72,7 +72,7 @@ export class CultivoService {
    * @returns cultivo con toda su informacion
    */
   listarPorId(id: number) {
-    return this.http.get<Cultivo>(`${this.url}/${id}`,
+    return this.http.get<Cultivo>(`${this.url}${id}`,
       this.header.getHeader()
     );
   }

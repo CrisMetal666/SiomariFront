@@ -14,6 +14,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { AgmCoreModule } from '@agm/core';
 
 /*              SERVICE                                       */
 import { UnidadService } from './_service/unidad.service';
@@ -41,7 +42,7 @@ import { UsersService } from './_service/users.service';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
-import { LoginComponent } from './test/login/login.component';
+import { LoginComponent } from './componentes/login/login.component';
 import { GraficaComponent } from './test/grafica/grafica.component';
 import { TablasComponent } from './test/tablas/tablas.component';
 import { UnidadComponent } from './componentes/unidad/unidad.component';
@@ -77,6 +78,7 @@ import { DistritoComponent } from './componentes/distito/distrito.component';
 import { UsersComponent } from './componentes/users/users.component';
 import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
 import { DivoperComponent } from './componentes/divoper/divoper.component';
+import { KEY_MAP } from './_service/var.const';
 
 @NgModule({
   declarations: [
@@ -133,7 +135,10 @@ import { DivoperComponent } from './componentes/divoper/divoper.component';
     TimepickerModule.forRoot(),
     AccordionModule.forRoot(),
     PaginationModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AgmCoreModule.forRoot({
+      apiKey: KEY_MAP
+    })
   ],
   providers: [
     UnidadService,

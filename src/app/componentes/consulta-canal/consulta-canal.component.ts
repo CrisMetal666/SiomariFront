@@ -25,6 +25,7 @@ export class ConsultaCanalComponent implements OnInit {
   modalRef: BsModalRef;
   modalRef2: BsModalRef;
   modalGrafica: BsModalRef;
+  modalMapa:BsModalRef;
   canalObraDetalle: CanalObra;
   imgByte;
   // lineChart
@@ -37,9 +38,7 @@ export class ConsultaCanalComponent implements OnInit {
     private completerService: CompleterService,
     private modalService: BsModalService,
     private sanitization: DomSanitizer,
-    private canalObraService: CanalObraService,
-    private elementRef: ElementRef,
-    private changeDetection: ChangeDetectorRef
+    private canalObraService: CanalObraService
   ) { }
 
   ngOnInit() {
@@ -193,6 +192,11 @@ export class ConsultaCanalComponent implements OnInit {
         }
       }
     });
+  }
+
+  georreferenciacion(template: TemplateRef<any>) {
+
+    this.modalMapa = this.modalService.show(template, { class: 'second modal-lg' });
   }
 
 }

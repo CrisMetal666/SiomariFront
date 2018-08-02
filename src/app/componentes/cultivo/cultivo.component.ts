@@ -78,6 +78,7 @@ export class CultivoComponent implements OnInit {
       this.spinnerService.show();
 
       this.cultivoService.listarPorId(selected.originalObject.id).subscribe(res => {
+        
         //llenamos el objeto principal
         this.cultivo = res;
         //asignamos los valores Kc al array para que el usuario pueda visualizarlos 

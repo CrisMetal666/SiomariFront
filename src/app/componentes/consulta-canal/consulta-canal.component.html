@@ -220,6 +220,10 @@
           <textarea class="form-control " readonly rows="3 ">{{canalObraDetalle.ultimaIntervension}}</textarea>
         </div>
 
+        <div *ngIf="canalObraDetalle.x != null && canalObraDetalle.y != null" class="form-group ">
+          <button class="btn btn-success" (click)="georreferenciacion(templateMapa)">Georreferenciación</button>
+        </div>
+
         <div class="col-xs-6 ">
           <img (click)="imagenObra(templateImg) " [src]="imgByte " alt=" " class="rounded float-right img-fluid
               " style="max-width:250px; max-height:210px; cursor: pointer; ">
@@ -239,7 +243,7 @@
     </button>
   </div>
   <div class="modal-body ">
-    <img class="center-block " style="max-width: 750px; max-height: 750px; " [src]="imgByte ">
+    <img class="center-block " style="max-width: 750px; max-height: 750px; " [src]="imgByte">
   </div>
 </ng-template>
 
@@ -250,7 +254,7 @@
       <span aria-hidden="true ">&times;</span>
     </button>
   </div>
-  <div (onShown)="grafica()" class="modal-body">
+  <div class="modal-body">
     <!--
     <app-grafica-estructura-control [data]="estructuraControl"></app-grafica-estructura-control>
     -->
@@ -268,5 +272,20 @@
         <canvas [hidden]="!chart" width="400 " height="200 " id="canvas">{{ chart }}</canvas>
       </div>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #templateMapa>
+  <div class="modal-body">
+    <agm-map style="width: 100%; height: 500px;"  [mapTypeId]="'satellite'" [latitude]="canalObraDetalle.x" [longitude]="canalObraDetalle.y" [zoom]="16">
+      <agm-marker [latitude]="canalObraDetalle.x" [longitude]="canalObraDetalle.y">
+        <agm-info-window>
+          <p>
+            <b>{{canalObraDetalle.obraId.nombre}}</b>
+          </p>
+          <img class="center-block " style="max-width: 300px; max-height: 300px; " [src]="imgByte" />
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
   </div>
 </ng-template>

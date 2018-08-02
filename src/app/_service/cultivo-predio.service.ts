@@ -57,10 +57,11 @@ export class CultivoPredioService {
    * @param year año
    * @param campania campaña, debe de ser A, B sependiendo de los meses que se desean ver
    * A (1 - 6), B (7 - 12)
+   * @param unidad id de la unidad donde se hara la consulta
    */
-  planeacionInfo(cultivo: number, year: number, campania: string) {
+  planeacionInfo(cultivo: number, year: number, campania: string, unidad: number) {
 
-    return this.http.get<PlaneacionInfo[]>(`${this.url}planeacionInfo/${cultivo}/${year}/${campania}`,
+    return this.http.get<PlaneacionInfo[]>(`${this.url}planeacionInfo/${cultivo}/${year}/${campania}/${unidad}`,
     this.header.getHeader()
   );
   }
@@ -70,10 +71,11 @@ export class CultivoPredioService {
    * en cada mes que se haya hecho, y en cada mes se calculara la demanda de agua
    * @param year año de la campaña
    * @param campania campaña (A - B)
+   * @param unidad id de la unidad donde se hara la consulta
    */
-  planeacionInfoDemanda(year: number, campania: string) {
+  planeacionInfoDemanda(year: number, campania: string, unidad: number) {
 
-    return this.http.get<any>(`${this.url}planeacionInfoDemanda/${year}/${campania}`,
+    return this.http.get<any>(`${this.url}planeacionInfoDemanda/${year}/${campania}/${unidad}`,
     this.header.getHeader()
   );
   }
@@ -82,10 +84,11 @@ export class CultivoPredioService {
    * consultara la demanda de cadal total mensual de todos los cultivos
    * @param year año de la campaña
    * @param campania campaña(A - B)
+   * @param unidad id de la unidad donde se hara la consulta
    */
-  demandaTotalDecadal(year: number, campania: string) {
+  demandaTotalDecadal(year: number, campania: string, unidad: number) {
 
-    return this.http.get<any>(`${this.url}demandaTotalDecadal/${year}/${campania}`,
+    return this.http.get<any>(`${this.url}demandaTotalDecadal/${year}/${campania}/${unidad}`,
     this.header.getHeader()
   );
   }

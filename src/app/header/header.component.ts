@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TOKEN_NAME, HIDE_NAV } from '../_service/var.const';
 
 @Component({
   selector: 'app-header',
@@ -38,8 +39,12 @@ export class HeaderComponent implements OnInit {
   }
 
   isAuthenticated() {
-    let token = sessionStorage.getItem('token');
-    return token != null;
+    // verificamos si se ha logiado
+    let token = sessionStorage.getItem(TOKEN_NAME);
+    // verificamos si el usuario es nuevo o tiene la contraseña restaurada
+    let isNuevo = sessionStorage.getItem(HIDE_NAV);
+
+    return token != null && isNuevo == null;
   }
 
   cerrarSesion() {    

@@ -11,6 +11,10 @@
 <form (ngSubmit)="consultar()" class="form-inline">
 
   <div class="form-group mb-4">
+    <ng2-completer (selected)="onSelectedUnidad($event)" [datasource]="dataServiceUnidad" [inputClass]="['form-control']" [minSearchLength]="4"
+        [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true" required></ng2-completer>
+  </div>
+  <div class="form-group mb-4">
     <input [(ngModel)]="year" #cYear="ngModel" name="year" type="number" class="form-control" placeholder="Año" required>
   </div>
   <select [(ngModel)]="campania" #cCampania="ngModel" name="campania" class="form-control mb-4" required>
@@ -18,7 +22,7 @@
     <option value="A">A</option>
     <option value="B">B</option>
   </select>
-  <button [disabled]="!cYear.valid || !cCampania.valid" type="submit" class="btn btn-primary mb-2">Consultar</button>
+  <button [disabled]="!cYear.valid || !cCampania.valid || idUnidad == 0" type="submit" class="btn btn-primary mb-2">Consultar</button>
 
 </form>
 
@@ -73,14 +77,14 @@
           <th class="text-center">Decada 1</th>
           <th class="text-center">Decada 2</th>
           <th class="text-center">Decada 3</th>
-            <th class="text-center">
-              <span>
-                <i>m</i>
-                <sup>
-                  <i>3</i>
-                </sup>
-              </span>
-            </th>
+          <th class="text-center">
+            <span>
+              <i>m</i>
+              <sup>
+                <i>3</i>
+              </sup>
+            </span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -90,7 +94,7 @@
           <td class="text-center">{{demanda.decada[0] | number}}</td>
           <td class="text-center">{{demanda.decada[1] | number}}</td>
           <td class="text-center">{{demanda.decada[2] | number}}</td>
-            <td class="text-center">{{demanda.decada[0] + demanda.decada[1] + demanda.decada[2]  | number}}</td>
+          <td class="text-center">{{demanda.decada[0] + demanda.decada[1] + demanda.decada[2] | number}}</td>
         </tr>
 
       </tbody>

@@ -9,6 +9,9 @@
   <div *ngIf="estado == 1" class="alert alert-success" role="alert">
     La informacion se ha guardado correctamente.
   </div>
+  <div *ngIf="estado == 2" class="alert alert-success" role="alert">
+    La contraseña no puede ser igual a la contraseña vieja.
+  </div>
   <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
     Se ha producido un error, intente mas tarde.
   </div>
@@ -17,15 +20,15 @@
 
     <div [ngClass]="((!cClave.valid && cClave.touched) || incorrecto) ? 'form-group has-error' : 'form-group'">
       <label class="control-label">Contraseña</label>
-      <input (keyup)="coinciden()" [(ngModel)]="clave" #cClave="ngModel" type="password" class="form-control" placeholder="Contraseña nueva"
-        name="clave" required/>
+      <input (keyup)="coinciden()" [(ngModel)]="clave" autocomplete="new-password" #cClave="ngModel" type="password" class="form-control" placeholder="Contraseña nueva"
+        name="clave1" required/>
       <span class="msg-error" *ngIf="!cClave.valid && cClave.touched">Campo obligatorio</span>
       <span class="msg-error" *ngIf="incorrecto">Las contraseñas no coinciden</span>
     </div>
 
     <div [ngClass]="((!cClave2.valid && cClave2.touched) || incorrecto) ? 'form-group has-error' : 'form-group'">
       <label class="control-label">Confirmar contraseña</label>
-      <input (keyup)="coinciden()" [(ngModel)]="clave2" #cClave2="ngModel" type="password" class="form-control" placeholder="Confirmar contraseña"
+      <input (keyup)="coinciden()" [(ngModel)]="clave2" autocomplete="new-password" #cClave2="ngModel" type="password" class="form-control" placeholder="Confirmar contraseña"
         name="clave2" required/>
       <span class="msg-error" *ngIf="!cClave2.valid && cClave2.touched">Campo obligatorio</span>
       <span class="msg-error" *ngIf="incorrecto">Las contraseñas no coinciden</span>

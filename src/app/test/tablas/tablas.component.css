@@ -1,11 +1,5 @@
-.text-vertical-center{
-    vertical-align: middle;
- }
-
- .verticalTableHeader {
-    text-align:center;
-    white-space:nowrap;
-    transform-origin:50% 50%;
-    transform: rotate(-90deg);
-
+agm-map {
+  height: 300px;
+  width: 100%;
+  margin-bottom: 30px;
 }

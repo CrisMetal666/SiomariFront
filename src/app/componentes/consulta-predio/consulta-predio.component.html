@@ -91,8 +91,10 @@
               <input [(ngModel)]="predio.canalId.nombre" name="canalServidor" type="text" class="form-control" readonly/>
             </div>
 
-            <div class="form-group">
-              <label>Coordenadas cartesianas</label>
+            <div *ngIf="predio.x != null && predio.y != null" class="form-group">
+              <label>Coordenadas cartesianas
+                <button class="btn btn-success btn-xs" (click)="georreferenciacion(templateMapa)">Georreferenciación</button>
+              </label>
               <input value="( {{predio.x}}, {{predio.y}}, {{predio.altitud}} )" name="latitud" class="form-control" type="text" readonly/>
             </div>
 
@@ -106,3 +108,17 @@
 
   </form>
 </div>
+
+<ng-template #templateMapa>
+  <div class="modal-body">
+    <agm-map style="width: 100%; height: 500px;" [mapTypeId]="'satellite'" [latitude]="predio.x" [longitude]="predio.y" [zoom]="16">
+      <agm-marker [latitude]="predio.x" [longitude]="predio.y">
+        <agm-info-window>
+          <p>
+            <b>{{predio.nombre}}</b>
+          </p>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+</ng-template>

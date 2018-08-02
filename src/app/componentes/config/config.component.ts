@@ -27,6 +27,7 @@ export class ConfigComponent implements OnInit {
     this.configService.listar().subscribe(res => {
 
       this.config = res;
+      this.config.lamina = this.config.lamina / 100;
       this.spinnerService.hide();
 
     }, err => {

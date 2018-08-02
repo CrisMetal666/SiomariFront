@@ -20,13 +20,15 @@
       "prefix": "app",
       "styles": [
         "styles.css",
+        "../src/assets/fontawesome/css/all.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
       ],
       "scripts": [
-        
-        "../node_modules/chart.js/src/chart.js"
-       
+        "../node_modules/chart.js/src/chart.js",
+        "../src/assets/tether/tether.min.js",
+        "../node_modules/jquery/dist/jquery.slim.min.js",
+        "../node_modules/popper.js/dist/umd/popper.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

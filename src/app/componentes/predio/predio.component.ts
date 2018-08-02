@@ -38,6 +38,10 @@ export class PredioComponent implements OnInit {
   public mostrarForm: boolean;
   //titulo de la pagina
   public title: string;
+  // objeto donde se almacena el archivo seleccionado
+  selectedFiles: FileList;
+  // visualizar o ocultar boton de descarga del plano
+  verBotonDescarga: boolean;
 
   constructor(
     private spinnerService: Ng4LoadingSpinnerService,
@@ -111,6 +115,10 @@ export class PredioComponent implements OnInit {
     this.usuarioId = null;
   }
 
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+
   //evento del auto-completer
   onPredioSelect(selected: CompleterItem) {
     if (selected) {
@@ -130,7 +138,10 @@ export class PredioComponent implements OnInit {
         this.usuarioId = res.usuarioId;
         //text que se mostrara en el autocompleter
         this.searchCanal = this.canalId.nombre;
-        this.searchUsuario = this.usuarioId.nombreCompleto;
+        this.searchUsuario = this.predio.nombreUsuario;
+
+        // si se tiene algun plano habilitamos la opcion de descargar el plano
+        if (this.predio.plano != null) this.verBotonDescarga = true;
 
         this.mostrarForm = true;
 
@@ -155,6 +166,7 @@ export class PredioComponent implements OnInit {
 
     this.predio.canalId = this.canalId;
     this.predio.usuarioId = this.usuarioId;
+    let file: File = this.selectedFiles != null ? this.selectedFiles.item(0) : new File(new Array<Blob>(), '');
 
     this.spinnerService.show();
 
@@ -171,20 +183,23 @@ export class PredioComponent implements OnInit {
           return;
         }
 
-        this.predioService.editar(this.predio).subscribe(res => {
-  
-          this.estado = 1;
-          form.reset();
-          this.resetVariables();
-          this.mostrarForm = false;
-  
+        this.predioService.guardar(this.predio, file).subscribe(res => {
+
+          this.estado = res;
+
+          if (this.estado == 1) {
+            form.reset();
+            this.resetVariables();
+            this.mostrarForm = false;
+          }
+
           this.spinnerService.hide();
-  
+
         }, err => {
           this.spinnerService.hide()
           this.estado = 0;
         });
-  
+
       } else {
 
         //verificamos que el nombre a registrar no exista
@@ -193,15 +208,19 @@ export class PredioComponent implements OnInit {
           this.spinnerService.hide();
           return;
         }
-  
-        this.predioService.registrar(this.predio).subscribe(res => {
 
-          this.estado = 1;
-          form.reset();
-          this.resetVariables();
-  
+        this.predioService.guardar(this.predio, file).subscribe(res => {
+
+          this.estado = res;
+
+          if (this.estado == 1) {
+
+            form.reset();
+            this.resetVariables();
+          }
+
           this.spinnerService.hide();
-  
+
         }, err => {
           this.spinnerService.hide()
           this.estado = 0;
@@ -212,9 +231,34 @@ export class PredioComponent implements OnInit {
       this.estado = 0;
       this.spinnerService.hide();
     });
+  }
 
-    
+  downloadPlano() {
+    this.spinnerService.show();
 
+    this.predioService.getPlano(this.predio.plano).subscribe(res => {
+
+      this.estado = undefined;
+
+      //obtenemos la extension del archivo
+      let extension = this.predio.plano.split('.').pop();
+
+      const url = window.URL.createObjectURL(res);
+      const a = document.createElement('a');
+      a.setAttribute('style', 'display:none;');
+      document.body.appendChild(a);
+      a.href = url;
+      a.download = `plano-${this.predio.nombre}.${extension}`;
+      a.click();
+
+      this.spinnerService.hide();
+
+      return url;
+
+    }, err => {
+      this.estado = 0;
+      this.spinnerService.hide();
+    });
   }
 
   onClickCancelar() {
@@ -227,6 +271,8 @@ export class PredioComponent implements OnInit {
     this.canalId = null;
     this.searchCanal = '';
     this.searchPredio = '';
+    this.verBotonDescarga = false;
+    this.selectedFiles = null;
   }
 
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './test/login/login.component';
+import { LoginComponent } from './componentes/login/login.component';
 import { GraficaComponent } from './test/grafica/grafica.component';
 import { CanalComponent } from './componentes/canal/canal.component';
 import { CultivoComponent } from './componentes/cultivo/cultivo.component';
@@ -34,6 +34,7 @@ import { UsersComponent } from './componentes/users/users.component';
 import { GuardService } from './_service/guard.service';
 import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
 import { DivoperComponent } from './componentes/divoper/divoper.component';
+import { TablasComponent } from './test/tablas/tablas.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent, canActivate: [ GuardService ] },
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     { path: 'cuenta/:edicion', component: UsersComponent, canActivate: [ GuardService ] },
     { path: 'cambiar-clave', component: CambiarClaveComponent, canActivate: [ GuardService ] },
     { path: 'consulta/divoper', component: DivoperComponent, canActivate: [ GuardService ] },
+    { path: 'test/tabla', component: TablasComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

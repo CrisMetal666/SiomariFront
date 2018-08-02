@@ -21,6 +21,7 @@ export class PredioService {
     this.header = new HeaderToken();
     this.urlBuscarIdCodigoNombrePorNombreOCodigo = `${this.url}nombreOCodigo?access_token=${this.header.getToken()}&s=`;
     this.urlBuscarIdCodigoNombrePorNombreOCodigoSinUsuarios = `${this.url}sinUsuarios?access_token=${this.header.getToken()}&s=`;
+    this.urlGetPlano = `${this.url}getPlano?access_token=${this.header.getToken()}&name=`;
   }
 
   registrar(predio: Predio) {
@@ -88,4 +89,44 @@ export class PredioService {
     );
   }
 
+  /**
+   * se buscaran las coordenadas de un predio por su id
+   * @param id id del predio
+   */
+  buscarCoordenadasPorId(id: number) {
+
+    return this.http.get<Predio>(`${this.url}coordenadas/${id}`,
+      this.header.getHeader()
+    );
+  }
+
+  /**
+   * se guardara la informacion enviada
+   * @param predio informacion a registrar
+   * @param file plano a guardar
+   */
+  guardar(predio: Predio, file: File) {
+
+    let formdata: FormData = new FormData();
+    formdata.append('file', file);
+    formdata.append('body', JSON.stringify(predio));
+
+    return this.http.post<number>(`${this.url}`, formdata,
+      this.header.getHeaderSendFile()
+    );
+  }
+
+  /**
+   * se traeran los bytes del plano predial
+   * @param nombre nombre del plano
+   */
+  getPlano(nombre: string) {
+    return this.http.get(`${this.url}getPlano?name=${nombre}`,
+      {
+        responseType: 'blob',
+        headers: this.header.header()
+      });
+  }
+
+  public urlGetPlano: string;
 }
