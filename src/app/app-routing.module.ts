@@ -34,7 +34,7 @@ import { UsersComponent } from './componentes/users/users.component';
 import { GuardService } from './_service/guard.service';
 import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
 import { DivoperComponent } from './componentes/divoper/divoper.component';
-import { TablasComponent } from './test/tablas/tablas.component';
+import { SolicitudRiegoComponent } from './componentes/solicitud-riego/solicitud-riego.component';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent, canActivate: [ GuardService ] },
@@ -70,7 +70,7 @@ const appRoutes: Routes = [
     { path: 'cuenta/:edicion', component: UsersComponent, canActivate: [ GuardService ] },
     { path: 'cambiar-clave', component: CambiarClaveComponent, canActivate: [ GuardService ] },
     { path: 'consulta/divoper', component: DivoperComponent, canActivate: [ GuardService ] },
-    { path: 'test/tabla', component: TablasComponent },
+    { path: 'solicitud-riego', component: SolicitudRiegoComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

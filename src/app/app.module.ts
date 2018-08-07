@@ -1,3 +1,6 @@
+/* var constant */
+import { KEY_MAP } from './_service/var.const';
+
 /*              MODULE                                       */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -39,6 +42,7 @@ import { DistritoService } from './_service/distrito.service';
 import { LoginService } from './_service/login.service';
 import { GuardService } from './_service/guard.service';
 import { UsersService } from './_service/users.service';
+import { SolicitudRiegoService } from './_service/solicitud-riego.service';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
@@ -70,7 +74,7 @@ import { EstablecerCanalesDistribucionComponent } from './componentes/establecer
 import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
 import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consulta-usuario.component';
 import { ConsultaPredioComponent } from './componentes/consulta-predio/consulta-predio.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DitribucionAguaMensualComponent } from './componentes/ditribucion-agua-mensual/ditribucion-agua-mensual.component';
 import { ConsultaCanalComponent } from './componentes/consulta-canal/consulta-canal.component';
 import { CanalObraComponent } from './componentes/canal-obra/canal-obra.component';
@@ -78,7 +82,7 @@ import { DistritoComponent } from './componentes/distito/distrito.component';
 import { UsersComponent } from './componentes/users/users.component';
 import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
 import { DivoperComponent } from './componentes/divoper/divoper.component';
-import { KEY_MAP } from './_service/var.const';
+import { SolicitudRiegoComponent } from './componentes/solicitud-riego/solicitud-riego.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +121,8 @@ import { KEY_MAP } from './_service/var.const';
     DistritoComponent,
     UsersComponent,
     CambiarClaveComponent,
-    DivoperComponent
+    DivoperComponent,
+    SolicitudRiegoComponent
   ],
   imports: [
     BrowserModule,
@@ -162,7 +167,8 @@ import { KEY_MAP } from './_service/var.const';
     DistritoService,
     LoginService,
     GuardService,
-    UsersService
+    UsersService,
+    SolicitudRiegoService
   ],
   bootstrap: [AppComponent]
 })
