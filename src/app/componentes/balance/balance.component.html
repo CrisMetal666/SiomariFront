@@ -13,7 +13,8 @@
 
     <div class="form-group mb-4">
       <ng2-completer (selected)="onSelectedUnidad($event)" [datasource]="dataServiceUnidad" [inputClass]="['form-control']" [minSearchLength]="4"
-          [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true" required></ng2-completer>
+        [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"
+        required></ng2-completer>
     </div>
     <div class="form-group mb-4">
       <input [(ngModel)]="year" #cYear="ngModel" name="year" type="number" class="form-control" placeholder="Año" required>
@@ -37,7 +38,14 @@
     <thead>
       <tr>
         <th class="text-vertical-center text-center" rowspan="2" colspan="2">Mes</th>
-        <th class="text-center" colspan="3">Volumen</th>
+        <th class="text-center" colspan="3">Volumen
+          <span>(
+            <i>m</i>
+            <sup>
+              <i>3</i>
+            </sup>)
+          </span>
+        </th>
         <th class="text-center">Total</th>
       </tr>
       <tr>
@@ -61,17 +69,17 @@
         <tr>
           <th rowspan="2" class="text-vertical-center text-center">{{item.mes}}</th>
           <th class="text-center">Demanda</th>
-          <td class="text-center">{{item.periodo1 | number}}</td>
-          <td class="text-center">{{item.periodo2 | number}}</td>
-          <td class="text-center">{{item.periodo3 | number}}</td>
-          <td class="text-center">{{item.total | number}}</td>
+          <td class="text-center">{{item.periodo1 | number:'1.1-1' }}</td>
+          <td class="text-center">{{item.periodo2 | number:'1.1-1' }}</td>
+          <td class="text-center">{{item.periodo3 | number:'1.1-1' }}</td>
+          <td class="text-center">{{item.total | number:'1.1-1' }}</td>
         </tr>
         <tr>
           <th class="text-center">Balance</th>
-          <td [ngClass]="item.demanda[0].decada1 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada1 | number}}</td>
-          <td [ngClass]="item.demanda[0].decada2 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada2 | number}}</td>
-          <td [ngClass]="item.demanda[0].decada3 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada3 | number}}</td>
-          <td [ngClass]="item.demanda[0].total < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].total | number}}</td>
+          <td [ngClass]="item.demanda[0].decada1 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada1 | number:'1.1-1' }}</td>
+          <td [ngClass]="item.demanda[0].decada2 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada2 | number:'1.1-1' }}</td>
+          <td [ngClass]="item.demanda[0].decada3 < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].decada3 | number:'1.1-1' }}</td>
+          <td [ngClass]="item.demanda[0].total < 0 ? 'balance-error' : 'balance-success'" class="text-center">{{item.demanda[0].total | number:'1.1-1' }}</td>
         </tr>
 
       </ng-container>

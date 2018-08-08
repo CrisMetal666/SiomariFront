@@ -12,7 +12,8 @@
 
   <div class="form-group mb-4">
     <ng2-completer (selected)="onSelectedUnidad($event)" [datasource]="dataServiceUnidad" [inputClass]="['form-control']" [minSearchLength]="4"
-        [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true" required></ng2-completer>
+      [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"
+      required></ng2-completer>
   </div>
   <div class="form-group mb-4">
     <input [(ngModel)]="year" #cYear="ngModel" name="year" type="number" class="form-control" placeholder="Año" required>
@@ -42,7 +43,7 @@
       <thead>
         <tr>
           <th class="text-center" class="text-vertical-center text-center" rowspan="2">Mes</th>
-          <th colspan="3" class="text-center">Area de siembra</th>
+          <th colspan="3" class="text-center">Area de siembra (Ha)</th>
           <th class="text-center">Total</th>
         </tr>
         <tr>
@@ -70,6 +71,12 @@
         <tr>
           <th class="text-center" class="text-vertical-center text-center" rowspan="2">Mes</th>
           <th colspan="3" class="text-center">Volumen
+            <span>(
+              <i>m</i>
+              <sup>
+                <i>3</i>
+              </sup>)
+            </span>
           </th>
           <th class="text-center">Total</th>
         </tr>
@@ -91,10 +98,10 @@
 
         <tr *ngFor="let demanda of item.demanda">
           <th class="text-center">{{demanda.mes}}</th>
-          <td class="text-center">{{demanda.decada[0] | number}}</td>
-          <td class="text-center">{{demanda.decada[1] | number}}</td>
-          <td class="text-center">{{demanda.decada[2] | number}}</td>
-          <td class="text-center">{{demanda.decada[0] + demanda.decada[1] + demanda.decada[2] | number}}</td>
+          <td class="text-center">{{demanda.decada[0] | number:'1.1-1' }}</td>
+          <td class="text-center">{{demanda.decada[1] | number:'1.1-1' }}</td>
+          <td class="text-center">{{demanda.decada[2] | number:'1.1-1' }}</td>
+          <td class="text-center">{{demanda.decada[0] + demanda.decada[1] + demanda.decada[2] | number:'1.1-1' }}</td>
         </tr>
 
       </tbody>
