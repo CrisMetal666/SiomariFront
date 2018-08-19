@@ -8,6 +8,8 @@ export class ProgramacionSemanal {
 	fecha: Date;
 	eficiencia: number;
 	caudal: number;
+	cszu: number;
+	tipo: number;
 	canalId: Canal;
 	capacidadCanal: number;
 }
