@@ -1,4 +1,257 @@
 .cursor-nav {
     cursor: pointer;
 }
+/*--------------------------------------------
+                    Navbar
+-----------------------------------------------*/
+/* colores y elementos principales del navbar*/
+div.navbar{
+  background-color: #3B9AC1;
+}
+div > a.Titulo-navbar{
+  color: #FFFFFF;
+}
+li > a.a-principal{
+  color: #FFFFFF;
+}
+/* contenedor de todo el navbar */
+div.main-container{
+  display: flex;
+  flex-flow: row wrap;
+  padding-left: 130px;
+}
+div.nav-header>a{
+  margin: 0px 0px 0px -107px;
+}
+/*----------------------------------------------
+                Menu Desplegable
+------------------------------------------------*/
+/* Omitir los puntos de las listas */
+ul, ol{
+    list-style: none;
+}
+/* ubicacion del icono flechas-abajo*/
+.navClass ul li a > i.fa-angle-down{
+    float: center;
+    padding-left: 5px;
+}
+/* ubicacion del icono flechas-derecha*/
+.navClass ul li ul li a > i.fa-angle-right{
+    float: right;
+    padding-right: 8px;
+}
+.navClass ul li.opcion-menu-responsive{
+  display: none;
+}
+/* Color del fondo cuando el mouse pasa sobre una de las opciones principales del navbar */
+.navClass ul li:hover{
+    background-color: #42AEDA;
+}
+/* posición, color, tamaño y fondo del priemr menú*/
+ul.drop-menu{
+    display: none;
+    position: absolute;
+    text-decoration: none;
+    background-color: #42AEDA;
+    width: 225px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+/* menú desplegable de cuenta*/
+ul.drop-menu-cuenta{
+    display: none;
+    position: absolute;
+    text-decoration: none;
+    background-color: #42AEDA;
+    width: 225px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-left: -132px;
+}
+/* ubicacion del contenedor (li) de cada opcion menu*/
+ul.drop-menu li{
+    padding: 5px 0px 5px 25px;
+}
+/* ubicacion del contenedor (li) de las opciones de cuenta*/
+ul.drop-menu li.dropdown-cuenta{
+    padding: 5px 25px 5px 0px;
+    text-align: right;
+}
+/* color de la letra y decoracion de la misma del primer menu*/
+ul.drop-menu li a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+/* Desplegar el menu */
+.navClass ul li:hover > ul{
+  display: block;
+}
+/* color de cada opcion del menú cuando el mouse pasa por encima*/
+ul.drop-menu-responsive li:hover{
+    background-color: #3B9AC1 !important;
+}
+/*-------------------------------------
+                subMenu
+---------------------------------------*/
 
+/* ubicacion y color del subMenu*/
+.navClass ul li ul li ul.sub-menu{
+    display: none;
+    position: absolute;
+    background-color: #3B9AC1;
+    width: 140px;
+    padding-top: 0px;
+    padding-left: 0px;
+    margin-top: -25px;
+    margin-left: 200px;
+}
+/* ubicacion del contenedor del subMenu */
+.navClass ul li ul li ul.sub-menu li{
+    padding-left: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+/* espacion de los li al texto */
+ul.drop-submenu-responsive li{
+  padding-right: 30px;
+}
+
+/* color y fondo de los subMenu */
+.navClass ul li ul li:hover > ul li:hover{
+    background-color: #42AEDA !important;
+}
+/* color de cada opcion del menú cuando el mouse pasa por encima*/
+ul.drop-menu li:hover{
+    background-color: #3B9AC1 !important;
+}
+
+/* desplegar los subMenus */
+.navClass ul li ul li:hover > ul{
+    display: block;
+}
+
+/*--------------------- ---------------------------------------------
+            monitores minimo de 1080px
+--------------------- -----------------------------------------------*/
+@media (max-width: 1279px){
+
+  /* ocultamos las siguientes opciones del navbar */
+  .navClass ul li.opcion-cuentas{
+    display: none;
+  }
+  .navClass ul li.opcion-consultas{
+    display: none;
+  }
+  .navClass ul li.opcion-evaluacion{
+    display: none;
+  }
+  /* padding de todo el navbar*/
+  div.main-container{
+    display: flex;
+    flex-flow: row wrap;
+    padding-left: 160px;
+    transition: 0.5;
+  }
+  /* ubicacion de los elementos del navbar */
+  div.nav-header>a{
+    margin: 0px 0px 0px -107px;
+  }
+  /* margen del contenedor de todas las opciones del menu*/
+  div.navClass{
+    margin-left: 15px;
+  }
+  /* posición y aparicion del icono tres lineas */
+  .navClass ul li.opcion-menu-responsive{
+    display: block;
+    margin-left: 800px;
+    margin-top: -52px;
+  }
+  /* tamaño del icono menu*/
+  .navClass ul li > a > i.fa-bars{
+    font-size: 20px;
+  }
+  /* ubicación del icono flecha abajo para evlacion responsive*/
+  .navClass ul li ul li.opcion-evaluacion-responsive a > i.fa-angle-down{
+    float: center;
+    padding-right: 105px;
+  }
+  /* ubicación del icono flecha abajo para consultas responsive*/
+  .navClass ul li ul li.opcion-consultas-responsive a > i.fa-angle-down{
+    float: center;
+    padding-right: 110px;
+  }
+  /* ubicación del icono flecha abajo para cuenta responsive*/
+  .navClass ul li ul li.opcion-cuenta-responsive a > i.fa-angle-down{
+    float: center;
+    padding-right: 128px;
+  }
+  /* posición, tamaño y color del contenedor del menu*/
+  ul.drop-menu-responsive{
+      display: none;
+      position: absolute;
+      text-decoration: none;
+      background-color: #42AEDA;
+      width: 225px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      margin-left: -176px;
+  }
+  /* colro y decoracion a las letras del menu*/
+  ul.drop-menu-responsive li a{
+      text-decoration: none;
+      color: #FFFFFF;
+  }
+  /* ubicacion de los li al desplegar el menu*/
+  ul.drop-menu-responsive li{
+      padding: 5px 25px 5px 0px;
+      margin-top: 1px;
+      margin-bottom: 0px;
+      text-align: right;
+  }
+  /* Desplegar el menu */
+  .navClass ul li:hover > ul{
+    display: block;
+  }
+  /* color de cada opcion del menú cuando el mouse pasa por encima*/
+  ul.drop-menu-responsive li:hover{
+      background-color: #3B9AC1 !important;
+  }
+  /*--------------------------------------------
+                    SubMenus
+  ----------------------------------------------*/
+  /* Ocultar los subMenus*/
+  ul.drop-submenu-responsive{
+    display: none;
+    text-decoration: none;
+    margin-left: -40px;
+    margin-right: -25px;
+    margin-bottom: -5px;
+  }
+  /* espacion de los li al texto */
+  ul.drop-submenu-responsive li{
+    padding-right: 30px;
+  }
+
+  /* color y fondo de los subMenu */
+  .navClass ul li ul li:hover > ul li:hover{
+      background-color: #42AEDA !important;
+  }
+  /* color de cada opcion del menú cuando el mouse pasa por encima*/
+  ul.drop-menu li:hover{
+      background-color: #3B9AC1 !important;
+  }
+
+  /* desplegar los subMenus */
+  .navClass ul li ul li:hover > ul{
+      display: block;
+  }
+
+}
+
+.active-nav {
+  background-color: #42AEDA !important;
+}

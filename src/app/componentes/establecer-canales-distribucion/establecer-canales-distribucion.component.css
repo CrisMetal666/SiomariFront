@@ -1,0 +1,108 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+  width: 90%;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  background-color: transparent;
+
+}
+/* color estandar de los labels*/
+div label.label-normal {
+  color: #848889;
+  transition: .5s;
+}
+div label.label-error{
+  color: #B44141;
+  transition: .5s;
+}
+/* caracteristicas del contenedor del formulario*/
+.contenedor-form{
+  border: 1.5px solid #3B9AC1;
+  border-radius: 4px;
+  padding: 30px 20px 40px 20px;
+  margin: 8px 0;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 0px 0px ;
+  background: transparent;
+}
+
+/* caracteristicas del titulo*/
+.Titutlo_form{
+  font-family: 'PT Sans';
+  font-size: 35px;
+  font-style: normal;
+  padding-left: 15px;
+  color: #3B9AC1;
+  margin-bottom: 40px;
+}
+/* caracteristicas del titulo de cada tab*/
+.Titutlo_tabs{
+  font-family: 'PT Sans';
+  font-size: 25px;
+  font-style: normal;
+  padding-left: 10px;
+  margin-top: -40px;
+  color: #3B9AC1;
+}
+/* estilo boton agregar */
+div.cont_btns{
+  margin-left: 146px;
+}
+button.btn_consultar{
+  margin-left: 150px;
+  width: 33%;
+}
+/*------------------------------------------------------------------
+                        Estilo de los Inputs
+-------------------------------------------------------------------*/
+input[type=text]{
+  width: 100%;
+  border: 1px solid #AAAAAA;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  box-sizing: border-box;
+}
+input[type=number]{
+  width: 100%;
+  border: 1px solid #AAAAAA;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  box-sizing: border-box;
+}
+input[type=number]:focus{
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+  transition: .5s;
+}
+input[type=text]:focus{
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+  transition: .5s;
+}
+select{
+  width: 100%;
+  border: 1px solid #AAAAAA;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* ------ Inputs Error --------*/
+.error input[type=text]{
+  border-color: #FF5D5D;
+  box-shadow: 0 0 8px 0 #B44141;
+  transition: .5s;
+}
+.error input[type=number]{
+  border-color: #FF5D5D;
+  box-shadow: 0 0 8px 0 #B44141;
+  transition: .5s;
+}

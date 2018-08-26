@@ -1,0 +1,73 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+  width: 80%;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  background-color: transparent;
+}
+div label.label-normal {
+  color: #848889;
+}
+div label.label-error{
+  color: #B44141;
+}
+button.btn-guardar{
+  margin-left: 260px;
+  position: relative;
+  width: 100%;
+}
+div.cont-btns{
+  margin-left: 225px;
+}
+button.btn-guardar{
+  width: 33%;
+  margin-left: 85px;
+}
+.btn-general{
+  width: 28%;
+  margin-left: 10px;
+}
+.contenedor-form{
+  border: 1.5px solid #3B9AC1;
+  border-radius: 4px;
+  padding: 30px 20px 40px 20px;
+  margin: 8px 0;
+  outline: none;
+  box-sizing: border-box;
+  background: #FFFFFF;
+}
+.Titutlo_form{
+  font-family: 'PT Sans';
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 15px;
+  color: #3B9AC1;
+}
+/*------------------------------------------------------------------
+                        Estilo de los Inputs
+-------------------------------------------------------------------*/
+input[type=text]{
+  width: 100%;
+  border: 1px solid #AAAAAA;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+input[type=text]:focus{
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+/* ------ Inputs Error --------*/
+.error input[type=text]{
+  border-color: #FF5D5D;
+  box-shadow: 0 0 8px 0 #B44141;
+}

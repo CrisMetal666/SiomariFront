@@ -1,40 +1,47 @@
-<div class="col-xs-6">
+<div class="col-xs-6 contenedor-principal animated fadeIn">
 
-  <h2>{{title}}</h2>
+  <h2 class="Titutlo_form animated fadeIn fast">{{title}}</h2>
 
   <br>
 
   <ng4-loading-spinner> </ng4-loading-spinner>
 
-  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+  <div *ngIf="estado == 1" class="alert alert-success animated fadeIn fast" role="alert">
     La informacion se ha guardado correctamente.
   </div>
-  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+  <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
     Se ha producido un error, intente mas tarde.
   </div>
-  <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+  <div *ngIf="estado == 2" class="alert alert-warning animated fadeIn fast" role="alert">
     El nombre de la obra ya existe.
   </div>
 
-  <div *ngIf="!mostrarForm" class="form-group">
+  <div *ngIf="!mostrarForm" class="form-group contenedor-form">
     <div class="form-group">
-      <label class="control-label" for="nombre">Buscar obra</label>
+      <label class="control-label label-normal animated fadeIn fast" for="nombre">Buscar obra</label>
       <ng2-completer (selected)="onSelectedObra($event)" [datasource]="dataServiceObra" [inputClass]="['form-control']" [minSearchLength]="4"
         [textSearching]="'Buscando...'" [placeholder]="'Buscar obra'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
     </div>
   </div>
 
-  <form *ngIf="mostrarForm" #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
+  <form *ngIf="mostrarForm" #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off" class="contenedor-form">
 
-    <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
-      <label class="control-label" for="nombre">Nombre de la obra</label>
+    <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error error' : 'form-group'">
+      <label [ngClass]="(!nombre.valid && nombre.touched) ? 'label-error' : 'label-normal'" class="control-label animated fadeIn fast" for="nombre">Nombre de la obra</label>
       <input type="text" class="form-control" placeholder="Ingrese nombre de la obra" #nombre="ngModel" name="nombre" [(ngModel)]="obra.nombre"
         required/>
       <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Guardar</button>
-    <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
-  </form> -
+    <div class="cont_btns">
+      <button type="submit" [ngClass]="(!edicion) ? 'btn btn-primary btn_guardar' : 'btn btn-primary'" [disabled]="!form.form.valid">
+        <i class="fas fa-save fa-fw"></i> Guardar
+      </button>
+      <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">
+        <i class="fas fa-ban fa-fw"></i> Cancelar
+      </button>
+    </div>
+
+  </form>
 
 </div>

@@ -1,0 +1,63 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+  width: 90%;
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  background-color: transparent;
+}
+/* color estandar de los labels*/
+div label.label-normal {
+  color: #848889;
+  transition: .5s;
+}
+div label.label-error{
+  color: #B44141;
+  transition: .5s;
+}
+/* cambiar de color opcion eliminar*/
+ul > li span.span-error:hover{
+  background-color: #B44141;
+  transition: .4s;
+}
+/* caracteristicas del contenedor del formulario*/
+.contenedor-form{
+  border: 1.5px solid #3B9AC1;
+  border-radius: 4px;
+  padding: 30px 20px 40px 20px;
+  margin: 8px 0;
+  outline: none;
+  box-sizing: border-box;
+  background: transparent;
+}
+div.cont_btns{
+  margin-left: 120px;
+}
+button.btn_guardar{
+  margin-left: 30px;
+  width: 55%;
+}
+/* caracteristicas del titulo*/
+.Titutlo_form{
+  font-family: 'PT Sans';
+  font-size: 35px;
+  font-style: normal;
+  padding-left: 15px;
+  color: #3B9AC1;
+}
+
+/* estilo boton agregar */
+button.btn-agregar-kc{
+  /*background-color: #3B9AC1;
+  color: #FFFFFF;
+  width: 35%;*/
+  margin-top: 25px;
+}
+button.btn-agregar:hover{
+  background-color: #2C80A4;
+  transition: .5s;
+}

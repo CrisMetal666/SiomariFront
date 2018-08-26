@@ -1,301 +1,323 @@
-<div *ngIf="isAuthenticated()" class="navbar navbar-default navbar-fixed-top">
+<div *ngIf="isAuthenticated()" class="navbar navbar-default navbar-fixed-top main-container navbar-container">
+
   <div class="container-fluid">
     <div class="nav-header">
-      <a href="#" class="navbar-brand">SIOMARI</a>
+      <a [routerLink]="['/home']" class="navbar-brand Titulo-navbar">SIOMARI</a>
     </div>
 
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse navClass">
+      <ul class="nav navbar-nav">
 
-      <!-- Menu principal -->
-      <ul *ngIf="seleccionado == 0" class="nav navbar-nav">
-        <li (click)="cambiarNav(2)">
-          <a class="cursor-nav">Registro</a>
-        </li>
-        <li (click)="cambiarNav(3)">
-          <a class="cursor-nav">Estroper</a>
-        </li>
-        <li (click)="cambiarNav(4)">
-          <a class="cursor-nav">Hidrometría</a>
-        </li>
-        <li (click)="cambiarNav(1)">
-          <a class="cursor-nav">Planeación</a>
-        </li>
-        <li (click)="cambiarNav(5)">
-          <a class="cursor-nav">Programación</a>
-        </li>
-        <li (click)="cambiarNav(6)">
-          <a class="cursor-nav">Distribución</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a class="cursor-nav" routerLink="/entrega">Entregas</a>
-        </li>
-        <li (click)="cambiarNav(9)">
-          <a class="cursor-nav">Evaluacion</a>
-        </li>
-        <li (click)="cambiarNav(8)">
-          <a class="cursor-nav">Consultas</a>
-        </li>
-        <li (click)="cambiarNav(10)">
-          <a class="cursor-nav">Cuentas</a>
-        </li>
-        <li (click)="cerrarSesion()">
-          <a class="cursor-nav">Cerrar sesión</a>
-        </li>
-      </ul>
-
-      <!-- Sub-menu 1 -->
-      <ul *ngIf="seleccionado == 1" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/plan-siembra">Solicitud de siembra</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/plan-siembra-info">Plan de siembra</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/balance">Balance</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/climatologia">Climatología</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/config">Condeplan</a>
-        </li>
-      </ul>
-
-      <!-- Sub-menu 2 -->
-      <div *ngIf="seleccionado == 2" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Predio
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="predio/registrar">Registrar</a>
+        <!-- Registro -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-registro">
+          <a class="cursor-nav a-principal">Registro <i class="fas fa-angle-down"></i></a>
+          <ul class="drop-menu animated fadeIn fast">
+            <li> <a class="cursor-nav">Predio <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="predio/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="predio/editar">Editar</a></li>
+              </ul>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="predio/editar">Editar</a>
+            <li class=""> <a class="cursor-nav">Usuario <i class="fas fa-angle-right"></i></a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"> <a [routerLink]="['usuario/registrar']">Registrar</a> </li>
+                <li [routerLinkActive]="['active-nav']"> <a [routerLink]="['usuario/editar']">Editar</a> </li>
+              </ul>
+            </li>
+          </ul>
+
+        </li>
+        <!-- Estroper -->
+        <li class="opcion-estroper" [routerLinkActive]="['active-nav']">
+          <a class="cursor-nav a-principal">Estroper <i class="fas fa-angle-down"></i></a>
+          <ul class="drop-menu animated fadeIn fast">
+
+            <li> <a class="cursor-nav">Unidad <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="unidad/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="unidad/editar">Editar</a></li>
+              </ul>
+            </li>
+
+            <li> <a class="cursor-nav">Zona <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="zona/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="zona/editar">Editar</a></li>
+              </ul>
+            </li>
+
+            <li> <a class="cursor-nav">Sección <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="seccion/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="seccion/editar">Editar</a></li>
+              </ul>
+            </li>
+
+            <li> <a class="cursor-nav">Canal <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="canal/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="canal/editar">Editar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="agregar-obra">Agregar Obra</a></li>
+              </ul>
+            </li>
+
+            <li> <a class="cursor-nav">Cultivo <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="cultivo/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="cultivo/editar">Editar</a></li>
+              </ul>
+            </li>
+
+            <li> <a class="cursor-nav">Obra <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="obra/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="obra/editar">Editar</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a class="cursor-nav" routerLink="/establecer-servidores">Servidores</a>
+            </li>
+
+          </ul>
+        </li>
+
+        <!-- Hidrometría -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-hidrometria">
+          <a class="cursor-nav a-principal">
+            Hidrometría <i class="fas fa-angle-down"></i>
+          </a>
+          <ul class="drop-menu animated fadeIn fast">
+            <li>
+              <a class="cursor-nav" routerLink="/estructura-control">
+                 Estructura de control</a>
             </li>
           </ul>
         </li>
-      </div>
 
-      <div *ngIf="seleccionado == 2" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Usuario
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="usuario/registrar">Registrar</a>
+
+        <!-- Planeación -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-planeacion">
+          <a class="cursor-nav a-principal">Planeación <i class="fas fa-angle-down"></i></a>
+          <ul class="drop-menu animated fadeIn fast">
+
+            <li>
+              <a class="cursor-nav" routerLink="/plan-siembra">
+                Solicitud de siembra </a>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="usuario/editar">Editar</a>
+
+            <li class="">
+              <a class="cursor-nav" routerLink="/plan-siembra-info">
+                Plan de siembra </a>
+            </li>
+
+            <li class="">
+              <a class="cursor-nav" routerLink="/balance"> Balance </a>
+            </li>
+
+            <li class="">
+              <a class="cursor-nav" routerLink="/climatologia"> Climatología </a>
+            </li>
+
+            <li class="">
+              <a class="cursor-nav" routerLink="/config"> Condeplan </a>
+            </li>
+
+          </ul>
+        </li>
+
+        <!-- Programación -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-programacion">
+          <a class="cursor-nav a-principal">Programación <i class="fas fa-angle-down"></i></a>
+          <ul class="drop-menu animated fadeIn fast">
+
+            <li>
+              <a routerLink="/programacion-semanal">Programacion semanal</a>
+            </li>
+
+            <li>
+              <a routerLink="/calculo-caudal-semanal">Caudal semanal</a>
             </li>
           </ul>
         </li>
-      </div>
 
-      <!-- Sub-menu 3 -->
-      <ul *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/distrito">Distrito</a>
-        </li>
-      </ul>
+        <!-- Distribución -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-distribucion">
+          <a class="cursor-nav a-principal">Distribución <i class="fas fa-angle-down"></i></a>
+          <ul class="drop-menu animated fadeIn fast">
 
-      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Unidad
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="unidad/registrar">Registrar</a>
+            <li>
+              <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="unidad/editar">Editar</a>
+
+            <li>
+              <a routerLink="/registro-manejo-grafica">Grafica de manejo de agua</a>
             </li>
+
           </ul>
         </li>
-      </div>
 
-      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Zona
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="zona/registrar">Registrar</a>
+        <!-- Entregas -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-entregas">
+          <a class="cursor-nav a-principal" routerLink="/entrega">Entregas</a>
+        </li>
+
+        <!-- Evaluación -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-evaluacion opcion-ocultar">
+          <a class="cursor-nav a-principal">Evaluación <i class="fas fa-angle-down"></i></a>
+          <ul class="drop-menu animated fadeIn fast">
+
+            <li>
+              <a routerLink="/eficiencia-perdidas">Eficiencia/Perdidas</a>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="zona/editar">Editar</a>
-            </li>
+
           </ul>
         </li>
-      </div>
 
-      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Seccion
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="seccion/registrar">Registrar</a>
+        <!-- Consultas -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-consultas opcion-ocultar">
+          <a class="cursor-nav a-principal">Consultas <i class="fas fa-angle-down"></i></a>
+          <ul class="drop-menu animated fadeIn fast">
+
+            <li>
+              <a routerLink="/reporte/caudalServido">Facturación</a>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="seccion/editar">Editar</a>
+
+            <li>
+              <a routerLink="consulta/usuario">RGU</a>
             </li>
+
+            <li>
+              <a routerLink="consulta/predio">RGP</a>
+            </li>
+
+            <li>
+              <a routerLink="consulta/canal">Canal</a>
+            </li>
+
+            <li>
+              <a routerLink="distribucion-agua-mensual">Distribución de agua</a>
+            </li>
+
           </ul>
         </li>
-      </div>
 
-      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Canal
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="canal/registrar">Registrar</a>
+        <!-- Cuenta -->
+        <li  [routerLinkActive]="['active-nav']" class="opcion-cuentas">
+          <a class="cursor-nav a-principal">Cuenta <i class="fas fa-angle-down"></i> <!--<i class="fas fa-cog"></i>--> </a>
+          <ul class="drop-menu drop-menu-cuenta animated fadeIn fast">
+
+            <li class="dropdown-cuenta">
+              <a routerLink="/cuenta/registrar">Crear</a>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="canal/editar">Editar</a>
+
+            <li class="dropdown-cuenta">
+              <a routerLink="/cuenta/editar">Actualizar</a>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="agregar-obra">Agregar obra</a>
+
+            <li class="dropdown-cuenta">
+              <a routerLink="/cambiar-clave">Cambiar contraseña</a>
             </li>
+
+            <li (click)="cerrarSesion()" class="dropdown-cuenta">
+              <a class="cursor-nav a-principal" (click)="cerrarSesion()">Cerrar sesión</a>
+            </li>
+
           </ul>
         </li>
-      </div>
 
-      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Cultivo
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="cultivo/registrar">Registrar</a>
+         <!--ICONO RESPONSIVE -->
+        <li class="opcion-menu-responsive desplegar-menu">
+          <a class="cursor-nav a-principal"><i class="fas fa-bars"></i></a>
+
+          <ul class="drop-menu-responsive animated fadeIn fast">
+
+
+          <!-- Evaluación dentro icono -->
+            <li class="opcion-evaluacion-responsive desplegar-submenu" >
+              <a class="cursor-nav a-principal"><i class="fas fa-angle-down"></i>Evaluación</a>
+              <ul class="drop-submenu-responsive animated fadeIn fast">
+
+                 <!-- Sub-menu 5 -->
+                <ul *ngIf="seleccionado == 5" class="nav navbar-nav">
+                  <li>
+                    <a routerLink="/solicitud-riego">Solicitud Riego</a>
+                  </li>
+                  <li>
+                    <a routerLink="/programacion-semanal">Programacion semanal</a>
+                  </li>
+                  <li>
+                    <a routerLink="/calculo-caudal-semanal">Caudal semanal</a>
+                  </li>
+                </ul>
+
+
+                <li>
+                  <a routerLink="/eficiencia-perdidas">Eficiencia/Perdidas</a>
+                </li>
+
+              </ul>
             </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="cultivo/editar">Editar</a>
+
+        <!-- Consultas dentro icono -->
+            <li class="opcion-consultas-responsive desplegar-submenu" >
+              <a class="cursor-nav a-principal"><i class="fas fa-angle-down"></i>Consultas</a>
+              <ul class="drop-submenu-responsive animated fadeIn fast">
+
+                <li>
+                  <a routerLink="/reporte/caudalServido">Facturación</a>
+                </li>
+
+                <li>
+                  <a routerLink="consulta/usuario">RGU</a>
+                </li>
+
+                <li>
+                  <a routerLink="consulta/predio">RGP</a>
+                </li>
+
+                <li>
+                  <a routerLink="consulta/canal">Canal</a>
+                </li>
+
+                <li>
+                  <a routerLink="distribucion-agua-mensual">Distribución de agua</a>
+                </li>
+
+              </ul>
             </li>
+
+            <!--Cuenta dentro icono -->
+            <li class="opcion-cuenta-responsive desplegar-submenu" >
+              <a class="cursor-nav a-principal"><i class="fas fa-angle-down"></i>Cuenta </a>
+              <ul class="drop-submenu-responsive animated fadeIn fast">
+
+                <li class="dropdown-cuenta">
+                  <a routerLink="/cuenta/registrar">Crear</a>
+                </li>
+
+                <li class="dropdown-cuenta">
+                  <a routerLink="/cuenta/editar">Actualizar</a>
+                </li>
+
+                <li class="dropdown-cuenta">
+                  <a routerLink="/cambiar-clave">Cambiar contraseña</a>
+                </li>
+
+                <li (click)="cerrarSesion()" class="dropdown-cuenta">
+                  <a class="cursor-nav a-principal" (click)="cerrarSesion()">Cerrar sesión</a>
+                </li>
+
+              </ul>
+            </li>
+
           </ul>
-        </li>
-      </div>
 
-      <div *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']" class="dropdown" dropdown>
-          <a dropdownToggle style="cursor: pointer" class="dropdown-toggle" role="button">Obra
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="obra/registrar">Registrar</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a style="cursor: pointer" routerLink="obra/editar">Editar</a>
-            </li>
-          </ul>
         </li>
-      </div>
 
-      <ul *ngIf="seleccionado == 3" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/establecer-servidores">Servidores</a>
-        </li>
-      </ul>
 
-      <!-- Sub-menu 4 -->
-      <ul *ngIf="seleccionado == 4" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/estructura-control">Estructura de control</a>
-        </li>
-      </ul>
-
-      <!-- Sub-menu 5 -->
-      <ul *ngIf="seleccionado == 5" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/solicitud-riego">Solicitud Riego</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/programacion-semanal">Programacion semanal</a>
-        </li>
-        <!--
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/calculo-caudal-semanal">Caudal semanal</a>
-        </li>
-        -->
-      </ul>
-
-      <!-- Sub-menu 6 -->
-      <ul *ngIf="seleccionado == 6" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/manejo-agua-grafica">Grafica de manejo de agua</a>
-        </li>
-      </ul>
-
-      <!-- Sub-menu 8 -->
-      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/reporte/caudalServido">Facturación</a>
-        </li>
-      </ul>
-      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="consulta/usuario">RGU</a>
-        </li>
-      </ul>
-      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="consulta/predio">RGP</a>
-        </li>
-      </ul>
-      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="consulta/canal">Canal</a>
-        </li>
-      </ul>
-      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="consulta/divoper">Divoper</a>
-        </li>
-      </ul>
-      <ul *ngIf="seleccionado == 8" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="distribucion-agua-mensual">Distribución de agua</a>
-        </li>
-      </ul>
-
-      <!-- Sub-menu 9 -->
-      <ul *ngIf="seleccionado == 9" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/eficiencia-perdidas">Eficiencia/Perdidas</a>
-        </li>
-      </ul>
-
-      <!-- Sub-menu 10 -->
-      <ul *ngIf="seleccionado == 10" class="nav navbar-nav">
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/cuenta/registrar">Crear</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/cuenta/editar">Actualizar</a>
-        </li>
-        <li [routerLinkActive]="['active']">
-          <a routerLink="/cambiar-clave">Cambiar contraseña</a>
-        </li>
-      </ul>
-
-      <ul *ngIf="seleccionado != 0" class="nav navbar-nav">
-        <li (click)="cambiarNav(0)">
-          <a class="cursor-nav">Atras</a>
-        </li>
       </ul>
     </div>
   </div>
+
 </div>

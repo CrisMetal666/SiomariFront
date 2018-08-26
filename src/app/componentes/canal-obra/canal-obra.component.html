@@ -1,119 +1,125 @@
-<div class="col-xs-12">
-  <h1 class="page-header">Agregar obra</h1>
+<div class="col-xs-12 contenedor-principal animated fadeIn">
 
-  <ng4-loading-spinner> </ng4-loading-spinner>
+  <h1 class="page-header Titutlo_form animated fadeIn fast">Agregar obra</h1>
 
-  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
-    La informacion se ha guardado correctamente.
-  </div>
-  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
-    Se ha producido un error, intente mas tarde.
-  </div>
-  <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
-    Ocurrio un error al guardar la imagen.
-  </div>
+  <div class="contenedor-form">
 
-  <div class="row">
+    <ng4-loading-spinner> </ng4-loading-spinner>
 
-    <div class="col-xs-6">
-
-      <div class="form-group">
-        <label class="control-label">Buscar canal</label>
-        <ng2-completer (selected)="onSelectedCanal($event)" [datasource]="dataServiceCanal" [inputClass]="['form-control']" [minSearchLength]="3"
-          [textSearching]="'Buscando...'" [placeholder]="'Buscar canal por nombre o código'" [textNoResults]="'Sin resultados'"
-          [(ngModel)]="completerCanal" name="canal" [disableInput]="seleccionado" [clearUnselected]="true"></ng2-completer>
-      </div>
-
-      <button (click)="onClickAgregar()" *ngIf="seleccionado && !mostrarForm" type="button" class="btn btn-success">Agregar</button>
-      <button (click)="resetVariables(true)" *ngIf="seleccionado && !mostrarForm" type="button" class="btn btn-warning">Cancelar</button>
+    <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+      La informacion se ha guardado correctamente.
     </div>
-    <div *ngIf="seleccionado && !mostrarForm" class="col-xs-6">
-
-      <table class="table table-striped">
-        <tr *ngFor="let o of lstCanalObra; let i = index" [attr.data-index]="i">
-          <td>{{o.obraId.nombre}}</td>
-          <td>
-            <button (click)="editarObra(o.id)" type="button" class="btn btn-info">Editar</button>
-            <button (click)="eliminarObra(o.id,i)" type="button" class="btn btn-danger">Eliminar</button>
-          </td>
-        </tr>
-        <tr *ngIf="lstCanalObra.length == 0">
-          <td>No hay obras registradas.</td>
-        </tr>
-      </table>
-
+    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+      Se ha producido un error, intente mas tarde.
     </div>
-
-  </div>
-
-  <form *ngIf="mostrarForm" #form="ngForm" (ngSubmit)="guardar(form)" autocomplete="off">
+    <div *ngIf="estado == 2" class="alert alert-warning" role="alert">
+      Ocurrio un error al guardar la imagen.
+    </div>
 
     <div class="row">
 
       <div class="col-xs-6">
 
-        <div [ngClass]="(!cObra.valid && cObra.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Obra</label>
-          <ng2-completer (selected)="onSelectedObra($event)" [datasource]="dataServiceObra" [inputClass]="['form-control']" [minSearchLength]="2"
-            [(ngModel)]="completerObra" #cObra="ngModel" name="obra" [textSearching]="'Buscando...'" [placeholder]="'Buscar obra por nombre'"
-            [textNoResults]="'Sin resultados'" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="!cObra.valid && cObra.touched">Campo obligatorio</span>
+        <div class="form-group control-label animated fadeIn fast">
+          <label class="">Buscar canal</label>
+          <ng2-completer (selected)="onSelectedCanal($event)" [datasource]="dataServiceCanal" [inputClass]="['form-control']" [minSearchLength]="3"
+            [textSearching]="'Buscando...'" [placeholder]="'Buscar canal por nombre o código'" [textNoResults]="'Sin resultados'"
+            [(ngModel)]="completerCanal" name="canal" [disableInput]="seleccionado" [clearUnselected]="true"></ng2-completer>
         </div>
 
-        <div [ngClass]="(!cDescripcion.valid && cDescripcion.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Descripción</label>
-          <textarea [(ngModel)]="canalObra.descripcion" #cDescripcion="ngModel" placeholder="Ingrese la descripción de la obra" class="form-control"
-            name="descripcion" rows="3" required></textarea>
-          <span class="msg-error" *ngIf="!cDescripcion.valid && cDescripcion.touched">Campo obligatorio</span>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Ultima intervensión</label>
-          <textarea [(ngModel)]="canalObra.ultimaIntervension" placeholder="Ingrese la ultima intervensión de la obra" class="form-control"
-            name="ultima" rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Observación</label>
-          <textarea [(ngModel)]="canalObra.observacion" placeholder="Ingrese la Observación" class="form-control" name="observaion"
-            rows="3"></textarea>
-        </div>
-
-        <button [disabled]="!form.form.valid || idObra == 0" type="submit" class="btn btn-success">Guardar</button>
-        <button (click)="resetVariables(false)" type="button" class="btn btn-danger">Cancelar</button>
-
+        <button (click)="onClickAgregar()" *ngIf="seleccionado && !mostrarForm" type="button" class="btn btn-success">Agregar</button>
+        <button (click)="resetVariables(true)" *ngIf="seleccionado && !mostrarForm" type="button" class="btn btn-warning">Cancelar</button>
       </div>
+      <div *ngIf="seleccionado && !mostrarForm" class="col-xs-6">
 
-      <div class="col-xs-6">
+        <table class="table table-striped">
+          <tr *ngFor="let o of lstCanalObra; let i = index" [attr.data-index]="i">
+            <td>{{o.obraId.nombre}}</td>
+            <td>
+              <button (click)="editarObra(o.id)" type="button" class="btn btn-info">Editar</button>
+              <button (click)="eliminarObra(o.id,i)" type="button" class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="lstCanalObra.length == 0">
+            <td>No hay obras registradas.</td>
+          </tr>
+        </table>
 
-        <div class="form-group">
-          <label class="control-label">Imagen &nbsp; &nbsp; &nbsp; &nbsp;
-            <button (click)="onClickVer(modalImg)" *ngIf="mostrarBotonImagen" class="btn btn-info btn-sm" type="button">Ver imagen</button>
-          </label>
-          <input (change)="selectFile($event)" placeholder="Seleccione una imagen" class="form-control-file" type="file" />
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">X</label>
-          <input [(ngModel)]="canalObra.x" name="x" placeholder="Ingrese la coordenada x" class="form-control" type="number" />
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Y</label>
-          <input [(ngModel)]="canalObra.y" name="y" placeholder="Ingrese la coordenada y" class="form-control" type="number" />
-        </div>
-
-        <div class="form-group">
-          <label class="control-label">Altitud (m.s.n.m)</label>
-          <input [(ngModel)]="canalObra.altitud" name="altitud" placeholder="Ingrese la altitud" class="form-control" type="number"
-          />
-        </div>
       </div>
 
     </div>
 
+    <form *ngIf="mostrarForm" #form="ngForm" (ngSubmit)="guardar(form)" autocomplete="off">
 
-  </form>
+      <div class="row">
+
+        <div class="col-xs-6">
+
+          <div [ngClass]="(!cObra.valid && cObra.touched) ? 'form-group has-error' : 'form-group'">
+            <label class="control-label">Obra</label>
+            <ng2-completer (selected)="onSelectedObra($event)" [datasource]="dataServiceObra" [inputClass]="['form-control']" [minSearchLength]="2"
+              [(ngModel)]="completerObra" #cObra="ngModel" name="obra" [textSearching]="'Buscando...'" [placeholder]="'Buscar obra por nombre'"
+              [textNoResults]="'Sin resultados'" [clearUnselected]="true" required></ng2-completer>
+            <span class="msg-error" *ngIf="!cObra.valid && cObra.touched">Campo obligatorio</span>
+          </div>
+
+          <div [ngClass]="(!cDescripcion.valid && cDescripcion.touched) ? 'form-group has-error' : 'form-group'">
+            <label class="control-label">Descripción</label>
+            <textarea [(ngModel)]="canalObra.descripcion" #cDescripcion="ngModel" placeholder="Ingrese la descripción de la obra" class="form-control"
+              name="descripcion" rows="3" required></textarea>
+            <span class="msg-error" *ngIf="!cDescripcion.valid && cDescripcion.touched">Campo obligatorio</span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Ultima intervensión</label>
+            <textarea [(ngModel)]="canalObra.ultimaIntervension" placeholder="Ingrese la ultima intervensión de la obra" class="form-control"
+              name="ultima" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Observación</label>
+            <textarea [(ngModel)]="canalObra.observacion" placeholder="Ingrese la Observación" class="form-control" name="observaion"
+              rows="3"></textarea>
+          </div>
+
+          <button [disabled]="!form.form.valid || idObra == 0" type="submit" class="btn btn-success">Guardar</button>
+          <button (click)="resetVariables(false)" type="button" class="btn btn-danger">Cancelar</button>
+
+        </div>
+
+        <div class="col-xs-6">
+
+          <div class="form-group">
+            <label class="control-label">Imagen &nbsp; &nbsp; &nbsp; &nbsp;
+              <button (click)="onClickVer(modalImg)" *ngIf="mostrarBotonImagen" class="btn btn-info btn-sm" type="button">Ver
+                imagen</button>
+            </label>
+            <input (change)="selectFile($event)" placeholder="Seleccione una imagen" class="form-control-file" type="file" />
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">X</label>
+            <input [(ngModel)]="canalObra.x" name="x" placeholder="Ingrese la coordenada x" class="form-control" type="number" />
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Y</label>
+            <input [(ngModel)]="canalObra.y" name="y" placeholder="Ingrese la coordenada y" class="form-control" type="number" />
+          </div>
+
+          <div class="form-group">
+            <label class="control-label">Altitud (m.s.n.m)</label>
+            <input [(ngModel)]="canalObra.altitud" name="altitud" placeholder="Ingrese la altitud" class="form-control" type="number"
+            />
+          </div>
+        </div>
+
+      </div>
+
+
+    </form>
+  </div>
+
 </div>
 
 <ng-template #modalImg>

@@ -1,0 +1,136 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
+    background-color: transparent;
+  }
+  div label.label-normal {
+    color: #848889;
+  }
+  div label.label-error{
+    color: #FF5D5D;
+  }
+  div.cont_btns{
+    margin-left:330px;
+    width: 100%
+  }
+  button.btn_general{
+    width: 33%;
+    margin-right: 10px;
+  }
+  button.btn_guardar{
+    margin-left: -80px;
+    position: relative;
+    width: 100%;
+  }
+  .contenedor-form{
+    border: 1.5px solid #3B9AC1;
+    border-radius: 4px;
+    padding: 30px 20px 40px 20px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    background: #FFFFFF;
+  }
+  .Titutlo_form{
+    font-family: 'PT Sans';
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    padding-left: 15px;
+    color: #3B9AC1;
+  }
+  /*------------------------------------------------------------------
+                          Estilo de los Inputs
+  -------------------------------------------------------------------*/
+  input[type=text]{
+    width: 100%;
+    border: 1px solid #AAAAAA;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+  }
+  input[type=number]{
+    width: 100%;
+    border: 1px solid #AAAAAA;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+  }
+  input[type=number]:focus{
+    border-color: dodgerBlue;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+  }
+  input[type=text]:focus{
+    border-color: dodgerBlue;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+  }
+  
+  
+  /*----------------------------------------------------------------
+                input con fondo e incono
+  ------------------------------------------------------------------ */
+  
+  /*________Icono dentro del input________*/
+  
+  /* distancia del texto a la izquierda del input */
+  .inputWithIcon input[type=text], input[type=password]{
+    padding-left: 45px;
+  }
+  
+  .inputWithIcon{
+    position: relative;
+  }
+  /* Posicion y color del icono dentro del input*/
+  .inputWithIcon i{
+    position: absolute;
+    left: 0px;
+    top: 33px;
+    padding: 9px 8px;
+    color: #b4b4b4;
+    transition: 0.3s;
+  }
+  /*________Fondo del icono________*/
+  .inputWithIcon.inputWithIconBg i{
+    background-color: #AAAAAA;
+    color: #FFFFFF;
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+    padding-left: 12px;
+    border-radius: 4px 0px 0px 4px;
+  }
+  /* ----------------- Inputs Error ----------------------*/
+  .error input[type=text]{
+    border-color: #B44141;
+    box-shadow: 0 0 8px 0 #B44141;
+  }
+  .error input[type=number]{
+    border-color: #B44141;
+    box-shadow: 0 0 8px 0 #B44141;
+  }
+  /*-----Fondo Error al icono-----*/
+  .inputWithIcon.inputWithIconBgError i{
+    background-color: #FF5D5D;
+    color: #FFFFFF;
+    padding-top: 10px;
+    padding-right: 25px;
+    padding-bottom: 10px;
+    padding-left: 12px;
+    border-radius: 4px 0px 0px 4px;
+  }
+  /*---------------------*/
+  .inputWithIcon.inputWithIconBg input[type=text]:focus + i{
+    color: #FFFFFF;
+    background-color: dodgerBlue;
+  }

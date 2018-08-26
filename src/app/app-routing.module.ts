@@ -21,7 +21,6 @@ import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consult
 import { ManejoAguaRegistrarComponent } from './componentes/manejo-agua-registrar/manejo-agua-registrar.component';
 import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/manejo-agua-grafica.component';
 import { ProgramacionSemanalComponent } from './componentes/programacion-semanal/programacion-semanal.component';
-import { CalculoQSemanalComponent } from './componentes/calculo-q-semanal/calculo-q-semanal.component';
 import { EstablecerCanalesDistribucionComponent } from './componentes/establecer-canales-distribucion/establecer-canales-distribucion.component';
 import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
 import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consulta-usuario.component';
@@ -58,7 +57,6 @@ const appRoutes: Routes = [
     { path: 'registro-manejo-agua', component: ManejoAguaRegistrarComponent, canActivate: [ GuardService ] },
     { path: 'manejo-agua-grafica', component: ManejoAguaGraficaComponent, canActivate: [ GuardService ] },
     { path: 'programacion-semanal', component: ProgramacionSemanalComponent, canActivate: [ GuardService ] },
-    { path: 'calculo-caudal-semanal', component: CalculoQSemanalComponent, canActivate: [ GuardService ] },
     { path: 'establecer-servidores', component: EstablecerCanalesDistribucionComponent, canActivate: [ GuardService ] },
     { path: 'eficiencia-perdidas', component: EficienciaPerdidasComponent, canActivate: [ GuardService ] },
     { path: 'consulta/usuario', component: ConsultaUsuarioComponent, canActivate: [ GuardService ] },

@@ -1,23 +1,23 @@
-<div class="col-xs-12">
+<div class="col-xs-12 contenedor-principal animated fadeIn">
 
-  <h2>{{title}}</h2>
+  <h2 class="Titutlo_form animated fadeIn fast">{{title}}</h2>
 
   <br>
 
   <ng4-loading-spinner> </ng4-loading-spinner>
 
-  <div *ngIf="estatus == 1" class="alert alert-success" role="alert">
+  <div *ngIf="estatus == 1" class="alert alert-success animated fadeIn fast" role="alert">
     La informacion se ha guardado correctamente.
   </div>
-  <div *ngIf="estatus == 0" class="alert alert-danger" role="alert">
+  <div *ngIf="estatus == 0" class="alert alert-danger animated fadeIn fast" role="alert">
     Se ha producido un error, intente mas tarde.
   </div>
-  <div *ngIf="estatus == 2" class="alert alert-warning" role="alert">
+  <div *ngIf="estatus == 2" class="alert alert-warning animated fadeIn fast" role="alert">
     El codigo de la seccion ya existe.
   </div>
 
-  <div *ngIf="!mostrarForm" class="form-group col-xs-6">
-    <div class="form-group">
+  <div *ngIf="!mostrarForm" class="form-group col-xs-6 animated fadeIn">
+    <div class="form-group animated fadeIn fast">
       <label class="control-label">Buscar canal</label>
       <ng2-completer (selected)="onSelectedCanal($event)" [datasource]="dataServiceCanal" [inputClass]="['form-control']" [minSearchLength]="3"
         [textSearching]="'Buscando...'" [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
@@ -26,50 +26,52 @@
 
   <tabset *ngIf="mostrarForm" #staticTabs>
 
-    <tab heading="Servidor">
+    <tab heading="Servidor" class="contenedor-form">
 
       <br/>
 
-      <h2>Secciones por donde pasa el canal</h2>
+      <h2 class="Titutlo_tabs animated fadeIn fast">Secciones por donde pasa el canal</h2>
 
       <div *ngIf="estatus == 3" class="alert alert-warning" role="alert">
         La seccion ya esta agregada.
       </div>
 
-      <div class="row">
+      <div class="row cont_tabs">
         <div class="col-xs-6">
 
           <div class="form-group">
-            <label class="control-label" for="nombre">Buscar unidad</label>
+            <label class="control-label label-normal animated fadeIn" for="nombre">Buscar unidad</label>
             <ng2-completer [(ngModel)]="unidadCompleter" (selected)="onSelectedUnidad($event)" [datasource]="dataServiceUnidad" [inputClass]="['form-control']"
               [minSearchLength]="2" #unidad="ngModel" [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500"
-              [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
+              [textNoResults]="'Sin resultados'" [clearUnselected]="true" class="animated fadeIn fast"></ng2-completer>
           </div>
           <div class="form-group">
-            <label class="control-label">Buscar zona</label>
+            <label class="control-label label-normal animated fadeIn">Buscar zona</label>
             <ng2-completer [(ngModel)]="zonaCompleter" [disableInput]="unidadId == null" (selected)="onSelectedZona($event)" [datasource]="dataServiceZona"
               [inputClass]="['form-control']" #zona="ngModel" [minSearchLength]="2" [textSearching]="'Buscando...'" [placeholder]="'Buscar zona'"
-              [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
+              [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true" class="animated fadeIn fast"></ng2-completer>
           </div>
           <div class="form-group">
-            <label class="control-label">Buscar sección</label>
+            <label class="control-label label-normal animated fadeIn">Buscar sección</label>
             <ng2-completer [(ngModel)]="seccionCompleter" [disableInput]="zonaId == null" (selected)="onSelectedSeccion($event)" [datasource]="dataServiceSeccion"
               [inputClass]="['form-control']" #seccion="ngModel" [minSearchLength]="2" [textSearching]="'Buscando...'" [placeholder]="'Buscar sección'"
-              [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
+              [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true" class="animated fadeIn fast"></ng2-completer>
           </div>
 
-          <button type="button" class="btn btn-success" (click)="agregarSeccion(form)">Agregar</button>
+          <button type="button" class="btn btn-primary btn-agregar animated fadeIn fast" (click)="agregarSeccion(form)">
+            <!-- <i class="fas fa-plus fa-fw"></i>-->Agregar</button>
 
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-6 cont_lst_ubicacion_canal animated fadeIn" *ngIf="lstUbicacionCanal.length != 0">
           <div class="col-xs-12">
 
-            <ul *ngIf="lstUbicacionCanal.length != 0" class="list-group">
-              <li *ngFor="let u of lstUbicacionCanal; let i = index" [attr.data-index]="i" class="list-group-item">
+            <ul  class="list-group animated fadeIn">
+              <li *ngFor="let u of lstUbicacionCanal; let i = index" [attr.data-index]="i" class="list-group-item animated fadeIn fast">
                 {{u}}
-                <span style="cursor: pointer" (click)="eliminarUbicacion(i)" class="badge badge-default badge-pill">eliminar</span>
+                <span style="cursor: pointer" (click)="eliminarUbicacion(i)" class="badge badge-default badge-pill span-error">eliminar</span>
               </li>
             </ul>
+
           </div>
         </div>
 
@@ -77,31 +79,30 @@
 
     </tab>
 
-    <tab heading="Datos basicos" [disabled]="lstSeccionCanal.length == 0">
+    <tab heading="Datos basicos" [disabled]="lstSeccionCanal.length == 0" class="contenedor-form" class="contenedor-form">
 
-      <form #form="ngForm" autocomplete="off">
+      <form #form="ngForm" autocomplete="off" class="cont_tabs animated fadeIn fast">
 
-        <br/>
 
         <div class="row">
           <div class="col-xs-6">
 
-            <div [ngClass]="(!codigo.valid && codigo.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="codigo">Código del canal</label>
-              <input #codigo="ngModel" [(ngModel)]="canal.codigo" name="canal" type="text" class="form-control" placeholder="Ingrese código del canal"
+            <div [ngClass]="(!codigo.valid && codigo.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!codigo.valid && codigo.touched) ? 'label-error' : 'label-normal'" for="codigo" class="animated fadeIn fast">Código del canal</label>
+              <input #codigo="ngModel" [(ngModel)]="canal.codigo" name="canal" type="text" class="form-control animated fadeIn" placeholder="Ingrese el código"
                 required/>
-              <span class="msg-error" *ngIf="!codigo.valid && codigo.touched">Campo obligatorio</span>
+              <span class="msg-error animated fadeIn fast" *ngIf="!codigo.valid && codigo.touched">Campo obligatorio</span>
             </div>
 
-            <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="nombre">Nombre del canal</label>
-              <input #nombre="ngModel" [(ngModel)]="canal.nombre" name="nombre" type="text" class="form-control" placeholder="Ingrese nombre del canal"
+            <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!nombre.valid && nombre.touched) ? 'label-error' : 'label-normal'" for="nombre" class="animated fadeIn fast">Nombre del canal</label>
+              <input #nombre="ngModel" [(ngModel)]="canal.nombre" name="nombre" type="text" class="form-control animated fadeIn" placeholder="Ingrese el nombre"
                 required/>
-              <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
+              <span class="msg-error animated fadeIn fast" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
             </div>
 
-            <div [ngClass]="(!caudal.valid && caudal.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="caudal">Caudal diseño
+            <div [ngClass]="(!caudal.valid && caudal.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!caudal.valid && caudal.touched) ? 'label-error' : 'label-normal'" for="caudal" class="animated fadeIn fast">Caudal diseño
                 <span>(
                   <i>m</i>
                   <sup>
@@ -109,72 +110,72 @@
                   </sup>
                   <i>/seg</i>)</span>
               </label>
-              <input #caudal="ngModel" [(ngModel)]="canal.caudalDisenio" name="caudal" type="number" class="form-control" placeholder="Ingrese nombre del canal"
+              <input #caudal="ngModel" [(ngModel)]="canal.caudalDisenio" name="caudal" type="number" class="form-control animated fadeIn" placeholder="Ingrese el caudal diseño"
                 required/>
               <span class="msg-error" *ngIf="!caudal.valid && caudal.touched">Valor incorrecto</span>
             </div>
 
-            <div [ngClass]="(!longitud.valid && longitud.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="longitud">Longitud
+            <div [ngClass]="(!longitud.valid && longitud.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!longitud.valid && longitud.touched) ? 'label-error' : 'label-normal'" for="longitud" class="animated fadeIn fast">Longitud
                 <span>(
                   <i>Km</i>)</span>
               </label>
-              <input #longitud="ngModel" [(ngModel)]="canal.longitud" name="longitud" type="number" class="form-control" placeholder="Ingrese nombre del canal"
+              <input #longitud="ngModel" [(ngModel)]="canal.longitud" name="longitud" type="number" class="form-control animated fadeIn" placeholder="Ingrese la longitud"
                 required/>
               <span class="msg-error" *ngIf="!longitud.valid && longitud.touched">Campo incorrecto</span>
             </div>
 
-            <div [ngClass]="(!tipica.valid && tipica.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="unidad">Seleccione la sección tipica</label>
-              <select #tipica="ngModel" [(ngModel)]="canal.seccionTipica" name="tipica" class="form-control" id="unidad" required>
+            <div [ngClass]="(!tipica.valid && tipica.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!tipica.valid && tipica.touched) ? 'label-error' : 'label-normal'" for="unidad" class="animated fadeIn fast">Seleccione la sección tipica</label>
+              <select #tipica="ngModel" [(ngModel)]="canal.seccionTipica" name="tipica" class="form-control animated fadeIn" id="unidad" required>
                 <option value="">-- Seleccione --</option>
                 <option value="RECTANGULAR">Rectangular</option>
                 <option value="CIRCULAR">Circular</option>
                 <option value="TRAPEZOIDAL">Trapezoidal</option>
               </select>
-              <span class="msg-error" *ngIf="!tipica.valid && tipica.touched">Campo obligatorio</span>
+              <span class="msg-error animated fadeIn fast" *ngIf="!tipica.valid && tipica.touched">Campo obligatorio</span>
             </div>
 
           </div>
 
-          <div class="col-xs-6">
+          <div class="col-xs-6 cont_columna2">
 
-            <div [ngClass]="(!clase.valid && clase.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="unidad">Seleccione la clase</label>
-              <select #clase="ngModel" [(ngModel)]="canal.clase" name="clase" class="form-control" id="unidad" required>
+            <div [ngClass]="(!clase.valid && clase.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!clase.valid && clase.touched) ? 'label-error' : 'label-normal'" for="unidad" class="animated fadeIn fast">Seleccione la clase</label>
+              <select #clase="ngModel" [(ngModel)]="canal.clase" name="clase" class="form-control animated fadeIn" id="unidad" required>
                 <option value="">-- Seleccione --</option>
                 <option value="RIEGO">Riego</option>
                 <option value="DRENAJE">Drenaje</option>
                 <option value="MIXTO">Mixto</option>
               </select>
-              <span class="msg-error" *ngIf="!clase.valid && clase.touched">Campo obligatorio</span>
+              <span class="msg-error animated fadeIn fast" *ngIf="!clase.valid && clase.touched">Campo obligatorio</span>
             </div>
 
-            <div [ngClass]="(!tipo.valid && tipo.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="unidad">Seleccione el tipo</label>
-              <select #tipo="ngModel" [(ngModel)]="canal.tipo" name="tipo" class="form-control" id="unidad" required>
+            <div [ngClass]="(!tipo.valid && tipo.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!tipo.valid && tipo.touched) ? 'label-error' : 'label-normal'" for="unidad" class="animated fadeIn fast">Seleccione el tipo</label>
+              <select #tipo="ngModel" [(ngModel)]="canal.tipo" name="tipo" class="form-control animated fadeIn" id="unidad" required>
                 <option value="">-- Seleccione --</option>
                 <option value="REVESTIDO">Revestido</option>
                 <option value="TIERRA">Tierra</option>
                 <option value="MIXTO">Mixto</option>
               </select>
-              <span class="msg-error" *ngIf="!tipo.valid && tipo.touched">Campo obligatorio</span>
+              <span class="msg-error animated fadeIn fast" *ngIf="!tipo.valid && tipo.touched">Campo obligatorio</span>
             </div>
 
-            <div [ngClass]="(!estado.valid && estado.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="unidad">Seleccione el estado</label>
-              <select #estado="ngModel" [(ngModel)]="canal.estado" name="estado" class="form-control" id="unidad" required>
+            <div [ngClass]="(!estado.valid && estado.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!estado.valid && estado.touched) ? 'label-error' : 'label-normal'" for="unidad" class="animated fadeIn fast">Seleccione el estado</label>
+              <select #estado="ngModel" [(ngModel)]="canal.estado" name="estado" class="form-control animated fadeIn" id="unidad" required>
                 <option value="">-- Seleccione --</option>
                 <option value="BUENO">Bueno</option>
                 <option value="REGULAR">Regular</option>
                 <option value="MALO">Malo</option>
               </select>
-              <span class="msg-error" *ngIf="!estado.valid && estado.touched">Campo obligatorio</span>
+              <span class="msg-error animated fadeIn fast" *ngIf="!estado.valid && estado.touched">Campo obligatorio</span>
             </div>
 
-            <div [ngClass]="(!estadoD.valid && estadoD.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="estadoD">Descripcion del estado</label>
-              <textarea [(ngModel)]="canal.estadoDescripcion" #estadoD="ngModel" name="estadoD" id="estadoD" class="form-control" rows="4"
+            <div [ngClass]="(!estadoD.valid && estadoD.touched) ? 'form-group has-error error' : 'form-group'">
+              <label [ngClass]="(!estadoD.valid && estadoD.touched) ? 'label-error' : 'label-normal'" for="estadoD" class="animated fadeIn fast">Descripcion del estado</label>
+              <textarea [(ngModel)]="canal.estadoDescripcion" #estadoD="ngModel" name="estadoD" id="estadoD" class="form-control animated fadeIn" rows="4"
                 placeholder="Ingrese la descripción del estado" required></textarea>
               <span class="msg-error" *ngIf="!estadoD.valid && estadoD.touched">Campo obligatorio</span>
             </div>
@@ -185,18 +186,15 @@
       </form>
     </tab>
 
-    <tab [disabled]="!form.form.valid || lstSeccionCanal.length == 0" heading="Categoria" >
+    <tab [disabled]="!form.form.valid || lstSeccionCanal.length == 0" heading="Categoria" class="contenedor-form">
 
-
-        <br/>
-  
         <div class="row">
-  
+
           <div class="col-xs-6">
-  
+
             <div class="form-group">
-              <label class="control-label" for="categoria">Seleccione la categoria</label>
-              <select #categoria="ngModel" [(ngModel)]="canal.categoria" (change)="categoriaChange()" name="categoria" class="form-control"
+              <label class="control-label label-normal animated fadeIn fast" for="categoria">Seleccione la categoria</label>
+              <select #categoria="ngModel" [(ngModel)]="canal.categoria" (change)="categoriaChange()" name="categoria" class="form-control animated fadeIn"
                 id="categoria" required>
                 <option value="">-- Seleccione --</option>
                 <option value="CANAL_ADUCCION">Canal de aducción</option>
@@ -207,23 +205,27 @@
               </select>
             </div>
 
-            <button [disabled]="!form.form.valid || disabledGuardar" (click)="registrar(form)" type="button" class="btn btn-primary">Guardar</button>
-            <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger" type="button">Cancelar</button>
-  
+            <button [disabled]="!form.form.valid || disabledGuardar" (click)="registrar(form)" type="button" class="btn btn-primary btn-agregar animated fadeIn">
+              Guardar
+            </button>
+            <button *ngIf="edicion" (click)="onClickCancelar()" class="btn btn-danger animated fadeIn" type="button">
+              Cancelar
+            </button>
+
           </div>
-  
+
           <div class="col-xs-6" *ngIf="canal.categoria != '' && canal.categoria != 'CANAL_ADUCCION' && canal.categoria != 'CANAL_PRINCIPAL'">
-  
+
             <div [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error' : 'form-group'">
-              <label class="control-label" for="canalSearch">Canal</label>
+              <label [ngClass]="(!canalSearch.valid && canalSearch.touched) ? 'form-group has-error label-error' : 'form-group label-normal'" for="canalSearch" class="animated fadeIn fast">Canal</label>
               <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceCanal" [minSearchLength]="3" [textSearching]="'Buscando...'"
                 [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onCanalSelect($event)"
-                #canalSearch="ngModel" [(ngModel)]="canalCompleter" id="canalSearch" name="canalSearch" required [clearUnselected]=true></ng2-completer>
-              <span class="msg-error" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>
+                #canalSearch="ngModel" [(ngModel)]="canalCompleter" id="canalSearch" name="canalSearch" required [clearUnselected]=true class="animated fadeIn"></ng2-completer>
+              <span class="msg-error animated fadeIn fast" *ngIf="!canalSearch.valid && canalSearch.touched">Campo obligatorio</span>
             </div>
           </div>
         </div>
-  
+
       </tab>
 
   </tabset>

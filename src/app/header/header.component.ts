@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TOKEN_NAME, HIDE_NAV } from '../_service/var.const';
+declare var jQuery:any;
+declare var $:any;
 
 @Component({
   selector: 'app-header',
@@ -24,10 +25,11 @@ export class HeaderComponent implements OnInit {
    * 10 - cuenta
    */
   public seleccionado: number;
+  public desplegado:boolean;
 
   constructor(
     private router: Router
-  ) { 
+  ) {
     this.seleccionado = 0;
   }
 
@@ -39,16 +41,19 @@ export class HeaderComponent implements OnInit {
   }
 
   isAuthenticated() {
-    // verificamos si se ha logiado
-    let token = sessionStorage.getItem(TOKEN_NAME);
-    // verificamos si el usuario es nuevo o tiene la contraseña restaurada
-    let isNuevo = sessionStorage.getItem(HIDE_NAV);
-
-    return token != null && isNuevo == null;
+    let token = sessionStorage.getItem('token');
+    return token != null;
   }
 
-  cerrarSesion() {    
+  cerrarSesion() {
     sessionStorage.clear();
     this.router.navigate(['login']);
   }
+
+  desplegar(){
+      $(".desplegar-submenu").click(function(){
+        $(this).children("ul").toggle();
+      });
+  }
+
 }

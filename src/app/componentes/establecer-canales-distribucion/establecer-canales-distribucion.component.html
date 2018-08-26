@@ -1,83 +1,88 @@
-<div class="row">
+<div class="row contenedor-principal animated fadeIn">
 
-  <div class="row">
-
-    <h2>Establecer canales de distribución</h2>
-
-    <ng4-loading-spinner> </ng4-loading-spinner>
-
-    <br/>
-
-
-
-    <div *ngIf="estado == 1" class="alert alert-success" role="alert">
-      Informacion guardada exitosamente.
+  <h2 class="Titutlo_form animated fadeIn fast">Establecer canales de distribución</h2>
+  
+    <div class="row contenedor-form">
+  
+      <ng4-loading-spinner> </ng4-loading-spinner>
+  
+      <br/>
+  
+      <div *ngIf="estado == 1" class="alert alert-success animated fadeIn fast" role="alert">
+        Informacion guardada exitosamente.
+      </div>
+      <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
+        Ha ocurrido un error, intente mas tarde.
+      </div>
+  
+      <div class="col-xs-6">
+        <form>
+          <div class="form-group">
+            <label class="label-normal">Modificar</label>
+            <select [disabled]="consultado" class="form-control" (change)="onChange($event,formAC)">
+              <option value="1">Unidad</option>
+              <option value="2">Zona</option>
+              <option value="3">Sección</option>
+            </select>
+          </div>
+        </form>
+  
+        <form #formAC="ngForm" (ngSubmit)="consultar()">
+  
+          <div [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'form-group has-error' : 'form-group'">
+            <label [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'label-error' : 'label-normal'">Unidad</label>
+            <ng2-completer [(ngModel)]="sUnidad" [inputClass]="['form-control']" [datasource]="dataUnidad" [minSearchLength]="4" [textSearching]="'Buscando...'"
+              [placeholder]="'Buscar unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
+              [disableInput]="consultado" #cUnidad="ngModel" name="unidadC" [clearUnselected]="true" required></ng2-completer>
+            <span class="msg-error animated fadeIn fast" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
+          </div>
+  
+          <div *ngIf="tipo != 1" [ngClass]="(cZona.invalid && cZona.touched) ? 'form-group has-error' : 'form-group'">
+            <label [ngClass]="(cZona.invalid && cZona.touched) ? 'label-error' : 'label-normal'">Zona</label>
+            <ng2-completer [(ngModel)]="sZona" [inputClass]="['form-control']" [datasource]="dataZona" [minSearchLength]="4" [textSearching]="'Buscando...'"
+              [placeholder]="'Buscar zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
+              [disableInput]="consultado" #cZona="ngModel" name="zonaS" [clearUnselected]="true" required></ng2-completer>
+            <span class="msg-error animated fadeIn fast" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
+          </div>
+  
+          <div *ngIf="tipo == 3" [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'form-group has-error' : 'form-group'">
+            <label [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'label-error' : 'label-normal'">Sección</label>
+            <ng2-completer [(ngModel)]="sSeccion" [inputClass]="['form-control']" [datasource]="dataSeccion" [minSearchLength]="4" [textSearching]="'Buscando...'"
+              [placeholder]="'Buscar sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
+              [disableInput]="consultado" #cSeccion="ngModel" name="seccionC" [clearUnselected]="true" required></ng2-completer>
+            <span class="msg-error animated fadeIn fast" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
+          </div>
+          <button *ngIf="!consultado" [disabled]="!formAC.form.valid || !valido" class="btn btn-primary btn_consultar" type="submit">
+            Consultar
+          </button>
+        </form>
+      </div>
+      <div *ngIf="consultado" class="col-xs-6">
+  
+        <form #fromR="ngForm" (ngSubmit)="guardar()">
+  
+          <div [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
+            <label [ngClass]="(cSource.invalid && cSource.touched) ? 'label-error' : 'label-normal'">Canal</label>
+            <ng2-completer [(ngModel)]="sCanal" [inputClass]="['form-control']" [datasource]="dataCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
+              [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
+              #cSource="ngModel" name="predioSearch" [clearUnselected]="true" required></ng2-completer>
+            <span class="msg-error animated fadeIn fast" *ngIf="cSource.invalid && cSource.touched">Campo obligatorio</span>
+          </div>
+          <div class="cont_btns">
+          <button [disabled]="!fromR.form.valid || idCanal == 0" class="btn btn-primary" type="submit">
+            <i class="fas fa-save fa-fw"></i> Guardar
+          </button>
+          <button (click)="consultado = false" class="btn btn-danger" type="button">
+            <i class="fas fa-ban fa-fw"></i> Cancelar
+          </button>
+        </div>
+  
+        </form>
+  
+      </div>
+  
+  
+  
     </div>
-    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
-      Ha ocurrido un error, intente mas tarde.
-    </div>
-
-    <div class="col-xs-6">
-      <form>
-        <div class="form-group">
-          <label>Modificar</label>
-          <select [disabled]="consultado" class="form-control" (change)="onChange($event,formAC)">
-            <option value="1">Unidad</option>
-            <option value="2">Zona</option>
-            <option value="3">Sección</option>
-          </select>
-        </div>
-      </form>
-
-      <form #formAC="ngForm" (ngSubmit)="consultar()">
-
-        <div [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Unidad</label>
-          <ng2-completer [(ngModel)]="sUnidad" [inputClass]="['form-control']" [datasource]="dataUnidad" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
-            [disableInput]="consultado" #cUnidad="ngModel" name="unidadC" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
-        </div>
-
-        <div *ngIf="tipo != 1" [ngClass]="(cZona.invalid && cZona.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Zona</label>
-          <ng2-completer [(ngModel)]="sZona" [inputClass]="['form-control']" [datasource]="dataZona" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
-            [disableInput]="consultado" #cZona="ngModel" name="zonaS" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
-        </div>
-
-        <div *ngIf="tipo == 3" [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Sección</label>
-          <ng2-completer [(ngModel)]="sSeccion" [inputClass]="['form-control']" [datasource]="dataSeccion" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
-            [disableInput]="consultado" #cSeccion="ngModel" name="seccionC" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
-        </div>
-        <button *ngIf="!consultado" [disabled]="!formAC.form.valid || !valido" class="btn btn-primary" type="submit">Consultar</button>
-      </form>
-    </div>
-    <div *ngIf="consultado" class="col-xs-6">
-
-      <form #fromR="ngForm" (ngSubmit)="guardar()">
-
-        <div [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Canal</label>
-          <ng2-completer [(ngModel)]="sCanal" [inputClass]="['form-control']" [datasource]="dataCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
-            #cSource="ngModel" name="predioSearch" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cSource.invalid && cSource.touched">Campo obligatorio</span>
-        </div>
-
-        <button [disabled]="!fromR.form.valid || idCanal == 0" class="btn btn-primary" type="submit">Guardar</button>
-        <button (click)="consultado = false" class="btn btn-danger" type="button">Cancelar</button>
-
-      </form>
-
-    </div>
-
-
-
+  
   </div>
-
-</div>

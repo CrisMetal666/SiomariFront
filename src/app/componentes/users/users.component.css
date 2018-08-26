@@ -1,0 +1,54 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+    width: 80%;
+    height: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
+    background-color: transparent;
+  }
+  div label.label-normal {
+    color: #848889;
+  }
+  div label.label-error{
+    color: #B44141;
+  }
+  div.cont_btns{
+    margin-left:210px;
+    width: 100%
+  }
+  button.btn_general{
+    width: 20%;
+    margin-right: 10px;
+  }
+  button.btn_guardar{
+    margin-left: 20px;
+    position: relative;
+    width: 45%;
+  }
+  button.btn_buscar{
+    margin-left: 245px;
+    position: relative;
+    width: 33%;
+  }
+  .contenedor-form{
+    border: 1.5px solid #3B9AC1;
+    border-radius: 4px;
+    padding: 30px 20px 40px 20px;
+    margin: 35px 0;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 5px 0px dodgerBlue;
+    background: #FFFFFF;
+  }
+  .Titutlo_form{
+    font-family: 'PT Sans';
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    padding-left: 15px;
+    color: #3B9AC1;
+  }

@@ -69,7 +69,6 @@ import { ConsultaEntregaComponent } from './componentes/consulta-entrega/consult
 import { ManejoAguaRegistrarComponent } from './componentes/manejo-agua-registrar/manejo-agua-registrar.component';
 import { ManejoAguaGraficaComponent } from './componentes/manejo-agua-grafica/manejo-agua-grafica.component';
 import { ProgramacionSemanalComponent } from './componentes/programacion-semanal/programacion-semanal.component';
-import { CalculoQSemanalComponent } from './componentes/calculo-q-semanal/calculo-q-semanal.component';
 import { EstablecerCanalesDistribucionComponent } from './componentes/establecer-canales-distribucion/establecer-canales-distribucion.component';
 import { EficienciaPerdidasComponent } from './componentes/eficiencia-perdidas/eficiencia-perdidas.component';
 import { ConsultaUsuarioComponent } from './componentes/consulta-usuario/consulta-usuario.component';
@@ -110,7 +109,6 @@ import { SolicitudRiegoComponent } from './componentes/solicitud-riego/solicitud
     ManejoAguaRegistrarComponent,
     ManejoAguaGraficaComponent,
     ProgramacionSemanalComponent,
-    CalculoQSemanalComponent,
     EstablecerCanalesDistribucionComponent,
     EficienciaPerdidasComponent,
     ConsultaUsuarioComponent,
