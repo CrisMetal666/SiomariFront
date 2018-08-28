@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['cambiar-clave']);
 
         } else {
-          this.router.navigate(['distribucion-agua-mensual']);
+          this.router.navigate(['inicio']);
         }
 
       }, err => {
