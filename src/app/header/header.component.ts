@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-declare var jQuery:any;
-declare var $:any;
+import { HeaderToken } from '../_service/header-token';
+import { TOKEN_NAME, ROLE_JEFE_DISTRITO, ROLE_JEFE_OPERACION, HIDE_NAV } from '../_service/var.const';
+declare var $: any;
+import { tokenNotExpired } from 'angular2-jwt';
+import * as decode from 'jwt-decode';
 
 @Component({
   selector: 'app-header',
@@ -10,50 +13,51 @@ declare var $:any;
 })
 export class HeaderComponent implements OnInit {
 
-  /**
-   * mostrara los sub-menus
-   * 0 - Mostrara el menu principal
-   * 1 - Planeación
-   * 2 - Registro
-   * 3 - Estructura operacional
-   * 4 - Hidrometría
-   * 5 - Programación
-   * 6 - Distribución
-   * 7 - Entregas
-   * 8 - Reportes
-   * 9 - Evaluación
-   * 10 - cuenta
-   */
-  public seleccionado: number;
-  public desplegado:boolean;
+  headerToken: HeaderToken;
+  role: string;
+  /*
+  * inicializaremos los posibles roles que tiene el sistema para hacer las condiciones 
+  * con la directiva if y evitar codigo quemado y en un futuro sea mas flexible cambiar 
+  * la parte de roles con mayor facilidad
+  */
+  role_jefe_operacion: string;
+  role_jefe_distrito: string;
 
   constructor(
     private router: Router
   ) {
-    this.seleccionado = 0;
+    this.headerToken = new HeaderToken();
+    this.role_jefe_distrito = ROLE_JEFE_DISTRITO;
+    this.role_jefe_operacion = ROLE_JEFE_OPERACION;
+    this.role = "";
   }
 
   ngOnInit() {
   }
 
-  cambiarNav(seleccion: number) {
-    this.seleccionado = seleccion;
-  }
-
   isAuthenticated() {
-    let token = sessionStorage.getItem('token');
-    return token != null;
+
+    let token = this.headerToken.getToken();
+
+    if (tokenNotExpired(TOKEN_NAME, token)) {
+
+      let credenciales = decode(token);
+
+      this.role = credenciales.authorities[0];
+
+      let isNew = sessionStorage.getItem(HIDE_NAV);
+
+      return true && isNew == null;
+
+    } else {
+
+      return false;
+    }
   }
 
   cerrarSesion() {
     sessionStorage.clear();
     this.router.navigate(['login']);
-  }
-
-  desplegar(){
-      $(".desplegar-submenu").click(function(){
-        $(this).children("ul").toggle();
-      });
   }
 
 }

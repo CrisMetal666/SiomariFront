@@ -84,7 +84,7 @@ export class SeccionComponent implements OnInit {
           this.title = 'Registro de sección';
         } else {
           //si no coincide con ninguno lo enviamos a otra pagina
-          this._router.navigate(['/']);
+          this._router.navigate(['inicio']);
         }
 
         this.spinnerService.hide();

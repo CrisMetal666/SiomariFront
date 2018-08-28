@@ -62,7 +62,7 @@ export class UsuarioComponent implements OnInit {
         this.title = 'Registro de Usuario';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
-        this._router.navigate(['/']);
+        this._router.navigate(['inicio']);
       }
     });
   }

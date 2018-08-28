@@ -9,7 +9,7 @@
       <ul class="nav navbar-nav">
 
         <!-- Registro -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-registro">
+        <li [routerLinkActive]="['active-nav']" class="opcion-registro">
           <a class="cursor-nav a-principal">Registro <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
             <li> <a class="cursor-nav">Predio <i class="fas fa-angle-right"></i> </a>
@@ -31,6 +31,11 @@
         <li class="opcion-estroper" [routerLinkActive]="['active-nav']">
           <a class="cursor-nav a-principal">Estroper <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
+
+            <li>
+              <a class="cursor-nav" routerLink="/distrito">
+                Distrito </a>
+            </li>
 
             <li> <a class="cursor-nav">Unidad <i class="fas fa-angle-right"></i> </a>
               <ul class="sub-menu animated fadeIn fast">
@@ -83,21 +88,21 @@
         </li>
 
         <!-- Hidrometría -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-hidrometria">
+        <li [routerLinkActive]="['active-nav']" class="opcion-hidrometria">
           <a class="cursor-nav a-principal">
             Hidrometría <i class="fas fa-angle-down"></i>
           </a>
           <ul class="drop-menu animated fadeIn fast">
             <li>
               <a class="cursor-nav" routerLink="/estructura-control">
-                 Estructura de control</a>
+                Estructura de Control</a>
             </li>
           </ul>
         </li>
 
 
         <!-- Planeación -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-planeacion">
+        <li [routerLinkActive]="['active-nav']" class="opcion-planeacion">
           <a class="cursor-nav a-principal">Planeación <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
 
@@ -106,12 +111,12 @@
                 Solicitud de siembra </a>
             </li>
 
-            <li class="">
+            <li *ngIf="role == role_jefe_distrito || role == role_jefe_operacion" class="">
               <a class="cursor-nav" routerLink="/plan-siembra-info">
                 Plan de siembra </a>
             </li>
 
-            <li class="">
+            <li *ngIf="role == role_jefe_distrito || role == role_jefe_operacion" class="">
               <a class="cursor-nav" routerLink="/balance"> Balance </a>
             </li>
 
@@ -119,7 +124,7 @@
               <a class="cursor-nav" routerLink="/climatologia"> Climatología </a>
             </li>
 
-            <li class="">
+            <li *ngIf="role == role_jefe_distrito || role == role_jefe_operacion" class="">
               <a class="cursor-nav" routerLink="/config"> Condeplan </a>
             </li>
 
@@ -127,43 +132,41 @@
         </li>
 
         <!-- Programación -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-programacion">
+        <li [routerLinkActive]="['active-nav']" class="opcion-programacion">
           <a class="cursor-nav a-principal">Programación <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
-
             <li>
-              <a routerLink="/programacion-semanal">Programacion semanal</a>
+              <a routerLink="/solicitud-riego">Solicitud Riego</a>
             </li>
-
             <li>
-              <a routerLink="/calculo-caudal-semanal">Caudal semanal</a>
+              <a routerLink="/programacion-semanal">Programación Semanal</a>
             </li>
           </ul>
         </li>
 
         <!-- Distribución -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-distribucion">
+        <li [routerLinkActive]="['active-nav']" class="opcion-distribucion">
           <a class="cursor-nav a-principal">Distribución <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
 
             <li>
-              <a routerLink="/registro-manejo-agua">Registro de manejo de agua</a>
+              <a routerLink="/registro-manejo-agua">Registro Manejo Agua</a>
             </li>
 
-            <li>
-              <a routerLink="/registro-manejo-grafica">Grafica de manejo de agua</a>
+            <li *ngIf="role == role_jefe_distrito || role == role_jefe_operacion">
+              <a routerLink="/manejo-agua-grafica">Grafica Manejo Agua</a>
             </li>
 
           </ul>
         </li>
 
         <!-- Entregas -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-entregas">
+        <li [routerLinkActive]="['active-nav']" class="opcion-entregas">
           <a class="cursor-nav a-principal" routerLink="/entrega">Entregas</a>
         </li>
 
         <!-- Evaluación -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-evaluacion opcion-ocultar">
+        <li *ngIf="role == role_jefe_distrito || role == role_jefe_operacion" [routerLinkActive]="['active-nav']" class="opcion-evaluacion opcion-ocultar">
           <a class="cursor-nav a-principal">Evaluación <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
 
@@ -175,7 +178,7 @@
         </li>
 
         <!-- Consultas -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-consultas opcion-ocultar">
+        <li *ngIf="role == role_jefe_distrito || role == role_jefe_operacion" [routerLinkActive]="['active-nav']" class="opcion-consultas opcion-ocultar">
           <a class="cursor-nav a-principal">Consultas <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
 
@@ -196,6 +199,10 @@
             </li>
 
             <li>
+                <a routerLink="consulta/divoper">Divoper</a>
+            </li>
+
+            <li>
               <a routerLink="distribucion-agua-mensual">Distribución de agua</a>
             </li>
 
@@ -203,15 +210,16 @@
         </li>
 
         <!-- Cuenta -->
-        <li  [routerLinkActive]="['active-nav']" class="opcion-cuentas">
-          <a class="cursor-nav a-principal">Cuenta <i class="fas fa-angle-down"></i> <!--<i class="fas fa-cog"></i>--> </a>
+        <li [routerLinkActive]="['active-nav']" class="opcion-cuentas">
+          <a class="cursor-nav a-principal">Cuenta <i class="fas fa-angle-down"></i>
+            <!--<i class="fas fa-cog"></i>--></a>
           <ul class="drop-menu drop-menu-cuenta animated fadeIn fast">
 
-            <li class="dropdown-cuenta">
+            <li *ngIf="role == role_jefe_distrito" class="dropdown-cuenta">
               <a routerLink="/cuenta/registrar">Crear</a>
             </li>
 
-            <li class="dropdown-cuenta">
+            <li *ngIf="role == role_jefe_distrito" class="dropdown-cuenta">
               <a routerLink="/cuenta/editar">Actualizar</a>
             </li>
 
@@ -226,19 +234,19 @@
           </ul>
         </li>
 
-         <!--ICONO RESPONSIVE -->
+        <!--ICONO RESPONSIVE -->
         <li class="opcion-menu-responsive desplegar-menu">
           <a class="cursor-nav a-principal"><i class="fas fa-bars"></i></a>
 
           <ul class="drop-menu-responsive animated fadeIn fast">
 
 
-          <!-- Evaluación dentro icono -->
-            <li class="opcion-evaluacion-responsive desplegar-submenu" >
+            <!-- Evaluación dentro icono -->
+            <li class="opcion-evaluacion-responsive desplegar-submenu">
               <a class="cursor-nav a-principal"><i class="fas fa-angle-down"></i>Evaluación</a>
               <ul class="drop-submenu-responsive animated fadeIn fast">
 
-                 <!-- Sub-menu 5 -->
+                <!-- Sub-menu 5 -->
                 <ul *ngIf="seleccionado == 5" class="nav navbar-nav">
                   <li>
                     <a routerLink="/solicitud-riego">Solicitud Riego</a>
@@ -259,8 +267,8 @@
               </ul>
             </li>
 
-        <!-- Consultas dentro icono -->
-            <li class="opcion-consultas-responsive desplegar-submenu" >
+            <!-- Consultas dentro icono -->
+            <li class="opcion-consultas-responsive desplegar-submenu">
               <a class="cursor-nav a-principal"><i class="fas fa-angle-down"></i>Consultas</a>
               <ul class="drop-submenu-responsive animated fadeIn fast">
 
@@ -288,7 +296,7 @@
             </li>
 
             <!--Cuenta dentro icono -->
-            <li class="opcion-cuenta-responsive desplegar-submenu" >
+            <li class="opcion-cuenta-responsive desplegar-submenu">
               <a class="cursor-nav a-principal"><i class="fas fa-angle-down"></i>Cuenta </a>
               <ul class="drop-submenu-responsive animated fadeIn fast">
 

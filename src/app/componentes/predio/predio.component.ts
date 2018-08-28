@@ -82,7 +82,7 @@ export class PredioComponent implements OnInit {
         this.title = 'Registro de Predio';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
-        this._router.navigate(['/']);
+        this._router.navigate(['inicio']);
       }
     });
   }

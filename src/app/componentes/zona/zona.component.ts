@@ -74,7 +74,7 @@ export class ZonaComponent implements OnInit {
           this.title = 'Registro de zona';
         } else {
           //si no coincide con ninguno lo enviamos a otra pagina
-          this._router.navigate(['/']);
+          this._router.navigate(['inicio']);
         }
 
         this.spinnerService.hide();

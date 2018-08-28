@@ -34,6 +34,9 @@ import { GuardService } from './_service/guard.service';
 import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
 import { DivoperComponent } from './componentes/divoper/divoper.component';
 import { SolicitudRiegoComponent } from './componentes/solicitud-riego/solicitud-riego.component';
+import { InicioComponent } from './componentes/inicio/inicio.component';
+import { GuardJefeOperacionGuard } from './_service/guard-jefe-operacion.guard';
+import { GuardJefeDistritoGuard } from './_service/guard-jefe-distrito.guard';
 
 const appRoutes: Routes = [
     { path: 'canal/:edicion', component: CanalComponent, canActivate: [ GuardService ] },
@@ -46,29 +49,30 @@ const appRoutes: Routes = [
     { path: 'obra/:edicion', component: ObraComponent, canActivate: [ GuardService ] },
     { path: 'climatologia', component: ClimatologiaComponent, canActivate: [ GuardService ] },
     { path: 'plan-siembra', component: PlanSiembraComponent, canActivate: [ GuardService ] },
-    { path: 'plan-siembra-info', component: PlanSiembraInfoComponent, canActivate: [ GuardService ] },
-    { path: 'balance', component: BalanceComponent, canActivate: [ GuardService ] },
+    { path: 'plan-siembra-info', component: PlanSiembraInfoComponent, canActivate: [ GuardJefeOperacionGuard ] },
+    { path: 'balance', component: BalanceComponent, canActivate: [ GuardJefeOperacionGuard ] },
     { path: 'login', component: LoginComponent },
     { path: 'grafica', component: GraficaComponent, canActivate: [ GuardService ] },
     { path: 'estructura-control', component: EstructuraControlComponent, canActivate: [ GuardService ] },
-    { path: 'config', component: ConfigComponent, canActivate: [ GuardService ] },
+    { path: 'config', component: ConfigComponent, canActivate: [ GuardJefeOperacionGuard ] },
     { path: 'entrega', component: EntregaComponent, canActivate: [ GuardService ] },
-    { path: 'reporte/caudalServido', component: ConsultaEntregaComponent, canActivate: [ GuardService ] },
+    { path: 'reporte/caudalServido', component: ConsultaEntregaComponent, canActivate: [ GuardJefeOperacionGuard ] },
     { path: 'registro-manejo-agua', component: ManejoAguaRegistrarComponent, canActivate: [ GuardService ] },
-    { path: 'manejo-agua-grafica', component: ManejoAguaGraficaComponent, canActivate: [ GuardService ] },
+    { path: 'manejo-agua-grafica', component: ManejoAguaGraficaComponent, canActivate: [ GuardJefeOperacionGuard ] },
     { path: 'programacion-semanal', component: ProgramacionSemanalComponent, canActivate: [ GuardService ] },
     { path: 'establecer-servidores', component: EstablecerCanalesDistribucionComponent, canActivate: [ GuardService ] },
-    { path: 'eficiencia-perdidas', component: EficienciaPerdidasComponent, canActivate: [ GuardService ] },
-    { path: 'consulta/usuario', component: ConsultaUsuarioComponent, canActivate: [ GuardService ] },
-    { path: 'consulta/predio', component: ConsultaPredioComponent, canActivate: [ GuardService ] },
-    { path: 'distribucion-agua-mensual', component: DitribucionAguaMensualComponent, canActivate: [ GuardService ] },
-    { path: 'consulta/canal', component: ConsultaCanalComponent, canActivate: [ GuardService ] },
+    { path: 'eficiencia-perdidas', component: EficienciaPerdidasComponent, canActivate: [ GuardJefeOperacionGuard ] },
+    { path: 'consulta/usuario', component: ConsultaUsuarioComponent, canActivate: [ GuardJefeOperacionGuard ] },
+    { path: 'consulta/predio', component: ConsultaPredioComponent, canActivate: [ GuardJefeOperacionGuard ] },
+    { path: 'distribucion-agua-mensual', component: DitribucionAguaMensualComponent, canActivate: [ GuardJefeOperacionGuard ] },
+    { path: 'consulta/canal', component: ConsultaCanalComponent, canActivate: [ GuardJefeOperacionGuard ] },
     { path: 'agregar-obra', component: CanalObraComponent, canActivate: [ GuardService ] },
     { path: 'distrito', component: DistritoComponent, canActivate: [ GuardService ] },
-    { path: 'cuenta/:edicion', component: UsersComponent, canActivate: [ GuardService ] },
+    { path: 'cuenta/:edicion', component: UsersComponent, canActivate: [ GuardJefeDistritoGuard ] },
     { path: 'cambiar-clave', component: CambiarClaveComponent, canActivate: [ GuardService ] },
     { path: 'consulta/divoper', component: DivoperComponent, canActivate: [ GuardService ] },
-    { path: 'solicitud-riego', component: SolicitudRiegoComponent },
+    { path: 'solicitud-riego', component: SolicitudRiegoComponent, canActivate: [ GuardService ] },
+    { path: 'inicio', component: InicioComponent, canActivate: [ GuardService ] },
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

@@ -43,6 +43,8 @@ import { LoginService } from './_service/login.service';
 import { GuardService } from './_service/guard.service';
 import { UsersService } from './_service/users.service';
 import { SolicitudRiegoService } from './_service/solicitud-riego.service';
+import { GuardJefeDistritoGuard } from './_service/guard-jefe-distrito.guard';
+import { GuardJefeOperacionGuard } from './_service/guard-jefe-operacion.guard';
 
 /*              COMPONENT                                       */
 import { AppComponent } from './app.component';
@@ -82,6 +84,7 @@ import { UsersComponent } from './componentes/users/users.component';
 import { CambiarClaveComponent } from './componentes/cambiar-clave/cambiar-clave.component';
 import { DivoperComponent } from './componentes/divoper/divoper.component';
 import { SolicitudRiegoComponent } from './componentes/solicitud-riego/solicitud-riego.component';
+import { InicioComponent } from './componentes/inicio/inicio.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +123,8 @@ import { SolicitudRiegoComponent } from './componentes/solicitud-riego/solicitud
     UsersComponent,
     CambiarClaveComponent,
     DivoperComponent,
-    SolicitudRiegoComponent
+    SolicitudRiegoComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
@@ -166,7 +170,9 @@ import { SolicitudRiegoComponent } from './componentes/solicitud-riego/solicitud
     LoginService,
     GuardService,
     UsersService,
-    SolicitudRiegoService
+    SolicitudRiegoService,
+    GuardJefeDistritoGuard,
+    GuardJefeOperacionGuard
   ],
   bootstrap: [AppComponent]
 })

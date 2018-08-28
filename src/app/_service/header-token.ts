@@ -38,7 +38,18 @@ export class HeaderToken {
     }
 
     getToken() {
-        return JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+
+        let objectToken = sessionStorage.getItem(TOKEN_NAME);
+
+        // nos aseguramos que exista un token antes de tratar de acceder a el
+        if(objectToken == null) {
+
+            return "";
+
+        } else {
+
+            return JSON.parse(objectToken).access_token;
+        }
     }
 
 

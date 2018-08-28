@@ -55,7 +55,7 @@ export class UsersComponent implements OnInit {
         this.title = 'Registro de cuenta';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
-        this._router.navigate(['/']);
+        this._router.navigate(['inicio']);
       }
     });
   }

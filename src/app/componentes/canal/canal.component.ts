@@ -113,7 +113,7 @@ export class CanalComponent implements OnInit {
           this.title = 'Registro de canal';
         } else {
           //si no coincide con ninguno lo enviamos a otra pagina
-          this._router.navigate(['/']);
+          this._router.navigate(['inicio']);
         }
 
         this.spinnerService.hide();
