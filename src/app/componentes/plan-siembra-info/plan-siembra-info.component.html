@@ -1,111 +1,123 @@
-<h1>Plan de siembras</h1>
+<div class="contenedor-principal animated fadeIn">
 
-<br/>
 
-<ng4-loading-spinner> </ng4-loading-spinner>
+  <h1 class="page-header Titutlo_form animated fadeIn fast">Plan de Siembras</h1>
 
-<div *ngIf="estado == 0" class="alert alert-danger" role="alert">
-  Ha ocurrido un error, intenta mas tarde.
-</div>
+  <br/>
 
-<form (ngSubmit)="consultar()" class="form-inline">
+  <ng4-loading-spinner> </ng4-loading-spinner>
 
-  <div class="form-group mb-4">
-    <ng2-completer (selected)="onSelectedUnidad($event)" [datasource]="dataServiceUnidad" [inputClass]="['form-control']" [minSearchLength]="4"
-      [textSearching]="'Buscando...'" [placeholder]="'Buscar unidad'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"
-      required></ng2-completer>
+  <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
+    Ha ocurrido un error, intenta mas tarde.
   </div>
-  <div class="form-group mb-4">
-    <input [(ngModel)]="year" #cYear="ngModel" name="year" type="number" class="form-control" placeholder="Año" required>
+
+  <form (ngSubmit)="consultar()" class="form-inline contenedor-form">
+
+    <div class="form-group mb-4 cont_elementos">
+      <ng2-completer (selected)="onSelectedUnidad($event)" [datasource]="dataServiceUnidad" [inputClass]="['form-control']" [minSearchLength]="4"
+        [textSearching]="'Buscando...'" [placeholder]="'Buscar Unidad'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"
+        required style="width:100%"></ng2-completer>
+    </div>
+
+    <div class="form-group mb-4 cont_elementos">
+      <input [(ngModel)]="year" #cYear="ngModel" name="year" type="number" class="form-control animated fadeIn" placeholder="Año"
+        required>
+    </div>
+
+    <div class="cont_elementos">
+      <select [(ngModel)]="campania" #cCampania="ngModel" name="campania" class="form-control select_camp mb-4 animated fadeIn"
+        required>
+        <option value="">-- Seleccione la campaña --</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+      </select>
+    </div>
+
+    <div class="cont_elementos">
+      <button [disabled]="!cYear.valid || !cCampania.valid || idUnidad == 0" type="submit" class="btn btn-primary btn_consultar mb-2 animated fadeIn fast">Consultar</button>
+    </div>
+
+
+  </form>
+
+  <div *ngIf="lstPlaneacionInfo.length == 0 && consultado" class="jumbotron">
+    <p class="lead animated fadeIn fast">No hay cultivos en la campaña seleccionada.</p>
   </div>
-  <select [(ngModel)]="campania" #cCampania="ngModel" name="campania" class="form-control mb-4" required>
-    <option value="">-- Seleccione la campaña --</option>
-    <option value="A">A</option>
-    <option value="B">B</option>
-  </select>
-  <button [disabled]="!cYear.valid || !cCampania.valid || idUnidad == 0" type="submit" class="btn btn-primary mb-2">Consultar</button>
 
-</form>
+  <div *ngFor="let lstPlaneacion of lstPlaneacionInfo" class=" animated fadeIn">
 
-<br/>
+    <div *ngFor="let item of lstPlaneacion" class="row contenedor-info">
 
-<div *ngIf="lstPlaneacionInfo.length == 0 && consultado" class="jumbotron">
-  <p class="lead">No hay cultivos en la campaña seleccionada.</p>
-</div>
+      <h3 class="titutlo_tablas animated fadeIn">{{item.cultivo}} - {{item.mes}}</h3>
 
-<div *ngFor="let lstPlaneacion of lstPlaneacionInfo" class="row">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="text-vertical-center text-center label-normal" rowspan="2">Mes</th>
+            <th colspan="3" class="text-center label-normal">Area de siembra (Ha)</th>
+            <th class="text-center label-normal">Total</th>
+          </tr>
+          <tr>
+            <th class="text-center label-normal">Decada 1</th>
+            <th class="text-center label-normal">Decada 2</th>
+            <th class="text-center label-normal">Decada 3</th>
+            <th class="text-center label-normal">Has</th>
+          </tr>
+        </thead>
+        <tbody>
 
-  <div *ngFor="let item of lstPlaneacion" class="row">
+          <tr>
+            <th class="text-center label-normal">{{item.mes}}</th>
+            <td class="text-center label-normal">{{item.periodo1}}</td>
+            <td class="text-center label-normal">{{item.periodo2}}</td>
+            <td class="text-center label-normal">{{item.periodo3}}</td>
+            <td class="text-center label-normal">{{item.total}}</td>
+          </tr>
 
-    <h3>{{item.cultivo}} - {{item.mes}}</h3>
+        </tbody>
+      </table>
 
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th class="text-center" class="text-vertical-center text-center" rowspan="2">Mes</th>
-          <th colspan="3" class="text-center">Area de siembra (Ha)</th>
-          <th class="text-center">Total</th>
-        </tr>
-        <tr>
-          <th class="text-center">Decada 1</th>
-          <th class="text-center">Decada 2</th>
-          <th class="text-center">Decada 3</th>
-          <th class="text-center">Has</th>
-        </tr>
-      </thead>
-      <tbody>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th class="text-vertical-center text-center label-normal" rowspan="2">Mes</th>
+            <th colspan="3" class="text-center label-normal">Volumen (<span>
+                <i>m</i>
+                <sup>
+                  <i>3</i>
+                </sup>
+              </span>)
+            </th>
+            <th class="text-center label-normal">Total</th>
+          </tr>
+          <tr>
+            <th class="text-center label-normal">Decada 1</th>
+            <th class="text-center label-normal">Decada 2</th>
+            <th class="text-center label-normal">Decada 3</th>
+            <th class="text-center label-normal">
+              <span>
+                <i>m</i>
+                <sup>
+                  <i>3</i>
+                </sup>
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
 
-        <tr>
-          <th class="text-center">{{item.mes}}</th>
-          <td class="text-center">{{item.periodo1}}</td>
-          <td class="text-center">{{item.periodo2}}</td>
-          <td class="text-center">{{item.periodo3}}</td>
-          <td class="text-center">{{item.total}}</td>
-        </tr>
+          <tr *ngFor="let demanda of item.demanda">
+            <th class="text-center label-normal">{{demanda.mes}}</th>
+            <td class="text-center label-normal">{{demanda.decada[0] | number}}</td>
+            <td class="text-center label-normal">{{demanda.decada[1] | number}}</td>
+            <td class="text-center label-normal">{{demanda.decada[2] | number}}</td>
+            <td class="text-center label-normal">{{demanda.decada[0] + demanda.decada[1] + demanda.decada[2] | number}}</td>
+          </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th class="text-center" class="text-vertical-center text-center" rowspan="2">Mes</th>
-          <th colspan="3" class="text-center">Volumen
-            <span>(
-              <i>m</i>
-              <sup>
-                <i>3</i>
-              </sup>)
-            </span>
-          </th>
-          <th class="text-center">Total</th>
-        </tr>
-        <tr>
-          <th class="text-center">Decada 1</th>
-          <th class="text-center">Decada 2</th>
-          <th class="text-center">Decada 3</th>
-          <th class="text-center">
-            <span>
-              <i>m</i>
-              <sup>
-                <i>3</i>
-              </sup>
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr *ngFor="let demanda of item.demanda">
-          <th class="text-center">{{demanda.mes}}</th>
-          <td class="text-center">{{demanda.decada[0] | number:'1.1-1' }}</td>
-          <td class="text-center">{{demanda.decada[1] | number:'1.1-1' }}</td>
-          <td class="text-center">{{demanda.decada[2] | number:'1.1-1' }}</td>
-          <td class="text-center">{{demanda.decada[0] + demanda.decada[1] + demanda.decada[2] | number:'1.1-1' }}</td>
-        </tr>
-
-      </tbody>
-    </table>
+    </div>
 
   </div>
 

@@ -1,27 +1,26 @@
-<div class="col-xs-12">
+<div class="col-xs-12 contenedor-principal animated fadeIn fast">
+
+  <h2 class="page-header Titutlo_form animated fadeIn">Consulta de Usuarios</h2>
 
   <div class="row">
-    <h2>Consulta de usuarios</h2>
 
-    <br>
-
-    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+    <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
       Se ha producido un error, intente mas tarde.
     </div>
 
-    <form class="col-xs-6">
+    <form class="col-xs-6 contenedor-form">
       <div class="form-group">
-        <label>Buscar Usuario</label>
+        <label class="label-normal animated fadeIn fast">Buscar Usuario</label>
         <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceUsuario" [minSearchLength]="5" [textSearching]="'Buscando...'"
           [placeholder]="'Buscar por nombre o identificación'" [textNoResults]="'Sin resultados'" (selected)="onUsuarioSelect($event)"
-          [(ngModel)]="searchUsuario" name="cPredio" required [clearUnselected]=true></ng2-completer>
+          [(ngModel)]="searchUsuario" name="cPredio" required [clearUnselected]=true class="animated fadeIn"></ng2-completer>
       </div>
     </form>
   </div>
 
-  <form *ngIf="consultado">
+  <form *ngIf="consultado" class="contenedor-form-table">
 
-    <div class="panel panel-info">
+    <div class="panel panel-info animated fadeIn fast">
       <div class="panel-heading">
         <h3 class="panel-title">Datos personales</h3>
       </div>
@@ -31,23 +30,23 @@
           <div class="col-xs-6">
 
             <div class="form-group">
-              <label>Identificación</label>
+              <label class="label-normal animated fadeIn">Identificación</label>
               <input [(ngModel)]="usuario.cedula" name="identificacion" type="text" class="form-control" readonly>
             </div>
 
             <div class="form-group">
-              <label>Nombres</label>
+              <label class="label-normal animated fadeIn">Nombres</label>
               <input [(ngModel)]="usuario.nombre" name="nombre" type="text" class="form-control" readonly/>
 
             </div>
 
             <div class="form-group">
-              <label>Apellidos</label>
+              <label class="label-normal animated fadeIn">Apellidos</label>
               <input [(ngModel)]="usuario.apellido" name="apellido" type="text" class="form-control" readonly/>
             </div>
 
             <div class="form-group">
-              <label>Dirección</label>
+              <label class="label-normal animated fadeIn">Dirección</label>
               <input [(ngModel)]="usuario.direccion" name="direccion" type="text" class="form-control" readonly/>
 
             </div>
@@ -57,23 +56,23 @@
           <div class="col-xs-6">
 
             <div class="form-group">
-              <label>Ciudad</label>
+              <label class="label-normal animated fadeIn">Ciudad</label>
               <input [(ngModel)]="usuario.ciudad" name="ciudad" type="text" class="form-control" readonly/>
 
             </div>
 
             <div class="form-group">
-              <label for="telefono">Telefono</label>
+              <label for="telefono" class="label-normal animated fadeIn">Telefono</label>
               <input [(ngModel)]="usuario.telefono" name="telefono" type="text" class="form-control" readonly />
             </div>
 
             <div class="form-group">
-              <label>Celular</label>
+              <label class="label-normal animated fadeIn">Celular</label>
               <input [(ngModel)]="usuario.celular" name="celular" type="text" class="form-control" readonly/>
             </div>
 
             <div class="form-group">
-              <label>Correo electrónico</label>
+              <label class="label-normal animated fadeIn">Correo electrónico</label>
               <input [(ngModel)]="usuario.correo" name="correo" type="text" class="form-control" readonly />
             </div>
 
@@ -87,17 +86,17 @@
 
             <table class="table table-striped table-bordered">
 
-              <thead>
+              <thead class="animated fadeIn">
                 <tr>
-                  <th class="text-center">Predio</th>
-                  <th class="text-center">Propietario</th>
+                  <th class="text-center titulo-tabla animated fadeIn">Predio</th>
+                  <th class="text-center titulo-tabla animated fadeIn">Propietario</th>
                 </tr>
               </thead>
 
               <tbody>
                 <tr *ngFor="let p of usuario.lstPredio">
-                  <td class="text-center">{{p.nombre}} - {{p.codigo}}</td>
-                  <td class="text-center">{{p.propietario ? 'Si' : 'No'}}</td>
+                  <td class="text-center animated fadeIn fast">{{p.nombre}} - {{p.codigo}}</td>
+                  <td class="text-center animated fadeIn fast">{{p.propietario ? 'Si' : 'No'}}</td>
                 </tr>
               </tbody>
 

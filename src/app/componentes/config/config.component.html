@@ -1,61 +1,60 @@
-<div class="col-xs-12">
+<div class="col-xs-12 contenedor-principal animated fadeIn">
 
-  <h2>Datos basicos</h2>
+  <h2 class="page-header Titulo_form animated fadeIn fast">Datos basicos</h2>
 
   <ng4-loading-spinner> </ng4-loading-spinner>
 
-  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+  <div *ngIf="estado == 1" class="alert alert-success animated fadeIn fast" role="alert">
     La informacion se ha guardado correctamente.
   </div>
-  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+  <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
     Se ha producido un error, intente mas tarde.
   </div>
 
-  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off">
+  <form #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off" class="contenedor-form">
 
     <div class="col-xs-6">
 
       <div [ngClass]="(!cLamina.valid && cLamina.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Lamina (m)</label>
+        <label [ngClass]="(!cLamina.valid && cLamina.touched) ? 'label-error' : 'label-normal'">Lamina (m)</label>
         <input type="number" class="form-control" placeholder="Ingrese la lamina" #cLamina="ngModel" name="lamina" [(ngModel)]="config.lamina"
           required/>
         <span class="msg-error" *ngIf="!cLamina.valid && cLamina.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!cEficiencia.valid && cEficiencia.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Eficiencia (Decimal)</label>
+        <label [ngClass]="(!cEficiencia.valid && cEficiencia.touched) ? 'label-error' : 'label-normal'">Eficiencia (Decimal)</label>
         <input type="number" class="form-control" placeholder="Ingrese la eficiencia" #cEficiencia="ngModel" name="eficiencia" [(ngModel)]="config.eficiencia"
           required/>
         <span class="msg-error" *ngIf="!cEficiencia.valid && cEficiencia.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!cCaudal.valid && cCaudal.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Caudal del 75% de probabilidad (<span>
-          <i>M</i>
-          <sup>
-            <i>3</i>
-          </sup>
-        </span>/s)</label>
+        <label [ngClass]="(!cCaudal.valid && cCaudal.touched) ? 'label-error' : 'label-normal'">Caudal del 75% de probabilidad
+          (<span>
+            <i>M</i>
+            <sup>
+              <i>3</i>
+            </sup>
+          </span>/s)</label>
         <input type="number" class="form-control" placeholder="Ingrese el caudal del 75% de probabilidad" #cCaudal="ngModel" name="caudal"
           [(ngModel)]="config.caudal" required/>
-        <span class="msg-error" *ngIf="!cCaudal.valid && cCaudal.touched">Valor incorrecto</span>
+        <span class="msg-error animated fadeIn fast" *ngIf="!cCaudal.valid && cCaudal.touched">Valor incorrecto</span>
       </div>
-
-      <button type="submit" class="btn btn-primary" [disabled]="!form.form.valid">Guardar</button>
 
     </div>
 
     <div class="col-xs-6">
 
       <div [ngClass]="(!cHoras.valid && cHoras.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Tiempo de riego (h)</label>
+        <label [ngClass]="(!cHoras.valid && cHoras.touched) ? 'label-error' : 'label-normal'">Tiempo de riego (h)</label>
         <input type="number" class="form-control" placeholder="Ingrese las horas de riego" #cHoras="ngModel" name="horas" [(ngModel)]="config.horas"
           required/>
         <span class="msg-error" *ngIf="!cHoras.valid && cHoras.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!cCosto.valid && cCosto.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Costo del
+        <label [ngClass]="(!cCosto.valid && cCosto.touched) ? 'label-error' : 'label-normal'">Costo del
           <span>
             <i>m</i>
             <sup>
@@ -64,11 +63,16 @@
           </span> de agua (Pesos)</label>
         <input type="number" class="form-control" placeholder="Ingrese el costo" #cCosto="ngModel" name="costo" [(ngModel)]="config.costo"
           required/>
-        <span class="msg-error" *ngIf="!cCosto.valid && cCosto.touched">Valor incorrecto</span>
+        <span class="msg-error animated fadeIn fast" *ngIf="!cCosto.valid && cCosto.touched">Valor incorrecto</span>
       </div>
 
     </div>
 
+    <div class="cont_btns">
+      <button type="submit" class="btn btn-primary btn_guardar" [disabled]="!form.form.valid">
+        <i class="fas fa-save fa-fw"></i> Guardar
+      </button>
+    </div>
 
   </form>
 

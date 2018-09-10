@@ -73,7 +73,7 @@ export class ProgramacionSemanalComponent implements OnInit {
     this.fechaInvalida = false;
     this.fecha = new Date();
     this.consultado = false;
-    this.tipo = 4;
+    this.tipo = 1;
   }
 
   ngOnInit() {
@@ -198,7 +198,7 @@ export class ProgramacionSemanalComponent implements OnInit {
    * al seleccionar un item del radio button para mostrar los autocompleter
    * segun el item seleccionado 
    */
-  onClickChoose(tipo: number, form) {
+  onClickChoose(tipo: number) {
     this.tipo = tipo;
     //reinisiamos los id de los autocompleter
     this.idUnidad = 0;
@@ -209,9 +209,6 @@ export class ProgramacionSemanalComponent implements OnInit {
     this.sSeccion = '';
     this.sZona = '';
     this.sCanal = '';
-
-    //reseteamos el form donde estan los autocompleter
-    form.reset();
   }
 
   consultar() {
@@ -305,7 +302,7 @@ export class ProgramacionSemanalComponent implements OnInit {
 
     // almacenamos el consumo que es posible que se haya modificado desde el formulario
     this.programacionSemanal.caudal = this.consumo;
-
+    console.log(this.programacionSemanal);
     this.programacionSemanalService.guardar(this.programacionSemanal).subscribe(res => {
 
       this.estado = 1;

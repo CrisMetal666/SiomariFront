@@ -63,7 +63,7 @@ export class EficienciaPerdidasComponent implements OnInit {
     private manejoAguaService: ManejoAguaService
   ) {
     this.consultado = false;
-    this.tipo = 4;
+    this.tipo = 1;
   }
 
   ngOnInit() {

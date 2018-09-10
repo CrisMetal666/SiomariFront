@@ -18,17 +18,17 @@
 
   <div *ngIf="!mostrarForm" class="form-group contenedor-form">
     <div class="form-group">
-      <label class="control-label label-normal animated fadeIn fast" for="nombre">Buscar obra</label>
+      <label class="control-label label-normal animated fadeIn fast" for="nombre">Buscar Obra</label>
       <ng2-completer (selected)="onSelectedObra($event)" [datasource]="dataServiceObra" [inputClass]="['form-control']" [minSearchLength]="4"
-        [textSearching]="'Buscando...'" [placeholder]="'Buscar obra'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
+        [textSearching]="'Buscando...'" [placeholder]="'Buscar Obra'" [pause]="500" [textNoResults]="'Sin resultados'" [clearUnselected]="true"></ng2-completer>
     </div>
   </div>
 
   <form *ngIf="mostrarForm" #form="ngForm" (ngSubmit)="registrar(form)" autocomplete="off" class="contenedor-form">
 
     <div [ngClass]="(!nombre.valid && nombre.touched) ? 'form-group has-error error' : 'form-group'">
-      <label [ngClass]="(!nombre.valid && nombre.touched) ? 'label-error' : 'label-normal'" class="control-label animated fadeIn fast" for="nombre">Nombre de la obra</label>
-      <input type="text" class="form-control" placeholder="Ingrese nombre de la obra" #nombre="ngModel" name="nombre" [(ngModel)]="obra.nombre"
+      <label [ngClass]="(!nombre.valid && nombre.touched) ? 'label-error' : 'label-normal'" class="control-label animated fadeIn fast" for="nombre">Nombre de la Obra</label>
+      <input type="text" class="form-control" placeholder="Ingrese nombre de la Obra" #nombre="ngModel" name="nombre" [(ngModel)]="obra.nombre"
         required/>
       <span class="msg-error" *ngIf="!nombre.valid && nombre.touched">Campo obligatorio</span>
     </div>

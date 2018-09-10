@@ -1,37 +1,49 @@
-<div class="col-xs-12">
-  <h1 class="page-header">Solicitud Riego</h1>
+<div class="col-xs-12 contenedor-principal">
+  <h1 class="page-header Titutlo_form animated fadeIn fast">Solicitud Riego</h1>
 
   <ng4-loading-spinner> </ng4-loading-spinner>
 
-  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+  <div *ngIf="estado == 1" class="alert alert-success animated fadeIn fast" role="alert">
     La informacion se ha guardado correctamente.
   </div>
-  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+  <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
     Se ha producido un error, intente mas tarde.
   </div>
 
   <div class="row">
 
-    <div class="col-xs-6">
+    <div class="col-xs-6 contenedor-form">
 
       <div class="form-group">
-        <label>Buscar predio</label>
+        <label class="label-normal">Buscar predio</label>
         <ng2-completer [inputClass]="['form-control']" [datasource]="dataServicePredio" [minSearchLength]="3" [textSearching]="'Buscando...'"
           [disabled]="seleccionado" [placeholder]="'Buscar por nombre o código'" [textNoResults]="'Sin resultados'" (selected)="onPredioSelect($event)"
           [(ngModel)]="searchPredio" name="cPredio" required [clearUnselected]=true></ng2-completer>
       </div>
+      <div class="cont_btns">
+        <button (click)="onClickAgregar(templateEditar)" *ngIf="seleccionado" type="button" class="btn btn-primary btn_general">
+          <i class="fas fa-plus fa-fw"></i> Crear Solicitud
+        </button>
+        <button (click)="resetVariables()" *ngIf="seleccionado" type="button" class="btn btn-danger btn_general">
+          <i class="fas fa-ban fa-fw"></i> Cancelar
+        </button>
+      </div>
 
-      <button (click)="onClickAgregar(templateEditar)" *ngIf="seleccionado" type="button" class="btn btn-success">Crear Solicitud</button>
-      <button (click)="resetVariables()" *ngIf="seleccionado" type="button" class="btn btn-warning">Cancelar</button>
     </div>
-    <div *ngIf="seleccionado" class="col-xs-6">
+    <div *ngIf="seleccionado" class="col-xs-6 contenedor-form">
 
       <table class="table table-striped">
         <tr *ngFor="let sr of lstSolicitudRiego; let i = index" [attr.data-index]="i">
-          <td>{{sr.fecha | date: 'dd/MM/yyyy'}}</td>
+          <td class="datos_table">{{sr.fecha | date: 'dd/MM/yyyy'}}</td>
           <td>
-            <button (click)="editar(i,templateEditar)" type="button" class="btn btn-info">Editar</button>
-            <button (click)="eliminar(i)" type="button" class="btn btn-danger">Eliminar</button>
+            <div class="cont_btns_tabla">
+              <button (click)="editar(i,templateEditar)" type="button" class="btn btn_editar">
+                <i class="fas fa-pencil-alt"></i> Editar
+              </button>
+              <button (click)="eliminar(i)" type="button" class="btn btn_eliminar">
+                <i class="fas fa-ban fa-fw"></i> Eliminar
+              </button>
+            </div>
           </td>
         </tr>
         <tr *ngIf="lstSolicitudRiego.length == 0">
@@ -47,8 +59,8 @@
 
 <ng-template #templateEditar class="modalCenter">
   <div class="modal-header">
-    <h4 *ngIf="editando" class="modal-title pull-left text-center ">Editar Solicitud Riego</h4>
-    <h4 *ngIf="!editando" class="modal-title pull-left text-center ">Crear Solicitud Riego</h4>
+    <h4 *ngIf="editando" class="modal-title pull-left text-center Titutlo_modal">Editar Solicitud Riego</h4>
+    <h4 *ngIf="!editando" class="modal-title pull-left text-center Titutlo_modal">Crear Solicitud Riego</h4>
     <button type="button " class="close pull-right " aria-label="Close " (click)="modalRef.hide()">
       <span aria-hidden="true ">&times;</span>
     </button>
@@ -62,15 +74,21 @@
         <form #formEdit="ngForm" autocomplete="off">
 
           <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
-            <label class="control-label">Fecha</label>
+            <label [ngClass]="(cFecha.invalid && cFecha.touched) ? 'labe-error' : 'label-normal'">Fecha</label>
             <input [(bsValue)]="fecha" [(ngModel)]="strFecha" #cFecha="ngModel" name="cFecha" type="text" class="form-control" #dp="bsDatepicker"
               bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required placeholder="Ingrese la fecha"
             />
             <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
           </div>
+          <div class="cont_btns_modal">
+            <button type="button" [disabled]="!formEdit.form.valid" (click)="guardar()" class="btn btn-primary btn_general">
+              <i class="fas fa-save fa-fw"></i> Guardar
+            </button>
+            <button type="button" (click)="modalRef.hide()" class="btn btn-danger">
+              <i class="fas fa-ban fa-fw"></i> Cancelar
+            </button>
+          </div>
 
-          <button type="button" [disabled]="!formEdit.form.valid" (click)="guardar()" class="btn btn-success">Guardar</button>
-          <button type="button" (click)="modalRef.hide()" class="btn btn-danger">Cancelar</button>
         </form>
       </div>
     </div>

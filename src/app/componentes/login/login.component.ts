@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import * as decode from 'jwt-decode';
 import { UsersService } from '../../_service/users.service';
+import { tokenNotExpired } from 'angular2-jwt';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,20 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    // verificamos que el usuario no se encuenre logiado
+    if (sessionStorage.getItem(TOKEN_NAME) == null) {
+      return;
+    }
+
+    // si el usuario se encuentra logiado lo enviamos a la pagina de inicio
+    let token = JSON.parse(sessionStorage.getItem(TOKEN_NAME));
+
+    if (tokenNotExpired(TOKEN_NAME, token.access_token)) {
+
+      this.router.navigate(['inicio']);
+
+    }
   }
 
   iniciarSesion() {

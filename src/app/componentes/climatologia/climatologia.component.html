@@ -1,52 +1,53 @@
-<div class="col-xs-12">
+<div class="col-xs-12 contenedor-principal animated fadeIn fast">
 
-  <h1>Registro de climatología</h1>
+  <h1 class="page-header Titutlo_form animated fadeIn">Registro de Climatología</h1>
 
   <ng4-loading-spinner> </ng4-loading-spinner>
 
-  <div *ngIf="estado == 1" class="alert alert-success" role="alert">
+  <div *ngIf="estado == 1" class="alert alert-success animated fadeIn fast" role="alert">
     Registrado exitosamente
   </div>
-  <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
+  <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
     No se ha podido registrar
   </div>
 
-  <form #form="ngForm" (ngSubmit)="registrar(form)">
+  <form #form="ngForm" (ngSubmit)="registrar(form)" class="contenedor-form">
 
     <div class="col-xs-6">
       <div [ngClass]="(!cYear.valid && cYear.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="cYear">Año</label>
+        <label [ngClass]="(!cYear.valid && cYear.touched) ? 'label-error' : 'label-normal'" for="cYear">Año</label>
         <input type="number" #cYear="ngModel" name="cYear" [(ngModel)]="year" class="form-control" placeholder="Ingrese el año" required/>
         <span class="msg-error" *ngIf="!cYear.valid && cYear.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!cMes.valid && cMes.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label" for="cMes">Seleccione el mes</label>
+        <label [ngClass]="(!cMes.valid && cMes.touched) ? 'label-error' : 'label-normal'" for="cMes">Seleccione el mes</label>
         <ng2-completer [inputClass]="['form-control']" [datasource]="dataServiceMes" [minSearchLength]="1" [textSearching]="'Buscando...'"
           [placeholder]="'Escriba el mes'" [textNoResults]="'Sin resultados'" (selected)="onMesSelect($event)" #cMes="ngModel"
           [(ngModel)]="searchMes" id="cMes" name="mesSearch" required [clearUnselected]=true></ng2-completer>
         <span class="msg-error" *ngIf="!cMes.valid && cMes.touched">Campo obligatorio</span>
       </div>
     </div>
-    <div class="col-xs-6" *ngIf="cMes.valid && mes > 0">
+    <div class="col-xs-6 cont_list" *ngIf="cMes.valid && mes > 0">
 
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">
           Decada 1
-          <span (click)="onClickVer(1,template)" class="badge badge-primary badge-pill pointer">Ver</span>
+          <span (click)="onClickVer(1,template)" class="badge badge-primary badge-pill pointer span-ver">Ver</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           Decada 2
-          <span (click)="onClickVer(2,template)" class="badge badge-primary badge-pill pointer">Ver</span>
+          <span (click)="onClickVer(2,template)" class="badge badge-primary badge-pill pointer span-ver">Ver</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           Decada 3
-          <span (click)="onClickVer(3,template)" class="badge badge-primary badge-pill pointer">Ver</span>
+          <span (click)="onClickVer(3,template)" class="badge badge-primary badge-pill pointer span-ver">Ver</span>
         </li>
       </ul>
 
-      <button [disabled]="!form.form.valid || decada.decada1 == null || decada.decada2 == null || decada.decada3 == null" class="btn btn-primary"
-        type="submit">Guardar</button>
+      <button [disabled]="!form.form.valid || decada.decada1 == null || decada.decada2 == null || decada.decada3 == null" class="btn btn-primary btn_guardar"
+        type="submit">
+        <i class="fas fa-save fa-fw"></i> Guardar</button>
     </div>
   </form>
 </div>
@@ -55,43 +56,41 @@
 
   <form #formModal="ngForm">
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Modal</h4>
+      <h4 class="modal-title pull-left Titutlo_modal">Modal</h4>
     </div>
     <div class="modal-body">
       <div [ngClass]="(!evaporacion.valid && evaporacion.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="evaporacion" class="control-label">Evaporación (mm)</label>
+        <label for="evaporacion" [ngClass]="(!evaporacion.valid && evaporacion.touched) ? 'label-error' : 'label-normal'">Evaporación
+          (mm)</label>
         <input [(ngModel)]="climatologiaDatos.evaporacion" #evaporacion="ngModel" type="number" name="evaporacion" class="form-control"
           placeholder="Ingrese la evaporación" required/>
         <span class="msg-error" *ngIf="!evaporacion.valid && evaporacion.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!precipitacion.valid && precipitacion.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="precipitacion" class="control-label">Precipitación (mm)</label>
+        <label for="precipitacion" [ngClass]="(!precipitacion.valid && precipitacion.touched) ? 'label-error' : 'label-normal'">Precipitación
+          (mm)</label>
         <input [(ngModel)]="climatologiaDatos.precipitacion" #precipitacion="ngModel" type="number" name="precipitacion" class="form-control"
           placeholder="Ingrese la precipitación" required/>
         <span class="msg-error" *ngIf="!precipitacion.valid && precipitacion.touched">Valor incorrecto</span>
       </div>
 
       <div [ngClass]="(!qPrecipitacion.valid && qPrecipitacion.touched) ? 'form-group has-error' : 'form-group'">
-        <label for="qPrecipitacion" class="control-label">Caudal concesionado (
-          <span>
-            <i>m</i>
-            <sup>
-              <i>3</i>
-            </sup>
-          </span>
-          )
+        <label for="qPrecipitacion" [ngClass]="(!qPrecipitacion.valid && qPrecipitacion.touched) ? 'label-error' : 'label-normal'">Caudal
+          concesionado (
+          <span><i>m</i><sup><i>3</i></sup></span>)
         </label>
         <input [(ngModel)]="climatologiaDatos.qPrecipitacion" #qPrecipitacion="ngModel" type="number" name="qPrecipitacion" class="form-control"
           placeholder="Ingrese el caudal concesionado" required/>
         <span class="msg-error" *ngIf="!qPrecipitacion.valid && qPrecipitacion.touched">Valor incorrecto</span>
       </div>
 
-
     </div>
     <div class="modal-footer">
-      <button [disabled]="!formModal.form.valid" (click)="onClickAceptar()" type="button" class="btn btn-info">Aceptar</button>
-      <button (click)="modalRef.hide()" type="button" class="btn btn-danger">Cancelar</button>
+      <div class="cont_btns">
+        <button [disabled]="!formModal.form.valid" (click)="onClickAceptar()" type="button" class="btn btn-info cont_btns">Aceptar</button>
+        <button (click)="modalRef.hide()" type="button" class="btn btn-danger cont_btns">Cancelar</button>
+      </div>
     </div>
   </form>
 </ng-template>

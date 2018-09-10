@@ -76,12 +76,12 @@ export class SeccionComponent implements OnInit {
         if (params['edicion'] == 'editar') {
           this.edicion = true;
           this.mostrarForm = false;
-          this.title = 'Edición de sección';
+          this.title = 'Edición de Sección';
 
         } else if (params['edicion'] == 'registrar') {
           this.edicion = false;
           this.mostrarForm = true;
-          this.title = 'Registro de sección';
+          this.title = 'Registro de Sección';
         } else {
           //si no coincide con ninguno lo enviamos a otra pagina
           this._router.navigate(['inicio']);

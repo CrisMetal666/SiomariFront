@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Divoper } from '../../_model/divoper';
 import { CompleterData, CompleterService, CompleterItem } from 'ng2-completer';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
@@ -6,6 +6,7 @@ import { UnidadService } from '../../_service/unidad.service';
 import { ZonaService } from '../../_service/zona.service';
 import { SeccionService } from '../../_service/seccion.service';
 import { DistritoService } from '../../_service/distrito.service';
+import { TabsetComponent } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-divoper',
@@ -41,6 +42,9 @@ export class DivoperComponent implements OnInit {
   public estado: number;
   // titulo de unidad, zona o seccion, segun lo seleccionado
   titleDivision: string;
+  // referenciamos el tab para poder seleccionar el tab inicial
+  @ViewChild('tabSeleccion') 
+  tabSeleccion: TabsetComponent;
 
   constructor(
     private spinnerService: Ng4LoadingSpinnerService,
@@ -55,6 +59,8 @@ export class DivoperComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.tabSeleccion.tabs[1].active = true;
 
     // inicializamos el auto-completer de unidad
     this.spinnerService.show();

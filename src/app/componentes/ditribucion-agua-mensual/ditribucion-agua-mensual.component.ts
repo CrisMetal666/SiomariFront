@@ -62,7 +62,7 @@ export class DitribucionAguaMensualComponent implements OnInit {
     private zonaService: ZonaService,
     private seccionService: SeccionService
   ) { 
-    this.tipo = 4;
+    this.tipo = 1;
   }
 
   ngOnInit() {

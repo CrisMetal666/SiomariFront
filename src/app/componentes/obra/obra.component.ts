@@ -45,7 +45,7 @@ export class ObraComponent implements OnInit {
       if (params['edicion'] == 'editar') {
         this.edicion = true;
         this.mostrarForm = false;
-        this.title = 'Edición de obra';
+        this.title = 'Edición de Obra';
 
         //inicializamos los datos para el autocompleter
         this.spinnerService.show();
@@ -60,7 +60,7 @@ export class ObraComponent implements OnInit {
       } else if (params['edicion'] == 'registrar') {
         this.edicion = false;
         this.mostrarForm = true;
-        this.title = 'Registro de obra';
+        this.title = 'Registro de Obra';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
         this._router.navigate(['inicio']);

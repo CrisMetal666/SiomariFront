@@ -1,8 +1,79 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+  width: 100%;
+  flex-flow: row wrap;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  padding-right: 50px;
+  padding-left: 50px;
+  background-color: rgba(255,255,255,0); /* -a- me indica el porcentaje de opacidad*/
+}
+div label.label-normal {
+  color: #848889;
+}
+th.titulo-tabla{
+  color: #848889;
+}
+div.cont_btns{
+  margin-left:210px;
+  width: 100%
+}
+button.btn_general{
+  width: 20%;
+  margin-right: 10px;
+}
+button.btn_guardar{
+  margin-left: 20px;
+  position: relative;
+  width: 45%;
+}
+button.btn_buscar{
+  margin-left: 245px;
+  position: relative;
+  width: 33%;
+}
+.contenedor-form{
+  width: 97%;
+  border: 1.5px solid #3B9AC1;
+  border-radius: 4px;
+  padding: 30px 20px 40px 20px;
+  margin: 9px 15px;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 5px 0px dodgerBlue;
+  background: #FFFFFF;
+}
+.contenedor-form-table{
+  width: 100%;
+  border: 1.5px solid #3B9AC1;
+  border-radius: 4px;
+  padding: 15px 5px;
+  margin: 9px 0px;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 5px 0px dodgerBlue;
+  background: #FFFFFF;
+}
+.Titutlo_form{
+  font-family: 'PT Sans';
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 15px;
+  color: #3B9AC1;
+}
+
+
+/*----------------------------------------------------
+                    Modal
+------------------------------------------------------*/
 .modalCenter{
     top:50% !important;
     transform: translateY(-50%) !important;
   }
-  
+
   .itemsModalright{
     position: relative;
     margin-left: 55%;
@@ -12,29 +83,29 @@
     position: relative;
     margin-left: 10px;
   }
-  
+
   .itemsModalright>.Spanimagen>span{
     position: relative !important;
     margin-left: 0% !important;
     margin-top: -50% !important;
     transform: translateY(-35%) !important;
   }
-  
+
   .itemsModalright>.float-right{
     position: relative !important;
     margin-left: 0% !important;
     margin-top: -50% !important;
     transform: translateY(-20%) !important;
   }
-  
-  
-  
+
+
+
   .itemsModalright>textarea{
     position: relative;
     margin-top: -16.5%;
     padding-top: -16.5%;
   }
-  
+
   .modal-title{
     font-family: "Times New Roman", Times, serif;
     font-size: 17px;
@@ -51,7 +122,7 @@
   .text-modal:not([size]) {
   width: 15em;
   }
-  
+
   .contenedor-body-modal{
     margin: 35px 25px 25px 25px;
     padding-top: 50px;

@@ -60,4 +60,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  goToHome() {
+    this.router.navigate(['inicio']);
+  }
+
 }

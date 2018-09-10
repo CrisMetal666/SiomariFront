@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  nombreSistema: string;
+  nombreDistrito: string;
+
+  constructor() {
+    this.nombreSistema = "SISTEMA DE INFORMACIÓN OPERACIONAL PARA LA OPTIMIZACIÓN HIDRÁULICA EN EL MANEJO DEL AGUA DE RIEGO";
+    this.nombreDistrito = "Distrito de Adecuación de Tierras de Mediana Escala El Juncal";
+  }
 
   ngOnInit() {
   }

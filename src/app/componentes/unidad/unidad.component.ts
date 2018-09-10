@@ -51,7 +51,7 @@ export class UnidadComponent implements OnInit {
       if (params['edicion'] == 'editar') {
         this.edicion = true;
         this.mostrarForm = false;
-        this.title = 'Edición de unidad';
+        this.title = 'Edición de Unidad';
 
         //inicializamos los datos para el autocompleter
         this.spinnerService.show();
@@ -66,7 +66,7 @@ export class UnidadComponent implements OnInit {
       } else if (params['edicion'] == 'registrar') {
         this.edicion = false;
         this.mostrarForm = true;
-        this.title = 'Registro de unidad';
+        this.title = 'Registro de Unidad';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
         this._router.navigate(['inicio']);

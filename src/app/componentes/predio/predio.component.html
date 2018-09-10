@@ -81,7 +81,7 @@
         </div>
 
         <div [ngClass]="(!areaPR.valid && areaPR.touched) ? 'form-group has-error error inputWithIcon inputWithIconBgError' : 'form-group inputWithIcon inputWithIconBg'" class="area-potencial">
-          <label class="control-label" for="areaPotencialRiego" >Área potencial de riego (Ha)*</label>
+          <label class="control-label" for="areaPotencialRiego" >Área potencial de riego (Has.)*</label>
           <input [(ngModel)]="predio.areaPotencialRiego" #areaPR="ngModel" name="areaPR" id="areaPotencialRiego" type="number" class="form-control"
             placeholder="Ingrese el área potencial de riego" required/>
             <i class="fas fa-chart-area fa-fw"></i>
@@ -89,7 +89,7 @@
         </div>
 
         <div [ngClass]="(!areaBajoRiego.valid && areaBajoRiego.touched) ? 'form-group has-error error inputWithIcon inputWithIconBgError' : 'form-group inputWithIcon inputWithIconBg'">
-          <label class="control-label" for="areaBajoRiego" >Área bajo riego (Ha)*</label>
+          <label class="control-label" for="areaBajoRiego" >Área bajo riego (Has.)*</label>
           <input [(ngModel)]="predio.areaBajoRiego" #areaBajoRiego="ngModel" name="areaBajoRiego" id="areaBajoRiego" type="number"
             class="form-control" placeholder="Ingrese el área bajo riego" required/>
             <i class="fas fa-chart-area fa-fw"></i>
@@ -116,17 +116,17 @@
         </div>
 
         <div [ngClass]="(!moduloRiego.valid && moduloRiego.touched) ? 'form-group has-error error inputWithIcon inputWithIconBgError' : 'form-group inputWithIcon inputWithIconBg'">
-          <label class="control-label" for="moduloRiego" >Modulo de riego (L/s)*</label>
+          <label class="control-label" for="moduloRiego" >Módulo de riego (L/s)*</label>
           <input [(ngModel)]="predio.moduloRiego" #moduloRiego="ngModel" name="moduloRiego" id="moduloRiego" type="number" class="form-control"
-            placeholder="Ingrese el modulo de riego" required/>
+            placeholder="Ingrese el módulo de riego" required/>
             <i class="fas fa-tint fa-fw"></i>
           <span class="msg-error" *ngIf="!moduloRiego.valid && moduloRiego.touched">Valor incorrecto</span>
         </div>
 
         <div [ngClass]="(!numeroTomas.valid && numeroTomas.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label" for="numeroTomas" >Cantidad de tomas*</label>
+          <label class="control-label" for="numeroTomas" >Número de tomas*</label>
           <input [(ngModel)]="predio.numeroTomas" #numeroTomas="ngModel" name="numeroTomas" id="numeroTomas" type="number" class="form-control"
-            placeholder="Ingrese la cantidad de tomas" required/>
+            placeholder="Ingrese el número de tomas" required/>
           <span class="msg-error" *ngIf="!numeroTomas.valid && numeroTomas.touched">Valor incorrecto</span>
         </div>
 

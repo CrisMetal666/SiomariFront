@@ -61,7 +61,7 @@ export class ManejoAguaGraficaComponent implements OnInit {
     private zonaService: ZonaService,
     private seccionService: SeccionService
   ) {
-    this.tipoGrafico = 4;
+    this.tipoGrafico = 1;
     this.valido = false;
   }
 

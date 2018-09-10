@@ -1,76 +1,58 @@
-<div class="row">
+<div class="row contenedor-principal animated fadeIn fast">
 
-  <div class="row">
+  <h2 class="page-header Titutlo_form animated fadeIn">Calculo de Eficiencia / Perdidas</h2>
 
-    <h2>Calculo de eficiencia/perdidas</h2>
+  <ng4-loading-spinner> </ng4-loading-spinner>
 
+  <br/>
 
-
-    <ng4-loading-spinner> </ng4-loading-spinner>
-
-    <br/>
-
-    <div *ngIf="estado == 0" class="alert alert-danger" role="alert">
-      Ha ocurrido un error, intente mas tarde.
-    </div>
-
+  <div *ngIf="estado == 0" class="alert alert-danger animated fadeIn fast" role="alert">
+    Ha ocurrido un error, intente mas tarde.
   </div>
 
-  <div class="row">
+  <tabset #tabSeleccion>
+    <tab heading="Unidad" (select)="onClickChoose(1,formAC)"></tab>
+    <tab heading="Zona" (select)="onClickChoose(2,formAC)"></tab>
+    <tab heading="Sección" (select)="onClickChoose(3,formAC)"></tab>
+    <tab heading="Canal" (select)="onClickChoose(4,formAC)"></tab>
+  </tabset>
+
+  <div class="row contenedor-form">
 
     <div class="col-xs-6">
-
-      <form class="form-inline">
-
-        <div class="form-check form-check-inline">
-          <input (click)="onClickChoose(1,formAC)" class="form-check-input" type="radio" name="choose" />
-          <label class="form-check-label">Unidad</label>
-
-
-          <input (click)="onClickChoose(2,formAC)" class="form-check-input" type="radio" name="choose" />
-          <label class="form-check-label">Zona</label>
-
-          <input (click)="onClickChoose(3,formAC)" class="form-check-input" type="radio" name="choose" />
-          <label class="form-check-label">Sección</label>
-
-          <input (click)="onClickChoose(4,formAC)" class="form-check-input" type="radio" name="choose" checked/>
-          <label class="form-check-label">Canal</label>
-        </div>
-
-      </form>
 
       <form #formAC="ngForm" autocomplete="off">
 
         <div *ngIf="tipo != 4" [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Unidad</label>
+          <label [ngClass]="(cUnidad.invalid && cUnidad.touched) ? 'label-error': 'label-normal'">Unidad</label>
           <ng2-completer [(ngModel)]="sUnidad" [inputClass]="['form-control']" [datasource]="dataUnidad" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
+            [placeholder]="'Buscar Unidad'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onUnidadSelect($event)"
             #cUnidad="ngModel" name="unidadC" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
+          <span class="msg-error animated fadeIn fast" *ngIf="cUnidad.invalid && cUnidad.touched">Campo obligatorio</span>
         </div>
 
         <div *ngIf="tipo == 2 || tipo == 3" [ngClass]="(cZona.invalid && cZona.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Zona</label>
+          <label [ngClass]="(cZona.invalid && cZona.touched) ? 'label-error': 'label-normal'">Zona</label>
           <ng2-completer [(ngModel)]="sZona" [inputClass]="['form-control']" [datasource]="dataZona" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
+            [placeholder]="'Buscar Zona'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onZonaSelect($event)"
             #cZona="ngModel" name="zonaS" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
+          <span class="msg-error animated fadeIn fast" *ngIf="cZona.invalid && cZona.touched">Campo obligatorio</span>
         </div>
 
         <div *ngIf="tipo == 3" [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Sección</label>
+          <label [ngClass]="(cSeccion.invalid && cSeccion.touched) ? 'label-error': 'label-normal'">Sección</label>
           <ng2-completer [(ngModel)]="sSeccion" [inputClass]="['form-control']" [datasource]="dataSeccion" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
+            [placeholder]="'Buscar Sección'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSeccionSelect($event)"
             #cSeccion="ngModel" name="seccionC" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
+          <span class="msg-error animated fadeIn fast" *ngIf="cSeccion.invalid && cSeccion.touched">Campo obligatorio</span>
         </div>
 
         <div *ngIf="tipo == 4" [ngClass]="(cSource.invalid && cSource.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Canal</label>
+          <label [ngClass]="(cSource.invalid && cSource.touched) ? 'label-error': 'label-normal'">Canal</label>
           <ng2-completer [(ngModel)]="sCanal" [inputClass]="['form-control']" [datasource]="dataCanal" [minSearchLength]="4" [textSearching]="'Buscando...'"
-            [placeholder]="'Buscar canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
+            [placeholder]="'Buscar Canal'" [textNoResults]="'Sin resultados'" [pause]="500" (selected)="onSourceSelect($event)"
             #cSource="ngModel" name="predioSearch" [clearUnselected]="true" required></ng2-completer>
-          <span class="msg-error" *ngIf="cSource.invalid && cSource.touched">Campo obligatorio</span>
+          <span class="msg-error animated fadeIn fast" *ngIf="cSource.invalid && cSource.touched">Campo obligatorio</span>
         </div>
 
       </form>
@@ -81,15 +63,15 @@
       <form #form="ngForm" (ngSubmit)="consultar()" autocomplete="off">
 
         <div [ngClass]="(cFecha.invalid && cFecha.touched) ? 'form-group has-error' : 'form-group'">
-          <label class="control-label">Fecha</label>
+          <label [ngClass]="(cFecha.invalid && cFecha.touched) ? 'label-error': 'label-normal'">Fecha</label>
           <input [(ngModel)]="fecha" #cFecha="ngModel" name="cFecha" type="text" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker
             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue' }" required placeholder="Ingrese la fecha"
           />
-          <span class="msg-error" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
-          <span class="msg-error" *ngIf="fechaInvalida">La fecha debe de ser un lunes</span>
+          <span class="msg-error animated fadeIn fast" *ngIf="cFecha.invalid && cFecha.touched">Valor incorrecto</span>
+          <span class="msg-error animated fadeIn fast" *ngIf="fechaInvalida">La fecha debe de ser un lunes</span>
         </div>
 
-        <button [disabled]="!form.form.valid || !formAC.form.valid || !valido" class="btn btn-primary" type="submit">Consultar</button>
+        <button [disabled]="!form.form.valid || !formAC.form.valid || !valido" class="btn btn-primary btn_consular" type="submit">Consultar</button>
       </form>
     </div>
 
@@ -97,11 +79,10 @@
 
   <br/>
 
-  <div *ngIf="consultado" class="row">
+  <div *ngIf="consultado" class="row contenedor-info animated fadeIn">
 
-    <div class="col-xs-3"></div>
-    <div class="col-xs-6">
-      <table class="table">
+    <div class="row cont-table">
+      <table class="table table-bordered">
         <thead>
           <tr>
             <th class="text-center" colspan="2">Eficiencias</th>
@@ -113,7 +94,7 @@
             <th>Eficiencia Operacional</th>
             <td>{{eficienciaPerdidas.eficienciaOperacion}}%</td>
             <th>Pérdidas Totales</th>
-            <td>{{eficienciaPerdidas.perdidasTotales}}
+            <td class="text-center">{{eficienciaPerdidas.perdidasTotales}}
               <span>
                 <i>m</i>
                 <sup>
@@ -127,18 +108,17 @@
             <th>Eficiencia Intrinseca</th>
             <td>{{eficienciaPerdidas.eficienciaIntrinseca}}%</td>
             <th>Pérdidas por Manejo</th>
-            <td>{{eficienciaPerdidas.perdidasManejo}}%</td>
+            <td class="text-center">{{eficienciaPerdidas.perdidasManejo}}%</td>
           </tr>
           <tr>
             <th>Eficiencia de Conducción</th>
             <td>{{eficienciaPerdidas.eficienciaConduccion}}%</td>
             <th>Pérdidas Intrinsecas</th>
-            <td>{{eficienciaPerdidas.perdidasIntrinsecas}}%</td>
+            <td class="text-center">{{eficienciaPerdidas.perdidasIntrinsecas}}%</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-xs-3"></div>
 
   </div>
 

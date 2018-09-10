@@ -1,0 +1,75 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
+    background-color: transparent;
+  }
+  /* color estandar de los labels*/
+  div label.label-normal {
+    color: #848889;
+    transition: .5s;
+  }
+  div label.label-error{
+    color: #B44141;
+    transition: .5s;
+  }
+  /* cambiar de color opcion eliminar*/
+  ul > li span.span-error:hover{
+    background-color: #B44141;
+    transition: .4s;
+  }
+  /* caracteristicas del contenedor del formulario*/
+  .contenedor-form{
+    border: 1.5px solid #3B9AC1;
+    border-radius: 4px;
+    padding: 30px 20px 40px 20px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    background: transparent;
+  }
+  div.cont_btns{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%
+  }
+  button.btn_guardar{
+    width: 20%;
+  }
+  /* caracteristicas del titulo*/
+  .Titutlo_form{
+    font-family: 'PT Sans';
+    font-size: 35px;
+    font-style: normal;
+    padding-left: 15px;
+    color: #3B9AC1;
+  }
+  /*------------------------------------------------------------------
+                          Estilo de los Inputs
+  -------------------------------------------------------------------*/
+  input[type=text]{
+    width: 100%;
+    border: 1px solid #AAAAAA;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.3s;
+  }
+  input[type=text]:focus{
+    border-color: dodgerBlue;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+  }
+  .error input[type=text]{
+    border-color: #B44141;
+    box-shadow: 0 0 8px 0 #B44141;
+    transition: .5s;
+  }
+  

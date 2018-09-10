@@ -21,9 +21,9 @@
     </div>
 
     <div *ngIf="!mostrarForm" class="form-group">
-      <form #fBuscar="ngForm" (ngSubmit)="onClickBuscar()">
+      <form #fBuscar="ngForm" (ngSubmit)="onClickBuscar()" autocomplete="off">
         <div class="form-group">
-          <label class="control-label animated fadeIn fast">Buscar cuenta</label>
+          <label class="control-label label-normal animated fadeIn fast">Buscar cuenta</label>
           <input [(ngModel)]="identificacion" placeholder="Buscar por identificación" name="identificacion" class="form-control" type="text" required />
         </div>
         <button [disabled]="!fBuscar.form.valid" type="submit" class="btn btn-primary btn_buscar">
@@ -52,8 +52,8 @@
         <span class="msg-error" *ngIf="!cRol.valid && cRol.touched">Campo obligatorio</span>
       </div>
 
-      <div *ngIf="edicion" [ngClass]="(!cEstado.valid && cEstado.touched) ? 'form-group has-error' : 'form-group'">
-        <label class="control-label">Estado</label>
+      <div *ngIf="edicion" [ngClass]="(!cEstado.valid && cEstado.touched) ? 'label-error' : 'label-normal'" class="animated fadeIn fast">
+        <label class="control-label label-normal">Estado</label>
         <select [(ngModel)]="users.estado" #cEstado="ngModel" name="estado" class="form-control" required>
           <option value="true">Habilitado</option>
           <option value="false">Inhabilitado</option>

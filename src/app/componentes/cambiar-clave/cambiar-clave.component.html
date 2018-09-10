@@ -16,20 +16,21 @@
       Se ha producido un error, intente mas tarde.
     </div>
 
-    <form  #form="ngForm" (ngSubmit)="guardar(form)" autocomplete="off">
+    <form #form="ngForm" (ngSubmit)="guardar(form)" autocomplete="off">
 
       <div [ngClass]="((!cClave.valid && cClave.touched) || incorrecto) ? 'form-group has-error error' : 'form-group'">
         <label [ngClass]="((!cClave.valid && cClave.touched) || incorrecto) ? 'label-error' : 'label-normal'">Contraseña</label>
-        <input (keyup)="coinciden()" [(ngModel)]="clave" autocomplete="new-password" #cClave="ngModel" type="password" class="form-control" placeholder="Contraseña nueva"
-          name="clave1" required/>
+        <input (keyup)="coinciden()" [(ngModel)]="clave" autocomplete="new-password" #cClave="ngModel" type="password" class="form-control"
+          placeholder="Contraseña nueva" name="clave1" required/>
         <span class="msg-error animated fadeIn fas" *ngIf="!cClave.valid && cClave.touched">Campo obligatorio</span>
         <span class="msg-error animated fadeIn fas" *ngIf="incorrecto">Las contraseñas no coinciden</span>
       </div>
 
       <div [ngClass]="((!cClave2.valid && cClave2.touched) || incorrecto) ? 'form-group has-error error' : 'form-group'">
-        <label [ngClass]="((!cClave2.valid && cClave2.touched) || incorrecto) ? 'label-error' : 'label-normal'">Confirmar contraseña</label>
-        <input (keyup)="coinciden()" [(ngModel)]="clave2" autocomplete="new-password" #cClave2="ngModel" type="password" class="form-control" placeholder="Confirmar contraseña"
-          name="clave2" required/>
+        <label [ngClass]="((!cClave2.valid && cClave2.touched) || incorrecto) ? 'label-error' : 'label-normal'">Confirmar
+          contraseña</label>
+        <input (keyup)="coinciden()" [(ngModel)]="clave2" autocomplete="new-password" #cClave2="ngModel" type="password" class="form-control"
+          placeholder="Confirmar contraseña" name="clave2" required/>
         <span class="msg-error animated fadeIn fas" *ngIf="!cClave2.valid && cClave2.touched">Campo obligatorio</span>
         <span class="msg-error animated fadeIn fas" *ngIf="incorrecto">Las contraseñas no coinciden</span>
       </div>

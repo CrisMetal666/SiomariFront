@@ -239,7 +239,7 @@ export class PlanSiembraComponent implements OnInit {
     this.idCultivoPredio = cultivoPredio.id;
 
     //le damos un titulo al modal
-    this.tituloModal = 'Editar plan de siembra';
+    this.tituloModal = 'Editar Plan de Siembra';
 
     //mostramos el modal
     this.modalRef = this.modalService.show(template);
@@ -257,7 +257,7 @@ export class PlanSiembraComponent implements OnInit {
     this.resetVariablesModal();
 
     //le damos un titulo al modal
-    this.tituloModal = 'Agregar plan de siembra';
+    this.tituloModal = 'Agregar Plan de Siembra';
 
     //mostramos el modal
     this.modalRef = this.modalService.show(template);

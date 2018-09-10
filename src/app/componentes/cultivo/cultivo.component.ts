@@ -56,14 +56,14 @@ export class CultivoComponent implements OnInit {
       if (params['edicion'] == 'editar') {
         this.edicion = true;
         this.mostrarForm = false;
-        this.title = 'Edición de cultivo';
+        this.title = 'Edición de Cultivo';
 
         this.dataServiceCultivo = this.completerService.remote(this.cultivoService.urlBuscarIdNombrePorNombre, 'nombre', 'nombre');
 
       } else if (params['edicion'] == 'registrar') {
         this.edicion = false;
         this.mostrarForm = true;
-        this.title = 'Registro de cultivo';
+        this.title = 'Registro de Cultivo';
       } else {
         //si no coincide con ninguno lo enviamos a otra pagina
         this._router.navigate(['inicio']);

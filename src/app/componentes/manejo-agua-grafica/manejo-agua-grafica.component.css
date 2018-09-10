@@ -1,0 +1,62 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+/* caracteristicas del titulo*/
+.Titutlo_form{
+    font-family: 'PT Sans';
+    font-size: 35px;
+    font-style: normal;
+    padding-left: 15px;
+    color: #3B9AC1;
+  }
+  /* color estandar de los labels*/
+  div label.label-normal {
+    color: #848889;
+    transition: .5s;
+    margin-bottom: 10px;
+  }
+  div label.label-error{
+    color: #B44141;
+    transition: .5s;
+    margin-bottom: 8px;
+  }
+  .contenedor-principal{
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
+    background-color: transparent;
+  }
+  /* caracteristicas del contenedor del formulario*/
+  .contenedor-form{
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    border: 1.5px solid #3B9AC1;
+    border-top: 0px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding: 30px 20px 40px 20px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    background: rgba(255,255,255,1);
+  }
+  /*Estilo y ubicacion de los botones*/
+  button.btn_consultar{
+    width: 26%;
+  }
+  div.cont_btns{
+    width: 100%;
+    background-color: rgba(255,255,255,0);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  div.cont_grafica{
+    height: 200px;
+    width: 100%;
+    padding-bottom: 20px;
+  }
+  

@@ -1,0 +1,71 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
+    background-color: rgba(255,255,255,0);
+  }
+  /* caracteristicas del contenedor del formulario*/
+  .contenedor-form{
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    border: 1.5px solid #3B9AC1;
+    border-radius: 4px;
+    padding: 20px 15px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    background: rgba(255,255,250,0);
+  }
+  /* caracteristicas del titulo*/
+  .Titutlo_form{
+    font-family: 'PT Sans';
+    font-size: 35px;
+    font-style: normal;
+    padding-left: 15px;
+    color: #3B9AC1;
+  }
+  .Titutlo_modal{
+    font-family: 'PT Sans';
+    font-size: 22px;
+    font-style: normal;
+    padding-left: 15px;
+    color: #3B9AC1;
+    margin-left: 40%;
+  }
+  /* color estandar de los labels*/
+  div label.label-normal {
+    color: #848889;
+    margin-bottom: 8px;
+    transition: .5s;
+  }
+  div label.label-error{
+    color: #B44141;
+    margin-bottom: 8px;
+    transition: .5s;
+  }
+  div.cont_list{
+    margin-top: 20px;
+  }
+  /* cambiar de color opcion eliminar*/
+  ul > li span.span-ver:hover{
+    background-color: #2C93CE;
+    transition: .4s;
+    cursor: pointer;
+  }
+  button.btn_guardar{
+   margin-left: 37%;
+   width: 33%;
+  }
+  div.cont_btns{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  

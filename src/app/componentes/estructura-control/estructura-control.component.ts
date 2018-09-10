@@ -53,7 +53,9 @@ export class EstructuraControlComponent implements OnInit {
     private completerService: CompleterService,
     private spinnerService: Ng4LoadingSpinnerService,
     private canalService: CanalService
-  ) { }
+  ) { 
+    this.option = 1;
+  }
 
   ngOnInit() {
     this.resetVariables();
@@ -97,10 +99,10 @@ export class EstructuraControlComponent implements OnInit {
   }
 
   //tomamos el valor del select para asi mostrar el div correspondiente
-  onChangeOption(event: any) {
+  onChangeOption(event: number) {
     this.resetVariables();
     this.estado = undefined;
-    this.option = event.target.value;
+    this.option = event;//event.target.value;
   }
 
   //iniciamos la fase de edicion en calibrar

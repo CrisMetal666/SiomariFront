@@ -1,0 +1,99 @@
+/*-------------------------------------------------------------------------
+                    estilo al formulario, label y botones
+---------------------------------------------------------------------------*/
+.contenedor-principal{
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
+    background-color: transparent;
+  }
+  /* color estandar de los labels*/
+  div label.label-normal {
+    color: #848889;
+    transition: .5s;
+    margin-bottom: 10px;
+  }
+  div label.label-error{
+    color: #B44141;
+    transition: .5s;
+    margin-bottom: 8px;
+  }
+  .datos_table{
+    font-weight: 600;
+    color: #525252;
+  }
+  /* caracteristicas del contenedor del formulario*/
+  .contenedor-form{
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    border: 1.5px solid #3B9AC1;
+    border-radius: 4px;
+    padding: 30px 20px 40px 20px;
+    margin: 8px 0;
+    outline: none;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0);
+  }
+  /*Estilo y ubicacion de los botones*/
+  button.btn_consultar{
+    width: 26%;
+  }
+  div.cont_btns{
+    width: 100%;
+    background-color: rgba(255,255,255,0);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+  button.btn_general{
+    margin-right: 8px;
+    width: 20%;
+  }
+  button.btn_editar{
+    color: #FFFFFF;
+    background-color: #ADADAD;
+    border: 1px solid #ADADAD;
+    border-radius: 3px;
+    transition: .5s;
+  }
+  button.btn_editar:hover{
+    color: #FFFFFF;
+    background-color: #2EA2CB;
+    border: 1px solid #2EA2CB;
+    border-radius: 3px;
+    transition: .5s;
+  }
+  button.btn_eliminar{
+    color: #FFFFFF;
+    background-color: #ADADAD;
+    border: 1px solid #ADADAD;
+    border-radius: 3px;
+    transition: .5s;
+  }
+  button.btn_eliminar:hover{
+    color: #FFFFFF;
+    background-color: #CB2E2E;
+    border: 1px solid #CB2E2E;
+    border-radius: 3px;
+    transition: .5s;
+  }
+  /* caracteristicas del titulo*/
+  .Titutlo_form{
+    font-family: 'PT Sans';
+    font-size: 35px;
+    font-style: normal;
+    padding-left: 15px;
+    color: #3B9AC1;
+  }
+  .Titutlo_modal{
+    font-family: 'PT Sans';
+    font-size: 22px;
+    font-style: normal;
+    padding-left: 15px;
+    color: #3B9AC1;
+    margin-left: 30%;
+  }
+  

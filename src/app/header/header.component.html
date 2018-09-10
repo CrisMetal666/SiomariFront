@@ -1,8 +1,9 @@
 <div *ngIf="isAuthenticated()" class="navbar navbar-default navbar-fixed-top main-container navbar-container">
 
   <div class="container-fluid">
-    <div class="nav-header">
-      <a [routerLink]="['/home']" class="navbar-brand Titulo-navbar">SIOMARI</a>
+
+    <div (click)="goToHome()" class="nav-header">
+      <a [routerLink]="['/inicio']" class="navbar-brand Titulo-navbar">SIOMARI</a>
     </div>
 
     <div class="collapse navbar-collapse navClass">
@@ -10,15 +11,15 @@
 
         <!-- Registro -->
         <li [routerLinkActive]="['active-nav']" class="opcion-registro">
-          <a class="cursor-nav a-principal">Registro <i class="fas fa-angle-down"></i></a>
+          <a class="cursor-nav a-principal">Registros <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
-            <li> <a class="cursor-nav">Predio <i class="fas fa-angle-right"></i> </a>
+            <li> <a class="cursor-nav">Predial <i class="fas fa-angle-right"></i> </a>
               <ul class="sub-menu animated fadeIn fast">
                 <li [routerLinkActive]="['active-nav']"><a routerLink="predio/registrar">Registrar</a></li>
                 <li [routerLinkActive]="['active-nav']"><a routerLink="predio/editar">Editar</a></li>
               </ul>
             </li>
-            <li class=""> <a class="cursor-nav">Usuario <i class="fas fa-angle-right"></i></a>
+            <li class=""> <a class="cursor-nav">Usuarios <i class="fas fa-angle-right"></i></a>
               <ul class="sub-menu animated fadeIn fast">
                 <li [routerLinkActive]="['active-nav']"> <a [routerLink]="['usuario/registrar']">Registrar</a> </li>
                 <li [routerLinkActive]="['active-nav']"> <a [routerLink]="['usuario/editar']">Editar</a> </li>
@@ -66,13 +67,6 @@
               </ul>
             </li>
 
-            <li> <a class="cursor-nav">Cultivo <i class="fas fa-angle-right"></i> </a>
-              <ul class="sub-menu animated fadeIn fast">
-                <li [routerLinkActive]="['active-nav']"><a routerLink="cultivo/registrar">Registrar</a></li>
-                <li [routerLinkActive]="['active-nav']"><a routerLink="cultivo/editar">Editar</a></li>
-              </ul>
-            </li>
-
             <li> <a class="cursor-nav">Obra <i class="fas fa-angle-right"></i> </a>
               <ul class="sub-menu animated fadeIn fast">
                 <li [routerLinkActive]="['active-nav']"><a routerLink="obra/registrar">Registrar</a></li>
@@ -105,6 +99,13 @@
         <li [routerLinkActive]="['active-nav']" class="opcion-planeacion">
           <a class="cursor-nav a-principal">Planeación <i class="fas fa-angle-down"></i></a>
           <ul class="drop-menu animated fadeIn fast">
+
+            <li> <a class="cursor-nav">Cultivo <i class="fas fa-angle-right"></i> </a>
+              <ul class="sub-menu animated fadeIn fast">
+                <li [routerLinkActive]="['active-nav']"><a routerLink="cultivo/registrar">Registrar</a></li>
+                <li [routerLinkActive]="['active-nav']"><a routerLink="cultivo/editar">Editar</a></li>
+              </ul>
+            </li>
 
             <li>
               <a class="cursor-nav" routerLink="/plan-siembra">
@@ -199,7 +200,7 @@
             </li>
 
             <li>
-                <a routerLink="consulta/divoper">Divoper</a>
+              <a routerLink="consulta/divoper">Divoper</a>
             </li>
 
             <li>
