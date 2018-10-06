@@ -1,20 +1,21 @@
-/* fondo inicio */
+* fondo inicio */
 div.cont-principal{
-  width: 100vw;
-  height: 100vh;
+  width: 1920px;
+  height: 1080px;
   display: flex;
   flex-flow: column wrap;
-  align-items: center;
-  margin-left: -60px;
+  margin-left: -370px;
   margin-top: -50px;
+  padding-right: 25%;
+  padding-left: 25%;
+  padding-top: 10%;
   background-color: #F5F5F5;
-  background-image: url("../../../assets/img/fondo_home.png");
+  background-image: url("../../../assets/img/fondo_inicio.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   transition: .5s;
 }
 div.contenido{
-  width: 70%;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -22,62 +23,63 @@ div.contenido{
   padding-bottom: 10px;
   padding-right: 20px;
   padding-left: 20px;
-  margin-top: 24%;
+  margin-top: 10%;
   margin-left: 100px;
   margin-right: 100px;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(23,112,13,0);
   transition: .5s;
-}
-div.cont_btns{
-  width: 100%;
-  display: flex;
-  flex-flow: row;
-  justify-content: center;
-  background-color: rgba(0,255,255,0);
-}
-button.btn_comenzar{
-  font-family: 'Old Standard TT', 'Old Standard TT', 'PT Sans', sans-serif;
-  font-size: 23px;
-  width: 30%;
 }
 div.cont_titulos{
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  background-color: rgba(255,0,0,0);
+  transition: .5s;
 }
+
 h2.TItulo_Inicio{
-  font-family: 'Old Standard TT', 'Old Standard TT', 'PT Sans', sans-serif;
+  font-family: 'Old Standard TT', 'PT Sans', sans-serif;
   text-align: center;
   font-size: 40px;
   font-weight: 400;
   margin-bottom: 15px;
   transition: .5s;
   color: rgba(255,255,255,1);
+  text-shadow: 3px 3px 2px #000000;
+}
+div.cont_h2{
+  margin-bottom: 150px;
 }
 h4.subtitulo_inicio{
-  font-family: 'Old Standard TT', 'Old Standard TT', 'PT Sans', sans-serif;
+  font-family: 'Old Standard TT', 'PT Sans', sans-serif;
   text-align: center;
-  font-size: 25px;
-  margin-bottom: 25px;
+  font-size: 30px;
+  margin-bottom: 30px;
   transition: .5s;
   color: rgba(255,255,255);
+  text-shadow: 3px 3px 2px #000000;
 }
 
-@media (max-width: 1307px){
-  h2.TItulo_Inicio{
-    font-size: 35px;
-    transition: .5s;
-  }
-}
-@media (max-width: 1280px){
-  h2.TItulo_Inicio{
-    font-size: 30px;
-    transition: .5s;
-  }
-}
 @media (max-width: 1199px){
+
+  div.cont-principal{
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-flow: column wrap;
+    margin-left: -370px;
+    margin-top: -50px;
+    padding-right: 50%;
+    padding-left: 25%;
+    padding-top: 5%;
+    background-color: #F5F5F5;
+    background-image: url("../../../assets/img/fondo_inicio.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: .5s;
+  }
+
   div.contenido{
-    width: 70%;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -85,10 +87,57 @@ h4.subtitulo_inicio{
     padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
-    margin-top: 24%;
-    margin-left: -220px;
-    margin-right: 0px;
-    background-color: rgba(0,0,0,0);
+    margin-top: 10%;
+    margin-left: 100px;
+    margin-right: 100px;
+    background-color: rgba(23,112,13,0);
     transition: .5s;
   }
+
+  h2.TItulo_Inicio{
+    font-size: 30px;
+    transition: .5s;
+  }
+
+}
+
+@media (max-width: 1366px){
+
+  div.cont-principal{
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-flow: column wrap;
+    margin-left: -370px;
+    margin-top: -50px;
+    padding-right: 25%;
+    padding-left: 25%;
+    padding-top: 5%;
+    background-color: #F5F5F5;
+    background-image: url("../../../assets/img/fondo_inicio.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: .5s;
+  }
+
+  div.contenido{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: 10%;
+    margin-left: 100px;
+    margin-right: 100px;
+    background-color: rgba(23,112,13,0);
+    transition: .5s;
+  }
+
+  h2.TItulo_Inicio{
+    font-size: 30px;
+    transition: .5s;
+  }
+
 }

@@ -19,6 +19,7 @@ div.main-container{
 display: flex;
 flex-flow: row wrap;
 padding-left: 130px;
+transition: .5s;
 }
 div.nav-header>a{
 margin: 0px 0px 0px -128px;
@@ -154,7 +155,7 @@ div.main-container{
   flex-flow: row wrap;
   padding-left: 210px;
   justify-content: space-around;
-  transition: 0.5;
+  transition: .5s;
 }
 /* ubicacion de los elementos del navbar */
 div.nav-header>a{
@@ -235,6 +236,7 @@ ul.drop-submenu-responsive{
 /* espacion de los li al texto */
 ul.drop-submenu-responsive li{
   padding-right: 30px;
+  transition: .5s;
 }
 
 /* color y fondo de los subMenu */
@@ -251,8 +253,4 @@ ul.drop-menu li:hover{
     display: block;
 }
 
-}
-
-.active-nav {
-  background-color: #42AEDA !important;
 }

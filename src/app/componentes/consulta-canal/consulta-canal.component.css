@@ -12,6 +12,22 @@
 }
 div label.label-normal {
   color: #848889;
+  margin-bottom: 8px;
+  transition: .5s;
+}
+h3.titulos_detalles{
+ color: #848889;
+ margin-bottom: 15px;
+ text-align: center;
+ font-weight: 400;
+}
+h3.detalle_ec{
+  color: #848889;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 400;
 }
 th.titulo-tabla{
   color: #848889;
@@ -53,7 +69,6 @@ button.btn_buscar{
   margin: 9px 0px;
   outline: none;
   box-sizing: border-box;
-  box-shadow: 0px 0px 5px 0px dodgerBlue;
   background: #FFFFFF;
 }
 .Titutlo_form{

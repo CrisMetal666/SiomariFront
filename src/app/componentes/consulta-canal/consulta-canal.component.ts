@@ -76,17 +76,21 @@ export class ConsultaCanalComponent implements OnInit {
 
     if (this.canalObraDetalle.imagen != null) {
 
+      this.spinnerService.show();
+
       this.canalObraService.verImagen(this.canalObraDetalle.imagen).subscribe(res => {
 
         var reader = new FileReader();
         reader.readAsDataURL(res);
         reader.onloadend = () => {
-          let x = reader.result;
+          let x:any = reader.result;
 
           this.modalRef = this.modalService.show(template);
 
           this.imgByte = this.sanitization.bypassSecurityTrustResourceUrl(x);
         }
+
+        this.spinnerService.hide();
 
       }, err => {
         this.estado = 0;
